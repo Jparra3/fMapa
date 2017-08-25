@@ -1,0 +1,89 @@
+<html lang="es">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+
+        <title>Productos</title>
+        <script src="/Plantillas/lib/jquery/js/jquery-1.9.1.js"></script>
+        <script src="/Plantillas/lib/bootstrap/js/bootstrap.js"></script>
+        <script src="/Plantillas/lib/js/angular.min.js"></script>
+        <script src="/Plantillas/lib/js/alerta.js"></script>
+
+        <link href="/Plantillas/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="/Plantillas/lib/css/bootstrap.reponsive.css" rel="stylesheet">
+        <script src="/Plantillas/lib/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+        <link href="/Plantillas/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+        <link href="/Plantillas/lib/css/bootstrap.ui.css" rel="stylesheet">
+        <link href="/Plantillas/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+        <link href="/Plantillas/lib/css/general.css" rel="stylesheet">
+
+        <link href="/Plantillas/lib/cargando/cargando.css" rel="stylesheet">
+        <script src="/Plantillas/lib/cargando/cargando.js" language="javascript"></script>
+
+        <script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+        <link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+        <script src="/Plantillas/lib/datepicker/js/bootstrap-datepicker.js"></script>
+        <link href="/Plantillas/lib/datepicker/css/datepicker.css" rel="stylesheet">
+
+        <script src="/Seguridad/js/disenio.js" language="javascript"></script>
+        <script src="/Plantillas/lib/dialog/js/dialog.js"></script>
+        <script src="/Nucleo/js/seguridad.js" language="javascript"></script>
+        <script src="/Nucleo/js/general.js" language="javascript"></script>
+        <link href="../css/estilos.css" rel="stylesheet">
+
+        <script type="text/javascript">
+            var ruta = localStorage.modulo + "js/frmPedidoMovil.js";
+            vincularJs(ruta);
+        </script>
+    </head>
+
+    <body>
+        <div class="modal-header" id="encabezadoModal"> 
+            <p class="tituloFormulario"> Pedidos desde movil </p>
+            <nav id="navAcciones" class="navAcciones fa-2x frm">
+                <span id="imgConsultar" class="fa fa-search imagenesTabla" title="Consultar"></span>
+                <span id="imgGuardar" class="fa fa-check-circle" title="Guardar"></span>
+                <span class="fa fa-eraser" title="Limpiar" id="imgLimpiar"></span>
+                <span id="imgCancelar" class="fa fa-times" title="Cancelar"></span>
+            </nav>             
+        </div>
+        <div class="modal-body" id="modalBody" style="overflow: hidden;">
+            <form id="frmFormulario">
+                <table>
+                    <tr>
+                        <td> Cliente </td>
+                        <td> <input type="text" id="txtCliente" placeholder=" Nombre " class="form-control large"></td>
+                        <td><input type="text" style="visibility: hidden" accesskey="V"></td>
+                    </tr>
+                    <tr>
+                        <td> Producto </td>
+                        <td> <input type="text" id="txtProducto" placeholder=" Producto " class="form-control large"></td>
+                    </tr>
+                    <tr>
+                        <td> Fecha </td>
+                        <td colspan="2"> <input type="text" placeholder=" Inicio " id="txtFechaInicio"> 
+                            <input type="text" placeholder=" Fin " id="txtFechaFin"></td>
+                    </tr>
+                </table>
+            </form>
+            <table id="tblPedido" class="table table-bordered table-striped consultaTabla">
+
+            </table>
+            <div id="modal" hidden="hidden"></div>
+            <div class="panel panel-primary" id="pnlSeriales" hidden="hidden">
+                <div class="panel-heading">
+                    <span id="spnTituloSeriales"></span>
+                    <nav id="navAcciones" class="navAcciones fa-2x frm" style="margin-top: -10px;">
+                        <span id="imgCerrarModal" class="fa fa-times" title="Cancelar"></span>
+                    </nav>   
+                </div>
+                <div class="panel-body" id="pnlInformacionMedidasList">
+                    <div id="divSeriales"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

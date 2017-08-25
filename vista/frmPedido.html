@@ -1,0 +1,145 @@
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pedidos</title>
+<script src="/Plantillas/lib/jquery/js/jquery-1.9.1.js"></script>
+<script src="/Plantillas/lib/bootstrap/js/bootstrap.js"></script>
+<script src="/Plantillas/lib/js/angular.min.js"></script>
+<script src="/Plantillas/lib/js/alerta.js"></script>
+
+<link href="/Plantillas/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="/Plantillas/lib/css/bootstrap.reponsive.css" rel="stylesheet">
+<script src="/Plantillas/lib/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+<script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+<link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+<script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+<link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+<script src="/Plantillas/lib/datepicker/js/bootstrap-datepicker.js"></script>
+<link href="/Plantillas/lib/datepicker/css/datepicker.css" rel="stylesheet">
+
+<link href="/Plantillas/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+<link href="/Plantillas/lib/css/bootstrap.ui.css" rel="stylesheet">
+<link href="/Plantillas/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+<link href="/Plantillas/lib/treegrid/css/jquery.treegrid.css" rel="stylesheet">
+<script src="/Plantillas/lib/treegrid/js/jquery.treegrid.js"></script>
+<script src="/Plantillas/lib/treegrid/js/jquery.treegrid.bootstrap3.js"></script>
+
+<link href="/Plantillas/lib/css/general.css" rel="stylesheet">
+
+<script src="/Seguridad/js/disenio.js" language="javascript"></script>
+<script src="/Plantillas/lib/dialog/js/dialog.js"></script>
+<script src="/Nucleo/js/seguridad.js" language="javascript"></script>
+<script src="/Nucleo/js/general.js" language="javascript"></script>
+
+<script type="text/javascript">
+    var ruta = localStorage.modulo + "js/frmPedido.js";
+    vincularJs(ruta);
+    
+    var ruta2 = localStorage.modulo + "js/funciones.js";
+    vincularJs(ruta2);
+</script>
+</head>
+
+<body>
+<div class="modal-header" id="encabezadoModal"> 
+	<p class="tituloFormulario">Pedido</p>
+        <nav id="navAcciones" class="navAcciones fa-2x frm">
+            <span id="imgGuardar" class="fa fa-check-circle" title="Guardar"></span>
+            <span id="imgCancelar" class="fa fa-times" title="Cancelar"></span>
+        </nav>             
+</div>
+<div class="modal-body" id="modalBody">
+    <div id="tabs">
+        <ul class="nav nav-tabs" id="tabRoles">
+            <li><a href="#tabPedido" data-toggle="tab">Pedido</a></li>
+            <li><a id="tabServicioInstalado" href="#tabServicioCliente" data-toggle="tab">Servicios Instalados</a></li>
+            <li><a id="tabProductos" href="#tabPedidoProducto" data-toggle="tab">Productos</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="tabPedido" class="tab-pane active">
+                <form id="frmPedido" name="frmPedido">
+                    <table class="formulario">
+                        <tr>
+                            <td>*Cliente</td>
+                            <td><input type="text" id="txtNit" name="txtNit" class="form-control medium" placeholder="Nit" title="el nit del cliente"></td>
+                            <td><input type="text" id="txtCliente" name="txtCliente" class="form-control veryLarge" placeholder="Nombre" title="el nombre del cliente">
+                                <span class="fa-2x fa fa-plus-circle imagenesTabla" id="imgNuevoCliente" title="Adicionar nuevo cliente."></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>*Zona</td>
+                            <td colspan="2" style="padding:5px"><span id="spnZona"></span></td>
+                        </tr>
+                        <tr>
+                            <td>*Tipo</td>
+                            <td>
+                                <select name="selTipoPedido" id="selTipoPedido" class="form-control medium">
+                                    <option value="">--Seleccione--</option>
+                                    <option value="1">Instalación</option>
+                                    <option value="2">Mantenimiento</option>
+                                    <option value="3">Desinstalación</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="trVendedor">
+                            <td>* Vendedor</td>
+                            <td colspan="2"><select id="selVendedor" name="selVendedor" class="form-control large" title="el vendedor"></select></td>
+                        </tr>
+                        <tr>
+                            <td>*Fecha</td>
+                            <td><input type="text" id="txtFecha" name="txtFecha" class="form-control medium" placeholder="Fecha del Pedido" title="la fecha del pedido"></td>
+                        </tr>
+                        <tr>
+                            <td>Nota</td>
+                            <td colspan="2"><textarea id="txaNota" name="txaNota" class="form-control" accesskey="V" placeholder="Nota" title="la nota" maxlength="100"></textarea></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div id="tabPedidoProducto" class="tab-pane">
+                <form id="frmPedidoProducto" name="frmPedidoProducto">
+                    <div class="panel panel-primary" style="width: 60%;">
+                        <div class="panel-heading">
+                            <nav id="navAcciones" class="navAcciones fa-2x">
+                                <span id="imgNuevoProducto" class="fa fa-plus imagenesTabla" title="Nuevo" style="cursor: pointer; margin-left: 15px;"></span>
+                            </nav>
+                            Productos
+                        </div>
+                        <div class="panel-body" id="pnlInformacionMedidasList">
+                            <table class="formulario">
+                                <tr>
+                                    <td>Producto</td>
+                                    <td><input type="text" id="txtCodigoProducto" name="txtCodigoProducto" class="form-control mediun" placeholder="Código" title="el código producto"></td>
+                                    <td><input type="text" id="txtProducto" name="txtProducto" class="form-control large" placeholder="Producto" title="el producto"></td>
+                                    <td><span id="imgGuardarProducto" class="fa fa-plus-circle fa-2x imagenesTablas" style="cursor: pointer" title="Guardar"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Valor Unitario</td>
+                                    <td><input type="text" id="txtValorUnitario" class="form-control medium" accesskey="V" placeholder="Valor Unitario" title="el valor unitario" maxlength="15"></td>
+                                </tr>
+                                <tr>
+                                    <td>Cantidad</td>
+                                    <td><input type="text" id="txtCantidad" name="txtCantidad" class="form-control small" placeholder="Cantidad" title="la cantidad" maxlength="10"></td>
+                                </tr>
+                                <tr>
+                                    <td>Nota</td>
+                                    <td colspan="2"><textarea id="txaNotaProducto" name="txaNotaProducto" class="form-control" accesskey="V" placeholder="Nota" title="la nota" maxlength="100"></textarea></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+                <table id="tblProductos" class="table table-bordered table-striped consultaTabla" style="margin-top:1%"></table>
+            </div>
+            <div id="tabServicioCliente" class="tab-pane">
+                <br>
+                <div id="divInformacionServiciosClientes"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

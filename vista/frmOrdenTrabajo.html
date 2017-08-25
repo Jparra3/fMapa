@@ -1,0 +1,259 @@
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orden Trabajo</title>
+<script src="/Plantillas/lib/jquery/js/jquery-1.9.1.js"></script>
+<script src="/Plantillas/lib/bootstrap/js/bootstrap.js"></script>
+<script src="/Plantillas/lib/js/angular.min.js"></script>
+<script src="/Plantillas/lib/js/alerta.js"></script>
+
+<link href="/Plantillas/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="/Plantillas/lib/css/bootstrap.reponsive.css" rel="stylesheet">
+<script src="/Plantillas/lib/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+<link href="/Plantillas/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+<link href="/Plantillas/lib/css/bootstrap.ui.css" rel="stylesheet">
+<link href="/Plantillas/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+<link href="/Plantillas/lib/css/general.css" rel="stylesheet">
+
+<script src="/Plantillas/lib/datepicker/js/bootstrap-datepicker.js"></script>
+<link href="/Plantillas/lib/datepicker/css/datepicker.css" rel="stylesheet">
+
+<script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+<link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+
+<script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+<link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+
+
+<link href="/Plantillas/lib/treegrid/css/jquery.treegrid.css" rel="stylesheet">
+<script src="/Plantillas/lib/treegrid/js/jquery.treegrid.js"></script>
+<script src="/Plantillas/lib/treegrid/js/jquery.treegrid.bootstrap3.js"></script>
+
+<script src="/Seguridad/js/disenio.js" language="javascript"></script>
+<script src="/Plantillas/lib/dialog/js/dialog.js"></script>
+<script src="/Nucleo/js/seguridad.js" language="javascript"></script>
+<script src="/Nucleo/js/general.js" language="javascript"></script>
+
+<script type="text/javascript">
+    var ruta = localStorage.modulo + "js/frmOrdenTrabajo.js";
+    vincularJs(ruta);
+</script>
+</head>
+
+<body>
+<div class="modal-header" id="encabezadoModal"> 
+	<p class="tituloFormulario">Orden de Trabajo</p>
+        <nav id="navAcciones" class="navAcciones fa-2x frm">
+            <span id="imgGuardar" class="fa fa-check-circle" title="Guardar"></span>
+            <span id="imgCancelar" class="fa fa-times" title="Cancelar"></span>
+        </nav>             
+</div>
+<div class="modal-body" id="modalBody">
+    <div role="tabpanel" id="tabCredito">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation"><a href="#tabOrdenTrabajo" aria-controls="tabOrdenTrabajo" role="tab" data-toggle="tab">Info. Orden Trabajo</a></li>
+            <li role="presentation"><a href="#tabServicioInstalado" aria-controls="tabServicioInstalado" role="tab" data-toggle="tab" id="linkServicioInstalado">Servicio Instalado</a></li>
+            <li role="presentation"><a href="#tabCliente" aria-controls="tabCliente" role="tab" data-toggle="tab">Servicios</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="tabOrdenTrabajo">
+                <form id="frmOrdenTrabajo" name="frmOrdenTrabajo">
+                    <div style="width: 50%;float: left">
+                        <table class="formulario">
+                            <!--<tr>
+                                <td>*Fecha Orden Trabajo</td>
+                                <td><input type="text" id="txtFechaOrden" name="txtFechaOrden" title=" la fecha de la orden de trabajo" class="form-control medium" placeholder="Fecha"></td>
+                            </tr>-->
+                            <tr>
+                                <td>*Tipo Documento</td>
+                                <td><select id="selTipoDocumento" class="form-control large" title="el tipo de documento"></select></td>
+                            </tr>
+                            <tr>
+                                <td>*No. Orden Trabajo</td>
+                                <td><input type="text" id="txtNoOrdenTrabajo" name="txtNoOrdenTrabajo" class="form-control medium" accesskey="V" readonly="readonly" placeholder="No. Orden" title=" el número "></td>
+                            </tr>
+                            <tr>
+                                <td>*Ordenador</td>
+                                <td>
+                                    <select id="selOrdenador" name="selOrdenador" class="form-control large" title=" el ordenador ">
+                                        <option value="">--SELECCIONE--</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>*Municipio</td>
+                                <td>
+                                    <input type="text" id="txtMunicipio" name="txtMunicipio" placeholder="Departamento - Municipio" class="form-control large">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>*Fecha Inicio</td>
+                                <td><input id="txtFechaInicio" name="txtFechaInicio" title="la fecha inicial de la orden de trabajo" class="form-control medium" placeholder=" Fecha Inicio"></td>
+                            </tr>
+                            <tr>
+                                <td>*Fecha Fin</td>
+                                <td><input id="txtFechaFin" name="txtFechaFin" title="la fecha de vencimiento" class="form-control medium" placeholder=" Fecha Fin"></td>
+                            </tr>
+                            <tr>
+                                <td>* Tipo Orden Trabajo</td>
+                                <td>
+                                    <select id="selTipoOrdenTrabajo" name="selTipoOrdenTrabajo" class="form-control medium" title=" el tipo de orden de trabajo">
+                                        <option value="">--SELECCIONE--</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>* Técnico</td>
+                                <td>
+                                    <select id="selTecnico" name="selTecnico" class="form-control large" multiple="" style='height: 100%;'>
+                                        <option value="">--SELECCIONE--</option>
+                                    </select>
+                                </td>
+                                <td style="vertical-align: super">
+                                    <table id="tblPrincipalTecnico" style="margin-left: 10px;margin-top: -18%"></table>
+                                </td>
+                            </tr>
+                            <tr id="trEstadoOrden">
+                                <td>* Estado</td>
+                                <td>
+                                    <select id="selEstadoOrdenTrabajo" name="selEstadoOrdenTrabajo" class="form-control large" title=" el estado de la orden de trabajo ">
+                                        <option value="">--SELECCIONE--</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Observaci&oacute;n</td>
+                                <td colspan="2">
+                                    <textarea id="txaObservacion" name="txaObservacion" name="txaObservacion" style="width:301px;max-width:301px; height: 127px;" accesskey="V"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <br>
+                    </div>
+                    <div style="width: 38%;float: left">
+                        <div id="divInformacionVehiculos">
+                            
+                        </div>
+                    </div>    
+                </form> 
+            </div>
+            <div role="tabpanel" class="tab-pane" id="tabCliente">
+                <br>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <span class="fa fa-briefcase"></span> Servicios
+                        <nav id="navAcciones" class="navAcciones fa-2x">
+                            <span id="imgLimpiarProducto" class="fa fa-eraser imagenesTabla" title="Limpiar" style="cursor: pointer;"></span>
+                            <span id="imgAdicionarProducto" class="fa fa-plus imagenesTabla" title="Nuevo" style="cursor: pointer;"></span>
+                        </nav>
+                    </div>
+                    <div class="panel-body">
+                        <div>
+                            <form id="frmOrdenProducto" name="frmOrdenProducto">
+                                <table>
+                                    <tr>
+                                        <td><span class="tdBodegaProductos">Bodega</span></td>
+                                        <td colspan="2">
+                                            <select id="selBodega" name="selBodega" class="form-control medium tdBodegaProductos" accesskey="V" title=" la bodega ">
+                                                <option value="">--SELECCIONE--</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>*Cliente</td>
+                                        <td><input type="text" id="txtNit" name="txtNit" class="form-control medium" placeholder="Nit" title="el nit del cliente"></td>
+                                        <td><input type="text" id="txtCliente" name="txtCliente" class="form-control large" placeholder="Nombre" title="el nombre del cliente"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>* Servicio</td>
+                                        <td><input type="text" id="txtCodigoProductoCompuesto" name="txtCodigoProductoCompuesto" class="form-control medium" placeholder="Código" title="el código producto"></td>
+                                        <td><input type="text" id="txtProductoCompuesto" name="txtProductoCompuesto" class="form-control large" placeholder="Servicio" title="el producto"></td>
+                                        <td><span id="imgGuardarProducto" class="fa fa-plus-circle fa-2x imagenesTablas" style="cursor: pointer" title="Guardar"></span></td>
+                                    </tr>
+                                </table>
+                            </form> 
+                        </div>
+                        <div class="panel panel-primary" id="pnlInforProduCompo">
+                            <div class="panel-heading">
+                                <span class="fa fa-list"></span> Servicio : <span id="spnProductoCompuesto"></span>
+                            </div>
+                            <br>
+                            <div class="panel-body" id="pnlInformacionMedidasList">
+                                <div id="divInforProduc" style="width: 40%;float: left">
+                                    <form id="frmProductoCompuesto" name="frmProductoCompuesto">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <table id="tblDatosProducto">
+                                                        <tr>
+                                                            <td>Código</td>
+                                                            <td><input type="text" id="txtCodigoProducto" name="txtCodigoProducto" class="form-control small" placeholder="Código" title="el código producto"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Producto</td>
+                                                            <td><input type="text" id="txtProducto" name="txtProducto" class="form-control large" placeholder="Producto" title="el producto"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>*Unid Medida</td>
+                                                            <td colspan="3"><input type="text" id="txtUnidadMedida" name="txtUnidadMedida" class="form-control medium" placeholder="Unidad Medida" readonly="" title=" la unidad de medida "></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>* Bodega</td>
+                                                            <td colspan="2">
+                                                                <select id="selBodegaProducto" name="selBodegaProducto" class="form-control medium" title=" la bodega del producto">
+                                                                    <option value="">--SELECCIONE--</option>
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>*Cantidad</td>
+                                                            <td colspan="3"><input type="text" id="txtCantidad" name="txtCantidad" class="form-control small" title="la cantidad" placeholder="Cantidad"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>*Valor Unitario</td>
+                                                            <td colspan="3"><input type="text" id="txtValorUnitario" name="txtValorUnitario" class="form-control medium" title="el valor unitario" placeholder="Valor Unitario" readonly=""></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nota</td>
+                                                            <td colspan="3"><textarea id="txaNota" class="form-control" accesskey="V" style="width: 315px; height: 49px;" placeholder="Nota"></textarea></td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                                <td>
+                                                    <span id="imgAdicioProducCompus" class="fa fa-plus-circle fa-3x imagenesTablas" style="cursor: pointer" title="Adicionar Producto">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <br>
+                                    </form> 
+                                </div>
+                                <div id="divListaProduc" style="width: 58%;float: left">
+                                    <table id="tblInformacionProducto" class="table table-bordered table-striped consultaTabla">
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <table id="tblInformacionClienteProducto" style="width: 100%">
+                </table>
+            </div>
+            <div role="tabServicioInstalado" class="tab-pane" id="tabServicioInstalado">
+                <br>
+                <div id="divInformacionServicio">
+                </div>
+                <table id="divInformacionProductosServicio" class="table table-bordered table-striped consultaTabla">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

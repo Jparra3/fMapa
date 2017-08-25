@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptOrdenTrabajo" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e5567a1e-fa27-4562-b3ad-e78e489d46ce">
+	<property name="ireport.zoom" value="0.5644739300537777"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="imgLogo" class="java.io.InputStream" isForPrompting="false"/>
+	<parameter name="idOrdenTrabajo" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["E:\\Dropbox\\Desarrollos\\PHP\\PHP56\\PublicServices\\reports\\imagenes\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+                            ot.id_orden_trabajo
+                            , ot.fecha
+                            , ot.id_tipo_documento
+                            , ot.numero
+                            , ot.id_ordenador
+                            , ot.id_municipio
+                            , ot.fecha_inicio
+                            , ot.fecha_fin
+                            , ot.estado
+                            , td.tipo_documento
+                            , o.id_empleado
+                            , CONCAT_WS(' ', p.primer_nombre, p.segundo_nombre, p.primer_apellido, p.segundo_apellido) as nombre_empleado
+                            , p.numero_identificacion
+                            , regexp_replace(m.municipio, '\t*', '', 'g') as municipio
+                            , c.cargo
+                        FROM
+                            publics_services.orden_trabajo ot
+                            INNER JOIN contabilidad.tipo_documento td ON td.id_tipo_documento = ot.id_tipo_documento
+                            INNER JOIN publics_services.ordenador o ON o.id_ordenador = ot.id_ordenador
+                            INNER JOIN nomina.empleado e ON e.id_empleado = o.id_empleado
+                            INNER JOIN general.persona p ON p.id_persona = e.id_persona
+                            INNER JOIN general.municipio m ON m.id_municipio = ot.id_municipio
+                            LEFT OUTER JOIN general.cargo c ON c.id_cargo = e.id_cargo
+WHERE
+	ot.id_orden_trabajo = $P{idOrdenTrabajo}]]>
+	</queryString>
+	<field name="id_orden_trabajo" class="java.lang.Integer"/>
+	<field name="fecha" class="java.sql.Timestamp"/>
+	<field name="id_tipo_documento" class="java.lang.Integer"/>
+	<field name="numero" class="java.lang.Integer"/>
+	<field name="id_ordenador" class="java.lang.Integer"/>
+	<field name="id_municipio" class="java.lang.Integer"/>
+	<field name="fecha_inicio" class="java.sql.Timestamp"/>
+	<field name="fecha_fin" class="java.sql.Timestamp"/>
+	<field name="estado" class="java.lang.Boolean"/>
+	<field name="tipo_documento" class="java.lang.String"/>
+	<field name="id_empleado" class="java.lang.Integer"/>
+	<field name="nombre_empleado" class="java.lang.String"/>
+	<field name="numero_identificacion" class="java.lang.Long"/>
+	<field name="municipio" class="java.lang.String"/>
+	<field name="cargo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="-1" y="3" width="555" height="20" uuid="bce2d043-a068-4644-88df-bb4cadd1a957"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ordenes de Trabajo Mantenimiento. MAPA INGENIERIA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band height="88" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="69" width="186" height="16" uuid="d72cd695-5e90-4733-9333-c2820ba43eaf"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_empleado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="18" width="121" height="29" uuid="d555633f-ad13-4416-aa94-4c8860d55cb1"/>
+				<box topPadding="0" leftPadding="0">
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="56" width="186" height="12" uuid="2ffa2262-4e00-4f93-9156-470254b11829"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ordenador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="3" width="121" height="14" uuid="173ec0a4-63b9-412b-8151-924c0b7b2a4e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ORDEN DE TRABAJO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="4" width="204" height="14" uuid="dbd86bf8-7ead-40a1-9f4f-213e3024c70c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="150" y="18" width="204" height="17" uuid="95f42602-d9a0-4af9-8ecd-6b72428c1135"/>
+				<box topPadding="0" leftPadding="0">
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="201" y="57" width="153" height="12" uuid="892717e9-8f6a-40c1-a736-bce38543b647"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cédula]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="201" y="69" width="153" height="16" uuid="0c319b6b-3147-42d4-93c0-84f304948cdd"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero_identificacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="367" y="57" width="153" height="12" uuid="784de792-7b38-4f05-b4a4-1d851b488727"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cargo]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="367" y="69" width="153" height="16" uuid="40bd5d29-3e20-4f9b-af20-d8ff501bfd96"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargo}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="384" y="-11" width="165" height="67" uuid="38b1640a-58f9-4bad-b52a-b20967d74705"/>
+				<imageExpression><![CDATA["../reportes/imagenes/logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="205" splitType="Stretch">
+			<subreport>
+				<reportElement positionType="Float" x="1" y="0" width="554" height="0" uuid="9110f728-6f8a-4f89-96d2-bfcd430c94a3"/>
+				<subreportParameter name="idOrdenTrabajo">
+					<subreportParameterExpression><![CDATA[$P{idOrdenTrabajo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["../reportes/rptDescOrdenTrabaClien.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="0" y="0" width="554" height="0" uuid="58e442b9-679b-400e-a444-e146bd1a096a"/>
+				<subreportParameter name="idOrdenTrabajo">
+					<subreportParameterExpression><![CDATA[$P{idOrdenTrabajo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["../reportes/servicioTecnico.jasper"]]></subreportExpression>
+			</subreport>
+			<rectangle>
+				<reportElement x="1" y="20" width="555" height="61" uuid="d7aef3ac-e7a4-42ac-961c-55e26709a060"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="1" y="23" width="85" height="12" uuid="9ea71400-9abe-4dc5-b850-59aad09222cc"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="110" width="85" height="12" uuid="457557bf-e8fc-4c56-a10d-887317233c44"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desplazamiento?]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="110" width="149" height="12" uuid="0e261053-cb3e-4d9a-ba6e-02e70a9e5abc"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Destino]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="110" width="107" height="12" uuid="4611faa9-03fb-4ccc-8bec-e843b65587d6"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="416" y="110" width="113" height="12" uuid="06acd5ca-33ce-4b5c-a4a1-cfabf1f1c7b0"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora de llegada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="122" width="149" height="22" uuid="0503af36-ab92-4c55-a4d8-f4e3ce5faddb"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Yaguará]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="122" width="107" height="22" uuid="d3003d77-e9a2-453f-b8dd-7ff0b360abfd"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[07:36 am]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="416" y="122" width="113" height="22" uuid="879f309a-a434-4a69-86de-7fad5e22dd95"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[09:00 pm]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="166" y="150" width="149" height="12" uuid="dc7ac14d-f1bf-4097-8624-bc7219632021"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fabricante y/o Características]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="150" width="90" height="12" uuid="925ba4c0-2855-4a06-ac82-e0cadbdd0025"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Color]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="439" y="150" width="90" height="12" uuid="3534fa62-690a-4078-9779-65aeedfd85c9"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Placa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="166" y="162" width="149" height="18" uuid="3b3cbfc2-f2f5-46fd-9c93-bef04622d579"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUZUKI GN 125]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="162" width="90" height="18" uuid="042ac335-4135-4be1-85ae-294c68b9cfce"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NEGRA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="439" y="162" width="90" height="18" uuid="8c1a48bf-027e-4443-af3a-566c1d1027fb"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TMC 75D]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="162" width="149" height="18" uuid="0548e1d3-9142-46f1-afea-3ea32ad80a48"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MOTOCICLETA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="150" width="149" height="12" uuid="8900ebe2-df93-454f-8a0a-de13c2c5a76e"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Vehiculo]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="64" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="50" width="120" height="12" uuid="39f38396-82b9-4b30-a0f3-a573267bd4f0"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Firma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="145" y="50" width="120" height="12" uuid="8e05e228-f207-41c8-ab84-81d6243d61ef"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Firma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="50" width="120" height="12" uuid="9497e997-76d2-4d5d-b3ea-b57d247f837e"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Firma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="429" y="50" width="120" height="12" uuid="08908f80-7533-4522-8171-abe6e5cc4134"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Firma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="0" width="405" height="15" uuid="08eec93b-bf1c-49e7-8df3-ea7278baad90"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quién desarrolla la actividad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="0" width="129" height="15" uuid="81e4195c-a442-48d7-b569-43f5462bff27"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quién Ordena]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="10" width="200" height="12" uuid="f9008679-3f78-496d-b584-23f698eca1d8"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Calle 13 Sur 15 - 16 Barrio Timanco IV etapa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="22" width="185" height="12" uuid="3a6c3ea8-2126-4975-8f74-89469d5d2a77"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Soporte web App: mapa.freshdesk.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="22" width="181" height="12" uuid="bf235a35-e12f-4362-9122-f5e9de831b8e"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[e-mail: contactenos@mapaingenieria.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="367" y="22" width="116" height="12" uuid="b9e3e36c-1f13-4e42-8244-c2c882558c0e"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[www.mapaingenieria.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="201" y="10" width="91" height="12" uuid="feb16093-e3e6-4d5b-a7ee-d04e941a6953"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NEIVA - HUILA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="292" y="10" width="191" height="12" uuid="73bfe2b0-dfa5-4b52-9b7b-36743c3c814a"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TEL. 870 2329 8709174 - 316 8323892]]></text>
+			</staticText>
+			<image>
+				<reportElement x="483" y="2" width="78" height="36" uuid="a82d97a3-d495-457d-80b8-cead39c16e02"/>
+				<imageExpression><![CDATA["../reportes/imagenes/logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

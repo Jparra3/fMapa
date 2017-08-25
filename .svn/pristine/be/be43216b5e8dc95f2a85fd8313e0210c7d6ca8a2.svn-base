@@ -1,0 +1,115 @@
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Servicio de Clientes</title>
+<script src="/Plantillas/lib/jquery/js/jquery-1.9.1.js"></script>
+<script src="/Plantillas/lib/bootstrap/js/bootstrap.js"></script>
+<script src="/Plantillas/lib/js/angular.min.js"></script>
+<script src="/Plantillas/lib/js/alerta.js"></script>
+
+<link href="/Plantillas/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="/Plantillas/lib/css/bootstrap.reponsive.css" rel="stylesheet">
+<script src="/Plantillas/lib/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+<script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+<link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+<script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+<link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+<script src="/Plantillas/lib/datepicker/js/bootstrap-datepicker.js"></script>
+<link href="/Plantillas/lib/datepicker/css/datepicker.css" rel="stylesheet">
+
+<link href="/Plantillas/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+<link href="/Plantillas/lib/css/bootstrap.ui.css" rel="stylesheet">
+<link href="/Plantillas/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+<link href="/Plantillas/lib/css/general.css" rel="stylesheet">
+
+<script src="/Seguridad/js/disenio.js" language="javascript"></script>
+<script src="/Plantillas/lib/dialog/js/dialog.js"></script>
+<script src="/Nucleo/js/seguridad.js" language="javascript"></script>
+<script src="/Nucleo/js/general.js" language="javascript"></script>
+
+<script type="text/javascript">
+    var ruta = localStorage.modulo + "js/frmClienteServicio.js";
+    vincularJs(ruta);
+</script>
+</head>
+
+<body>
+
+    <div class="modal-header" id="encabezadoModal"> 
+            <p class="tituloFormulario" id="spnTituloFormulario"></p>
+            <nav id="navAcciones" class="navAcciones fa-2x frm">
+                <span id="imgGuardar" class="fa fa-check-circle" title="Guardar"></span>
+                <span id="imgCancelar" class="fa fa-times" title="Cancelar"></span>
+            </nav>             
+    </div>
+    <div class="modal-body" id="modalBody">
+        <div id="tabs">
+            <ul class="nav nav-tabs" id="tabRoles">
+                <li><a href="#tabOrdenTrabajo" data-toggle="tab">Orden de Trabajo</a></li>
+                <li id="linkProductos"><a href="#tabOrdenTrabajoProducto" data-toggle="tab">Productos</a></li>
+                <li id="linkArchivos"><a href="#tabArchivos" data-toggle="tab">Archivos</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="tabOrdenTrabajo" class="tab-pane active">
+                    <br>
+                    <div id="divInformacionServicio" style="width: 59%;float: left">
+                    </div>
+                    <br>
+                    <div id="divInformacionTecnico" style="width: 38%;float: left">
+                    </div>
+                </div>
+                <div id="tabOrdenTrabajoProducto" class="tab-pane">
+                    <br>
+                    <div>
+                        <table style="width: 30%">
+                            <tr>
+                                <td><b>Fecha Inicio Servicio</b></td>
+                                <td><input type="text" id="txtFechaInicio" name="txtFechaInicio" class="form-control medium"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <span id="spnTituloDesinstalacion"></span>
+                    <table id="tblProductosDesinstalar" class="table table-bordered table-striped consultaTabla" style="margin-top:1%"></table>
+                    <span id="spnTituloProductos"></span>
+                    <table id="tblProductos" class="table table-bordered table-striped consultaTabla" style="margin-top:1%"></table>
+                </div>
+                <div id="tabArchivos" class="tab-pane">
+                    <br>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Archivos
+                            <nav id="navAcciones" class="navAcciones fa-2x">
+                                <span id="imgAdicionarArchivo" class="fa fa-plus imagenesTabla" title="Nuevo" style="cursor: pointer;"></span>
+                            </nav>
+                        </div>
+                        <div class="panel-body">
+                            <form id="frmInformacionArchivos" name="frmInformacionArchivos">
+                                <table>
+                                    <tr>
+                                        <td>*Archivo</td>
+                                        <td><input type="file" id="fleArchivo" name="fleArchivo" title=" el archivo "></td>
+                                    </tr>
+                                    <tr>
+                                        <td>*Etiqueta</td>
+                                        <td><input type="text" id="txtEtiqueta" name="txtEtiqueta" class="form-control veryLarge" title=" la etiqueta "></td>
+                                    </tr>
+                                    <tr>
+                                        <td>*Observaci&oacute;n</td>
+                                        <td><textarea id="txaObservacion" name="txaObservacion" style="max-width: 399px;min-height: 100px;width: 399px; height: 153px;" title=" la observaci�n "></textarea></td>
+                                    </tr>
+                                </table>
+                                <br>
+                                <div id="divInformacionArchivos">
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

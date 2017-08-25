@@ -1,0 +1,68 @@
+<script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+<link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+<script type="text/javascript">
+	var ruta = localStorage.modulo + "js/fbeReporteVenta.js";
+	vincularJs(ruta);
+</script>
+<div class="panel-heading">
+    <span id="imgLista" class=""></span> Reporte de Venta
+    <nav id="navAcciones" class="navAcciones fa-2x">
+        <span id="imgConsultar" class="fa fa-search imagenesTabla" title="Consultar"></span>
+        <span class="fa fa-eraser" title="Limpiar" id="imgLimpiar"></span>
+        <span class="fa fa-angle-double-up" id="imgMostrarOcultar"  onClick="correrEfecto('imgMostrarOcultar')"></span>
+    </nav>
+</div>
+<div class="panel-body">
+    <form role="form" id="fbeFormulario" name="fbeFormulario">
+        <div id="divParametrosBusqueda">
+        <table>
+            <tr>
+                <td>Nro. Factura</td>
+                <td colspan="2"><input type="text" id="txtNoRecibo" class="form-control medium"></td>
+            </tr>
+            <tr>
+                <td>Fecha venta</td>
+                <td>
+                    <table>
+                        <tr>
+                            <td><input type="text" id="txtFechaInicio" class="form-control medium" placeholder="Inicio" readonly="readonly"></td>
+                            <td><input type="text" id="txtFechaFin" class="form-control medium" placeholder="Fin" readonly="readonly"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>Caja</td>
+                <td><select id="selCaja"  class="form-control large"></select></td>
+            </tr>
+            <tr>
+                <td>Cliente</td>
+                <td><input type="text" id="txtCliente" class="form-control large" placeholder="Nit - Nombre" style="width: 400px;"></td>
+            </tr>
+            <tr>
+                <td>Linea del producto</td>
+                <td>
+                    <table>
+                        <tr>
+                            <td><input type="text" id="txtLinea" class="form-control large" placeholder="Linea producto" title=" linea del producto " accesskey="V"></td>
+                            <td><input type="button" id="btnBuscarLineas" name="btnBuscarLineas" class="btn btn-primary" value="..."></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>Producto</td>
+                <td><select id="selProducto" class="form-control medium" multiple></select></td>
+            </tr>
+            <tr>
+                <td>Oficina</td>
+                <td><select id="selOficina"  class="form-control medium" title="la oficina"></select></td>
+            </tr>
+            <tr>
+                <td>Bodega</td>
+                <td><select id="selBodega"  class="form-control large" title="la bodega"></select></td>
+            </tr>
+        </table>
+        </div>
+    </form>
+</div>

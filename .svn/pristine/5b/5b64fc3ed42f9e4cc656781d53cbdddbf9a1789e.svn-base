@@ -1,0 +1,98 @@
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devolución</title>
+<script src="/Plantillas/lib/jquery/js/jquery-1.9.1.js"></script>
+<script src="/Plantillas/lib/bootstrap/js/bootstrap.js"></script>
+<script src="/Plantillas/lib/js/angular.min.js"></script>
+<script src="/Plantillas/lib/js/alerta.js"></script>
+
+<link href="/Plantillas/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="/Plantillas/lib/css/bootstrap.reponsive.css" rel="stylesheet">
+<script src="/Plantillas/lib/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+<script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+<link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+<script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+<link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+<script src="/Plantillas/lib/datepicker/js/bootstrap-datepicker.js"></script>
+<link href="/Plantillas/lib/datepicker/css/datepicker.css" rel="stylesheet">
+
+<link href="/Plantillas/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+<link href="/Plantillas/lib/css/bootstrap.ui.css" rel="stylesheet">
+<link href="/Plantillas/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+<link href="/Plantillas/lib/css/general.css" rel="stylesheet">
+
+<script src="/Seguridad/js/disenio.js" language="javascript"></script>
+<script src="/Plantillas/lib/dialog/js/dialog.js"></script>
+<script src="/Nucleo/js/seguridad.js" language="javascript"></script>
+<script src="/Nucleo/js/general.js" language="javascript"></script>
+
+<script type="text/javascript">
+    var ruta = localStorage.modulo + "js/frmDevolucion.js";
+    vincularJs(ruta);
+</script>
+</head>
+
+<body>
+
+    <div class="modal-header" id="encabezadoModal"> 
+        <p class="tituloFormulario">Devolución</p>
+        <nav id="navAcciones" class="navAcciones fa-2x frm">
+            <span id="imgConsultar" class="fa fa-search imagenesTabla" title="Consultar"></span>
+            <span id="imgGuardar" class="fa fa-check-circle" title="Guardar"></span>
+            <span id="imgCancelar" class="fa fa-times" title="Cancelar"></span>
+        </nav>             
+    </div>
+    <div class="modal-body" id="modalBody">
+        <div id="tabs">
+            <table>
+                <tr>
+                    <td>Nro. Recibo</td>
+                    <td><input type="text" id="txtNumeroRecibo" name="txtNumeroRecibo" class="form-control medium" placeholder="Nro. Recibo"></td>
+                </tr>
+                <tr>
+                    <td>Caja</td>
+                    <td colspan="2"><select id="selCaja"  class="form-control large"></select></td>
+                </tr>
+            </table>
+            <div class="panel panel-primary" style="margin-top:1%">
+                <div class="panel-heading">
+                    Factura
+                </div>
+                <div class="panel-body" id="pnlInformacionMedidasList">
+                    <table>
+                        <tr>
+                            <td style="padding: 5px"><b>No. recibo</b></td>
+                            <td style="padding: 5px"><div id="divNumeroRecibo"></div></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px"><b>Cliente</b></td>
+                            <td style="padding: 5px"><div id="divCliente"></div></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px"><b>Fecha</b></td>
+                            <td style="padding: 5px"><div id="divFecha"></div></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px"><b>Oficina</b></td>
+                            <td style="padding: 5px"><div id="divOficina"></div></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px"><b>Caja</b></td>
+                            <td style="padding: 5px"><div id="divCaja"></div></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 5px"><b>Estado</b></td>
+                            <td style="padding: 5px"><div id="divEstado"></div></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <table id="tblProductos" class="table table-bordered table-striped consultaTabla" style="margin-top:1%"></table>
+        </div>
+    </div>
+</body>
+</html>

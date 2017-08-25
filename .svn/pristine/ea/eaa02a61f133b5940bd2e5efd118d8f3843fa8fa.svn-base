@@ -1,0 +1,113 @@
+<script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+<link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+<link href="../css/estilos.css" rel="stylesheet">
+<script type="text/javascript">
+    var ruta = localStorage.modulo + "js/frmCaja.js";
+    vincularJs(ruta);
+</script>
+<div class="panel-heading" style="height: 50px;">
+    <span id="imgLista" class=""></span> Caja
+    <nav id="navAcciones" class="navAcciones fa-2x">
+        <span style="font-size: 18px">Formato de impresión <select id="selFormatoImpresion"></select></span>
+        <span id="spnInfoCaja" style="font-size: 18px;"></span>
+        <span id="imgGuardar" class="fa fa-check-circle" title="Guardar"></span>
+    </nav>
+</div>
+<div class="panel-body">
+    <div class="borde">
+    <form id="frmTransaccion" name="frmTransaccion">
+        
+        <table>
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td>*Cliente</td>
+                            <td><input id="txtNit" class="form-control medium" placeholder="Nit" title="el nit"></td>
+                            <td colspan="2"><input id="txtNombre" class="form-control large" placeholder="Nombre" title="el nombre" style="width: 350px;"></td>
+                        </tr>
+                        <tr>
+                            <td>*Fecha Vencimiento</td>
+                            <td><input id="txtFechaVencimiento" title="la fecha de vencimiento" class="form-control medium"></td>
+                            <td>Nota</td>
+                                <td><textarea id="txtNotaTransaccion" class="form-control" accesskey="V" style="width: 300px;height: 30px;"></textarea></td>
+                        </tr>
+                    </table>
+                </td>
+                
+                <td>
+                    <h1 style="color: red;margin-left: 50px;">$ <span id="spnValorTotalPagar"></span></h1>
+                </td>
+            </tr>
+        </table>
+        
+        
+    </form> 
+    </div>
+    
+    <div style="float: left;" class="borde">
+        
+        <div style="width: 100%">
+        <form id="frmTransaccionProducto" name="frmTransaccionProducto">
+            <table>
+                <tr>
+                    <td>
+                        <table style="width: 100%">
+                            <tr>
+                                <input type="hidden" id="hidIdTransaccionProducto">
+                                <input type="hidden" id="hidIdProducto">
+                                <td>*Código</td>
+                                <td colspan="6"><input style="float: left;" type="text" id="txtCodigoProducto" name="txtCodigoProducto" class="form-control small" placeholder="Código" title="el código del producto">
+                                <input style="float: left" type="text" id="txtProducto" name="txtProducto" class="form-control large" placeholder="Nombre" title="el nombre del producto"></td>
+                                <td>*Valor</td>
+                                <td><input type="text" id="txtValor" class="form-control medium" title="el valor"><input type="hidden" id="txtJsonConcepto"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <span id="imgNuevoTransaccionProducto" class="fa fa-plus-circle fa-3x" title="Nuevo" style="cursor: pointer; margin-left: 10px;"></span>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        </div>
+        
+        <div id="modal" hidden="hidden"></div>
+        <div class="panel panel-primary" id="pnlSeriales" hidden="hidden">
+            <div class="panel-heading">
+                <span id="spnTituloSeriales"></span>
+                <nav id="navAcciones" class="navAcciones fa-2x frm" style="margin-top: -10px;">
+                    <span id="imgCerrarModal" class="fa fa-times" title="Cancelar"></span>
+                </nav>   
+            </div>
+            <div class="panel-body" id="pnlInformacionMedidasList">
+                <div id="divFrmSeriales"></div>
+            </div>
+        </div>
+
+        <div id="divListadoTransaccionProducto"></div>
+    </div>       
+    
+    <div style="float: left;" class="borde">
+        <form id="frmFormaPago" name="frmFormaPago">
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>*Forma de pago</td>
+                                <td><select id="selFormaPago" class="form-control large" title="la forma de pago"></select></td>
+                                <td>*Valor a pagar</td>
+                                <td><input id="txtValorPagar" type="text" class="form-control medium" title="el valor a pagar"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <span id="imgNuevoFormaPago" class="fa fa-plus-circle fa-3x" title="Nuevo" style="cursor: pointer; margin-left: 10px;"></span>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div id="divListadoFormasPago"></div>
+    </div>
+</div>

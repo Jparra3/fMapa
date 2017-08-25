@@ -1,0 +1,594 @@
+<?php
+namespace modelo;
+session_start();
+require_once($_SESSION['ruta'].'entorno/Conexion.php');
+require_once('../entidad/OrdenTrabajoCliente.php');
+require_once('../entidad/OrdenTrabajo.php');
+class OrdenTrabajoProducto {
+    public $conexion;
+    private $condicion;
+    private $whereAnd;
+    
+    private $idOrdenTrabajoProducto;
+    private $ordenTrabajoCliente;
+    private $ordenTrabajo;
+    private $producto;
+    private $nota;
+    private $secuencia;
+    private $cantidad;
+    private $valorUnitaConImpue;
+    private $serial;
+    private $estado;
+    private $idEstaOrdeTrabProdu;
+    private $idTransaccion;
+    private $idBodega;
+    private $idUsuarioCreacion;
+    private $idUsuarioModificacion;
+    private $fechaCreacion;
+    private $fechaModificacion;
+    
+    public function __construct(\entidad\OrdenTrabajoProducto $ordenTrabajoProducto) {
+        $this->idOrdenTrabajoProducto = $ordenTrabajoProducto->getIdOrdenTrabajoProducto();
+        $this->ordenTrabajoCliente = $ordenTrabajoProducto->getOrdenTrabajoCliente() != "" ? $ordenTrabajoProducto->getOrdenTrabajoCliente(): new \entidad\OrdenTrabajoCliente();
+        $this->ordenTrabajo = $ordenTrabajoProducto->getOrdenTrabajo() != "" ? $ordenTrabajoProducto->getOrdenTrabajo(): new \entidad\OrdenTrabajo();
+        $this->producto = $ordenTrabajoProducto->getProducto() != "" ? $ordenTrabajoProducto->getProducto(): new \entidad\Producto();
+        $this->nota = $ordenTrabajoProducto->getNota();
+        $this->idBodega = $ordenTrabajoProducto->getIdBodega();
+        $this->secuencia = $ordenTrabajoProducto->getSecuencia();
+        $this->cantidad = $ordenTrabajoProducto->getCantidad();
+        $this->valorUnitaConImpue = $ordenTrabajoProducto->getValorUnitaConImpue();
+        $this->serial = $ordenTrabajoProducto->getSerial();
+        $this->estado = $ordenTrabajoProducto->getEstado();
+        $this->idEstaOrdeTrabProdu = $ordenTrabajoProducto->getIdEstaOrdeTrabProdu();
+        $this->idTransaccion = $ordenTrabajoProducto->getIdTransaccion();
+        $this->idUsuarioCreacion = $ordenTrabajoProducto->getIdUsuarioCreacion();
+        $this->idUsuarioModificacion = $ordenTrabajoProducto->getIdUsuarioModificacion();
+        
+        $this->conexion = new \Conexion();
+    }
+    function validarExistenciaTransaccion(){
+        $sentenciaSql = "
+                            SELECT 
+                                id_transaccion 
+                            FROM 
+                                publics_services.orden_trabajo_producto
+                            WHERE 
+                                id_orden_trabajo_producto = $this->idOrdenTrabajoProducto
+                        ";
+        $this->conexion->ejecutar($sentenciaSql);
+        $fila = $this->conexion->obtenerObjeto();
+        return $fila->id_transaccion;
+        
+    }
+    function adicionar(){
+        $sentenciaSql = "
+                            INSERT INTO
+                                publics_services.orden_trabajo_producto
+                            (
+                                id_orden_trabajo_cliente
+                                ,id_producto
+                                ,nota
+                                ,secuencia
+                                ,cantidad
+                                ,valor_unita_con_impue
+                                ,serial
+                                ,id_bodega
+                                ,id_transaccion
+                                ,estado
+                                ,id_usuario_creacion
+                                ,id_usuario_modificacion
+                                ,fecha_creacion
+                                ,fecha_modificacion
+                            )
+                            VALUES
+                            (
+                                ".$this->ordenTrabajoCliente->getIdOrdenTrabajoCliente()."
+                                ,".$this->producto->getIdProducto()."
+                                , $this->nota
+                                , $this->secuencia
+                                , $this->cantidad
+                                , $this->valorUnitaConImpue
+                                , $this->serial
+                                , $this->idBodega
+                                , $this->idTransaccion
+                                , ".$this->estado."
+                                , $this->idUsuarioCreacion
+                                , $this->idUsuarioModificacion
+                                , NOW()
+                                , NOW()
+                            )
+                        ";
+        $this->conexion->ejecutar($sentenciaSql);
+    }
+    function modificar(){
+        $sentenciaSql = "
+                            UPDATE
+                                publics_services.orden_trabajo_producto
+                            SET
+                                id_orden_trabajo_cliente = ".$this->ordenTrabajoCliente->getIdOrdenTrabajoCliente()."
+                                ,id_producto = ".$this->producto->getIdProducto()."
+                                ,nota = $this->nota
+                                ,secuencia = $this->secuencia
+                                ,cantidad = $this->cantidad
+                                ,valor_unita_con_impue = $this->valorUnitaConImpue
+                                ,serial = $this->serial
+                                ,id_bodega = $this->idBodega
+                                ,id_transaccion = $this->idTransaccion
+                                ,estado = ".$this->estado."
+                                ,id_usuario_modificacion = $this->idUsuarioModificacion
+                                ,fecha_modificacion = NOW()
+                            WHERE
+                                id_orden_trabajo_producto = $this->idOrdenTrabajoProducto
+                        ";
+        $this->conexion->ejecutar($sentenciaSql);
+    }
+    function actualizarEstado(){
+        $sentenciaSql = "
+                            UPDATE
+                                publics_services.orden_trabajo_producto
+                            SET
+                                id_esta_orde_trab_prod = $this->idEstaOrdeTrabProdu
+                            WHERE
+                                id_orden_trabajo_producto = $this->idOrdenTrabajoProducto
+                        ";
+        $this->conexion->ejecutar($sentenciaSql);
+    }
+    
+    function obtenerMaximo(){
+        $sentenciaSql = "   
+                            SELECT
+                                MAX(id_orden_trabajo_producto) AS maximo
+                            FROM 
+                                publics_services.orden_trabajo_producto
+                        ";
+        $this->conexion->ejecutar($sentenciaSql);
+        $fila = $this->conexion->obtenerObjeto(); 
+        $numero = $fila->maximo;
+        return $numero;
+    }
+    
+    public function consultar(){
+        $this->obtenerCondicion();
+        $sentenciaSql = "
+                        SELECT DISTINCT 
+                            otp.id_orden_trabajo_producto
+                            , otp.id_orden_trabajo_cliente
+                            , otp.id_producto
+                            , otp.nota
+                            , otp.secuencia
+                            , otp.cantidad
+                            , otp.valor_unita_con_impue
+                            , otp.serial
+                            , otp.estado
+                            , otp.id_transaccion
+                            , otp.id_bodega
+                            , b.bodega
+                            , p.producto_serial
+                            , p.valor_entrada
+                            , p.valor_salida
+                            , p.valor_entra_con_impue
+                            , p.valor_salid_con_impue
+                            , p.codigo as codigo_producto_compone
+                            , p.producto as producto_compone
+                            , otc.id_producto_composicion
+                            , prc.codigo as codigo_producto_composicion
+                            , prc.producto as producto_composicion
+                            , COUNT(otpc.id_producto) as cantidad_producto_compone
+                            , um.unidad_medida
+                            ,s.id_tercero
+                            ,otp.id_esta_orde_trab_prod
+                            ,eotb.esta_orde_trab_prod
+                            ,ot.id_orden_trabajo 
+                            ,otc.id_cliente
+                            ,ter.nit || ' - ' || ter.tercero AS cliente
+                            ,ot.numero
+                            , d.departamento || ' - ' ||m.municipio AS municipio
+                            , ot.fecha_inicio
+                            , ot.fecha_fin
+                        FROM
+                            publics_services.orden_trabajo_producto otp
+                            INNER JOIN publics_services.esta_orde_trab_prod AS eotb ON eotb.id_esta_orde_trab_prod = otp.id_esta_orde_trab_prod
+                            INNER JOIN facturacion_inventario.bodega AS b ON b.id_bodega = otp.id_bodega
+                            INNER JOIN publics_services.orden_trabajo_cliente otc ON otc.id_orden_trabajo_cliente = otp.id_orden_trabajo_cliente
+                            INNER JOIN facturacion_inventario.cliente AS c ON c.id_cliente = otc.id_cliente
+                            INNER JOIN contabilidad.sucursal AS s ON s.id_sucursal = c.id_sucursal
+                            INNER JOIN contabilidad.tercero AS ter ON ter.id_tercero = s.id_tercero
+                            INNER JOIN publics_services.orden_trabajo ot ON ot.id_orden_trabajo = otc.id_orden_trabajo
+                            INNER JOIN facturacion_inventario.producto p ON p.id_producto = otp.id_producto
+                            INNER JOIN publics_services.orden_trabajo_producto otpc ON otpc.id_orden_trabajo_cliente = otc.id_orden_trabajo_cliente
+                            INNER JOIN facturacion_inventario.producto prc ON prc.id_producto = otc.id_producto_composicion
+                            INNER JOIN facturacion_inventario.unidad_medida um ON um.id_unidad_medida = p.id_unidad_medida
+                            INNER JOIN publics_services.ordenador o ON o.id_ordenador = ot.id_ordenador
+                            INNER JOIN general.municipio m ON m.id_municipio = ot.id_municipio
+                            INNER JOIN general.departamento d ON d.id_departamento = m.id_departamento
+                        $this->condicion    
+                        GROUP BY 
+                               otp.id_orden_trabajo_producto, otp.id_orden_trabajo_cliente, otp.id_producto
+                                , otp.nota, otp.secuencia, otp.cantidad, otp.valor_unita_con_impue, otp.serial, otp.estado
+                                , p.codigo, p.producto, otc.id_producto_composicion, prc.codigo, prc.producto
+                                , otp.id_orden_trabajo_cliente,otp.id_orden_trabajo_producto
+                                ,p.producto_serial,um.unidad_medida,b.bodega,s.id_tercero,p.valor_salida,p.valor_entra_con_impue
+                                ,p.valor_salid_con_impue,p.valor_entrada,eotb.esta_orde_trab_prod,ot.id_orden_trabajo ,otc.id_cliente,ter.nit,ter.tercero,m.municipio,d.departamento
+                        ORDER BY otp.id_orden_trabajo_cliente  
+                ";
+        $this->conexion->ejecutar($sentenciaSql);
+        $contador = 0;
+        $retorno = array();
+        
+        while ($fila = $this->conexion->obtenerObjeto()){
+            $retorno[$contador]['fechaInicio'] = $fila->fecha_inicio;
+            $retorno[$contador]['fechaFin'] = $fila->fecha_fin;
+            $retorno[$contador]['cliente'] = $fila->cliente;
+            $retorno[$contador]['numero'] = $fila->numero;
+            $retorno[$contador]['municipio'] = $fila->municipio;
+            $retorno[$contador]['idOrdenTrabajoProducto'] = $fila->id_orden_trabajo_producto;
+            $retorno[$contador]['idOrdenTrabajoCliente'] = $fila->id_orden_trabajo_cliente;
+            $retorno[$contador]['idProducto'] = $fila->id_producto;
+            $retorno[$contador]['productoSerial'] = $fila->producto_serial;
+            $retorno[$contador]['nota'] = $fila->nota;
+            $retorno[$contador]['secuencia'] = $fila->secuencia;
+            $retorno[$contador]['cantidad'] = $fila->cantidad;
+            $retorno[$contador]['valorUnitario'] = $fila->valor_unita_con_impue;
+            $retorno[$contador]['serial'] = $fila->serial;
+            $retorno[$contador]['estado'] = $fila->estado;
+            $retorno[$contador]['idBodega'] = $fila->id_bodega;
+            $retorno[$contador]['idTransaccion'] = $fila->id_transaccion;
+            $retorno[$contador]['bodega'] = $fila->bodega;
+            $retorno[$contador]['unidadMedida'] = $fila->unidad_medida;
+            $retorno[$contador]['productoSerial'] = $fila->producto_serial;
+            $retorno[$contador]['codigoProductoCompone'] = $fila->codigo_producto_compone;
+            $retorno[$contador]['productoCompone'] = $fila->producto_compone;
+            $retorno[$contador]['idProductoComposicion'] = $fila->id_producto_composicion;
+            $retorno[$contador]['codigoProductoComposicion'] = $fila->codigo_producto_composicion;
+            $retorno[$contador]['productoComposicion'] = $fila->producto_composicion;
+            $retorno[$contador]['cantidadProductoCompone'] = $fila->cantidad_producto_compone;
+            $retorno[$contador]['cantidadDevuelta'] = $fila->cantidad_devuelta;
+            $retorno[$contador]['idProductoCancelado'] = $fila->id_producto_cancelado;
+            $retorno[$contador]['idTercero'] = $fila->id_tercero;
+            $retorno[$contador]['valorSalida'] = $fila->valor_salida;
+            $retorno[$contador]['valorEntrada'] = $fila->valor_entrada;
+            $retorno[$contador]['valorEntraConImpue'] = $fila->valor_entra_con_impue;
+            $retorno[$contador]['valorSalidConImpue'] = $fila->valor_salid_con_impue;
+            $retorno[$contador]['idEstaOrdeTrabProd'] = $fila->id_esta_orde_trab_prod;
+            $retorno[$contador]['estaOrdeTrabProd'] = $fila->esta_orde_trab_prod;
+            $retorno[$contador]['idOrdenTrabajo'] = $fila->id_orden_trabajo;
+            $retorno[$contador]['idCliente'] = $fila->id_cliente;
+            $contador++;
+        }
+        return $retorno;
+    }
+    
+    public function consultarOrdenTrabajoProductosInstalados(){
+        $sentenciaSql = "
+            SELECT DISTINCT
+                    CONCAT_WS(' - ', t.tercero, s.sucursal) as cliente
+                    ,t.id_tercero
+                    ,otp.cantidad
+                    , otp.valor_unita_con_impue
+                    , otp.id_bodega
+                    , b.bodega
+                    , p.producto_serial
+                    , p.valor_entrada
+                    , p.valor_salida
+                    , CAST(p.valor_entra_con_impue AS int) AS valor_entra_con_impue
+                    , p.valor_salid_con_impue
+                    , p.producto as producto_compone
+                    , prc.codigo as codigo_producto_composicion
+                    , prc.producto as producto_composicion
+                    , COUNT(otpc.id_producto) as cantidad_producto_compone
+                    , um.unidad_medida
+                      , otp.serial
+            FROM
+                    publics_services.orden_trabajo_producto otp
+                    INNER JOIN publics_services.esta_orde_trab_prod AS eotb ON eotb.id_esta_orde_trab_prod = otp.id_esta_orde_trab_prod
+                    INNER JOIN facturacion_inventario.bodega AS b ON b.id_bodega = otp.id_bodega
+                    INNER JOIN publics_services.orden_trabajo_cliente otc ON otc.id_orden_trabajo_cliente = otp.id_orden_trabajo_cliente
+                    INNER JOIN facturacion_inventario.cliente AS c ON c.id_cliente = otc.id_cliente
+                    INNER JOIN contabilidad.sucursal AS s ON s.id_sucursal = c.id_sucursal
+                    INNER JOIN publics_services.orden_trabajo ot ON ot.id_orden_trabajo = otc.id_orden_trabajo
+                    INNER JOIN facturacion_inventario.producto p ON p.id_producto = otp.id_producto
+                    INNER JOIN publics_services.orden_trabajo_producto otpc ON otpc.id_orden_trabajo_cliente = otc.id_orden_trabajo_cliente
+                    INNER JOIN facturacion_inventario.producto prc ON prc.id_producto = otc.id_producto_composicion
+                    INNER JOIN facturacion_inventario.unidad_medida um ON um.id_unidad_medida = p.id_unidad_medida
+                    INNER JOIN publics_services.ordenador o ON o.id_ordenador = ot.id_ordenador
+                    INNER JOIN general.municipio m ON m.id_municipio = ot.id_municipio
+                    INNER JOIN contabilidad.tercero t ON t.id_tercero = s.id_tercero
+                    INNER JOIN publics_services.cliente_servicio AS cs ON cs.id_orden_trabajo_cliente = otc.id_orden_trabajo_cliente
+            WHERE
+                    otc.id_orden_trabajo_cliente NOT IN (SELECT id_orden_trabajo_cliente FROM publics_services.orden_trabajo_cliente WHERE id_orden_trabajo = ". $this->ordenTrabajo->getIdOrdenTrabajo().")
+                    AND otc.id_cliente IN (SELECT id_cliente FROM publics_services.orden_trabajo_cliente WHERE id_orden_trabajo =". $this->ordenTrabajo->getIdOrdenTrabajo().")
+                    AND ot.id_orden_trabajo <> ". $this->ordenTrabajo->getIdOrdenTrabajo()."
+                    AND otp.estado = TRUE
+            GROUP BY
+                    otp.cantidad
+                    , otp.valor_unita_con_impue
+                    , otp.id_bodega
+                    , b.bodega
+                    , p.producto_serial
+                    , p.valor_entrada
+                    , p.valor_salida
+                    ,p.valor_entra_con_impue
+                    , p.valor_salid_con_impue
+                    , p.producto
+                    , prc.codigo
+                    , prc.producto
+                    , um.unidad_medida
+                    , t.tercero
+                    , s.sucursal
+                    , t.id_tercero
+                      , otp.serial
+            ORDER BY
+                    t.id_tercero
+                ";
+        $this->conexion->ejecutar($sentenciaSql);
+        $contador = 0;
+        $retorno = array();
+        
+        while ($fila = $this->conexion->obtenerObjeto()){
+            $retorno[$contador]['cliente'] = $fila->cliente;
+            $retorno[$contador]['idTercero'] = $fila->id_tercero;
+            $retorno[$contador]['cantidad'] = $fila->cantidad;
+            $retorno[$contador]['valorUnitaConImpuesto'] = $fila->valor_unita_con_impue;
+            $retorno[$contador]['idBodega'] = $fila->id_bodega;
+            $retorno[$contador]['productoSerial'] = $fila->producto_serial;
+            $retorno[$contador]['valorEntrada'] = $fila->valor_entrada;
+            $retorno[$contador]['valorSalida'] = $fila->valor_salida;
+            $retorno[$contador]['valorEntraConImpue'] = $fila->valor_entra_con_impue;
+            $retorno[$contador]['valorSalidConImpue'] = $fila->valor_salid_con_impue;
+            $retorno[$contador]['productoCompone'] = $fila->producto_compone;
+            $retorno[$contador]['codigoProductoComposicion'] = $fila->codigo_producto_composicion; 
+            $retorno[$contador]['productoComposicion'] = $fila->producto_composicion;
+            $retorno[$contador]['cantidadProductoCompone'] = $fila->cantidad_producto_compone;
+            $retorno[$contador]['unidadMedida'] = $fila->unidad_medida;
+            $retorno[$contador]['serial'] = $fila->serial;
+            $contador++;
+        }
+        return $retorno;
+    }
+    
+    public function consultarOrdenServicioEquiposAInstalar(){
+        $sentenciaSql = "
+            SELECT DISTINCT
+                otp.cantidad
+                , p.producto as producto_compone
+                ,otp.serial
+                ,CASE
+                        WHEN ot.tipo_orden_trabajo = 1 THEN 'INSTALACIÓN'
+                        WHEN ot.tipo_orden_trabajo = 2 THEN 'MANTENIMIENTO'
+                        WHEN ot.tipo_orden_trabajo = 3 THEN 'DESINSTALACIÓN'
+                END AS tipo
+            FROM
+                publics_services.orden_trabajo_producto otp
+                INNER JOIN publics_services.orden_trabajo_cliente otc ON otc.id_orden_trabajo_cliente = otp.id_orden_trabajo_cliente
+                INNER JOIN publics_services.orden_trabajo ot ON ot.id_orden_trabajo = otc.id_orden_trabajo
+
+                INNER JOIN facturacion_inventario.producto p ON p.id_producto = otp.id_producto
+                INNER JOIN publics_services.orden_trabajo_producto otpc ON otpc.id_orden_trabajo_cliente = otc.id_orden_trabajo_cliente
+                INNER JOIN facturacion_inventario.producto prc ON prc.id_producto = otc.id_producto_composicion
+                INNER JOIN facturacion_inventario.unidad_medida um ON um.id_unidad_medida = p.id_unidad_medida
+                INNER JOIN publics_services.ordenador o ON o.id_ordenador = ot.id_ordenador
+                INNER JOIN general.municipio m ON m.id_municipio = ot.id_municipio
+                --LEFT OUTER JOIN publics_services.clie_serv_prod_canc otpcc ON otpcc.id_producto = otp.id_producto
+            WHERE
+                otc.id_orden_trabajo_cliente =".$this->ordenTrabajoCliente->getIdOrdenTrabajoCliente()."
+                --AND p.producto_serial = false
+                AND otp.estado = TRUE
+            UNION ALL
+            SELECT DISTINCT
+                otp.cantidad
+                , p.producto as producto_compone
+                , otp.serial
+                ,CASE
+                        WHEN ot.tipo_orden_trabajo = 1 THEN 'INSTALACIÓN'
+                        WHEN ot.tipo_orden_trabajo = 2 THEN 'MANTENIMIENTO'
+                        WHEN ot.tipo_orden_trabajo = 3 THEN 'DESINSTALACIÓN'
+                END AS tipo
+            FROM
+                publics_services.orden_trabajo_producto otp
+                INNER JOIN publics_services.esta_orde_trab_prod AS eotb ON eotb.id_esta_orde_trab_prod = otp.id_esta_orde_trab_prod
+                INNER JOIN facturacion_inventario.bodega AS b ON b.id_bodega = otp.id_bodega
+                INNER JOIN publics_services.orden_trabajo_cliente otc ON otc.id_orden_trabajo_cliente = otp.id_orden_trabajo_cliente
+                INNER JOIN facturacion_inventario.cliente AS c ON c.id_cliente = otc.id_cliente
+                INNER JOIN contabilidad.sucursal AS s ON s.id_sucursal = c.id_sucursal
+                INNER JOIN publics_services.orden_trabajo ot ON ot.id_orden_trabajo = otc.id_orden_trabajo
+                INNER JOIN facturacion_inventario.producto p ON p.id_producto = otp.id_producto
+                INNER JOIN publics_services.orden_trabajo_producto otpc ON otpc.id_orden_trabajo_cliente = otc.id_orden_trabajo_cliente
+                INNER JOIN facturacion_inventario.producto prc ON prc.id_producto = otc.id_producto_composicion
+                INNER JOIN facturacion_inventario.unidad_medida um ON um.id_unidad_medida = p.id_unidad_medida
+                INNER JOIN publics_services.ordenador o ON o.id_ordenador = ot.id_ordenador
+                INNER JOIN general.municipio m ON m.id_municipio = ot.id_municipio
+                INNER JOIN contabilidad.tercero t ON t.id_tercero = s.id_tercero
+                INNER JOIN publics_services.cliente_servicio AS cs ON cs.id_orden_trabajo_cliente = otc.id_orden_trabajo_cliente
+            WHERE
+                otc.id_orden_trabajo_cliente NOT IN (SELECT id_orden_trabajo_cliente FROM publics_services.orden_trabajo_cliente WHERE id_orden_trabajo_cliente = ".$this->ordenTrabajoCliente->getIdOrdenTrabajoCliente().")
+                AND otc.id_cliente IN (SELECT id_cliente FROM publics_services.orden_trabajo_cliente WHERE id_orden_trabajo_cliente = ".$this->ordenTrabajoCliente->getIdOrdenTrabajoCliente().")
+                AND otp.estado = TRUE";
+        $this->conexion->ejecutar($sentenciaSql);
+        $contador = 0;
+        $retorno = array();
+        
+        while ($fila = $this->conexion->obtenerObjeto()){
+            $retorno[$contador]['cantidad'] = $fila->cantidad;
+            $retorno[$contador]['productoCompone'] = $fila->producto_compone;
+            $retorno[$contador]['serial'] = $fila->serial;
+            $retorno[$contador]['tipo'] = $fila->tipo;            
+            $contador++;
+        }
+        return $retorno;
+    }
+    
+    public function inactivar(){
+        $sentenciaSql = "
+                            UPDATE
+                                publics_services.orden_trabajo_producto
+                            SET
+                                estado = FALSE
+                            WHERE
+                                id_orden_trabajo_producto = $this->idOrdenTrabajoProducto
+                        ";
+        $this->conexion->ejecutar($sentenciaSql);
+    }
+    
+    function obtenMaximSecueProd() {
+        $sentenciaSql = "SELECT
+                            COALESCE(MAX(secuencia), 0) AS maximo
+                        FROM 
+                            publics_services.orden_trabajo_producto
+                        WHERE
+                            id_orden_trabajo_cliente = ".$this->ordenTrabajoCliente->getIdOrdenTrabajoCliente();
+        $this->conexion->ejecutar($sentenciaSql);
+        $fila = $this->conexion->obtenerObjeto();
+        return $fila->maximo;
+    }
+    function actualizarEstadoProductosCliente($idEstado){
+        $sentenciaSql = "
+                            UPDATE
+                                publics_services.orden_trabajo_producto
+                            SET
+                                id_esta_orde_trab_prod = $idEstado
+                            WHERE
+                                id_orden_trabajo_cliente = ".$this->ordenTrabajoCliente->getIdOrdenTrabajoCliente()."
+                                AND estado = TRUE    
+                        ";
+        $this->conexion->ejecutar($sentenciaSql);
+    }
+    
+    function obtenerCondicion(){
+        $this->condicion = '';
+        $this->whereAnd = ' WHERE ';
+        
+        if($this->ordenTrabajoCliente != "" && $this->ordenTrabajoCliente != null && $this->ordenTrabajoCliente != "null"){
+            if($this->ordenTrabajoCliente->getIdOrdenTrabajoCliente() != '' && $this->ordenTrabajoCliente->getIdOrdenTrabajoCliente() != 'null' && $this->ordenTrabajoCliente->getIdOrdenTrabajoCliente() != null ){
+                $this->condicion .= $this->whereAnd . ' otc.id_orden_trabajo_cliente = ' . $this->ordenTrabajoCliente->getIdOrdenTrabajoCliente();
+                $this->whereAnd = ' AND ';
+            }
+            if($this->ordenTrabajoCliente->getOrdenTrabajo() != '' && $this->ordenTrabajoCliente->getOrdenTrabajo() != 'null' && $this->ordenTrabajoCliente->getOrdenTrabajo() != null ){
+                if($this->ordenTrabajoCliente->getOrdenTrabajo()->getIdMunicipio() != '' && $this->ordenTrabajoCliente->getOrdenTrabajo()->getIdMunicipio() != 'null' && $this->ordenTrabajoCliente->getOrdenTrabajo()->getIdMunicipio() != null ){
+                    $this->condicion .= $this->whereAnd . ' ot.id_municipio = ' . $this->ordenTrabajoCliente->getOrdenTrabajo()->getIdMunicipio();
+                    $this->whereAnd = ' AND ';
+                }
+                
+                if($this->ordenTrabajoCliente->getOrdenTrabajo()->getNumero() != '' && $this->ordenTrabajoCliente->getOrdenTrabajo()->getNumero() != 'null' && $this->ordenTrabajoCliente->getOrdenTrabajo()->getNumero() != null ){
+                    $this->condicion .= $this->whereAnd . ' ot.numero = ' . $this->ordenTrabajoCliente->getOrdenTrabajo()->getNumero();
+                    $this->whereAnd = ' AND ';
+                }
+                
+                
+            }
+            
+            if($this->ordenTrabajoCliente->getCliente() != '' && $this->ordenTrabajoCliente->getCliente() != 'null' && $this->ordenTrabajoCliente->getCliente() != null ){
+                if($this->ordenTrabajoCliente->getCliente()->getIdCliente() != '' && $this->ordenTrabajoCliente->getCliente()->getIdCliente() != 'null' && $this->ordenTrabajoCliente->getCliente()->getIdCliente() != null ){
+                    $this->condicion .= $this->whereAnd . ' otc.id_cliente = ' . $this->ordenTrabajoCliente->getCliente()->getIdCliente();
+                    $this->whereAnd = ' AND ';
+                }
+            }
+        }
+        
+        if($this->ordenTrabajo->getIdOrdenTrabajo() != '' && $this->ordenTrabajo->getIdOrdenTrabajo() != 'null' && $this->ordenTrabajo->getIdOrdenTrabajo() != null ){
+            $this->condicion .= $this->whereAnd . ' ot.id_orden_trabajo = ' . $this->ordenTrabajo->getIdOrdenTrabajo();
+            $this->whereAnd = ' AND ';
+        }
+        
+        if($this->producto != '' && $this->producto != 'null' && $this->producto != null ){
+            if($this->producto->getIdProducto() != '' && $this->producto->getIdProducto() != 'null' && $this->producto->getIdProducto() != null ){
+                $this->condicion .= $this->whereAnd . ' otp.id_producto IN (' . $this->producto->getIdProducto().")";
+                $this->whereAnd = ' AND ';
+            }
+        }
+        
+        if($this->serial != '' && $this->serial != 'null' && $this->serial != null && $this->serial != "NULL" ){
+            $this->condicion .= $this->whereAnd . ' otp.serial = '.$this->serial;
+            $this->whereAnd = ' AND ';
+        }
+        
+        if($this->estado != '' && $this->estado != 'null' && $this->estado != null ){
+            $this->condicion .= $this->whereAnd . ' otp.estado = '.$this->estado;
+            $this->whereAnd = ' AND ';
+        }
+        
+        if($this->idBodega != '' && $this->idBodega != 'null' && $this->idBodega != null ){
+            $this->condicion .= $this->whereAnd . ' otp.id_bodega = '.$this->idBodega;
+            $this->whereAnd = ' AND ';
+        }
+        
+        if($this->idOrdenTrabajoProducto != '' && $this->idOrdenTrabajoProducto != 'null' && $this->idOrdenTrabajoProducto != null ){
+            $this->condicion .= $this->whereAnd . ' otp.id_orden_trabajo_producto = ' . $this->idOrdenTrabajoProducto;
+            $this->whereAnd = ' AND ';
+        }
+    }
+    
+    public function generarTransaccionEliminacion($idTransaccion){
+        $sentenciaSql = "
+                            SELECT 
+                                $idTransaccion
+                                ,otp.id_producto
+                                ,otp.cantidad
+                                ,otp.valor_unita_con_impue
+                                ,otp.valor_unita_con_impue
+                                ,1
+                                ,0
+                                ,''
+                                ,otp.serial
+                                ,TRUE
+                                ,352
+                                ,352
+                                ,NOW()
+                                ,NOW()
+                                ,otp.valor_unita_con_impue
+                                ,otp.valor_unita_con_impue
+                                ,NULL
+                                ,otp.cantidad
+                                ,NULL
+                                ,NULL
+                                ,NULL
+                                ,NULL
+                                ,NULL
+                                ,NULL
+                        FROM 
+                                publics_services.orden_trabajo_producto AS otp
+                                INNER JOIN publics_services.orden_trabajo_cliente AS otc ON otc.id_orden_trabajo_cliente = otp.id_orden_trabajo_cliente
+                                INNER JOIN publics_services.orden_trabajo AS ot ON ot.id_orden_trabajo = otc.id_orden_trabajo
+                                INNER JOIN facturacion_inventario.producto_existencia AS pe ON pe.serial = otp.serial
+                        WHERE    
+                                otp.id_orden_trabajo_producto = $this->idOrdenTrabajoProducto
+                        ";
+        $this->conexion->ejecutar($sentenciaSql);
+    }
+    
+    public function consultarProductosSerial($idProducto,$idBodega) {
+        $condicion = "";
+        if($idBodega != "" && $idBodega != null && $idBodega != "null"){
+            $condicion = " AND pe.id_bodega  = $idBodega ";
+        }
+        $sentenciaSql = "
+                            SELECT
+                                p.id_producto
+                                ,p.producto
+                                , pe.serial
+                                ,pe.id_bodega
+                            FROM
+                                facturacion_inventario.producto_existencia AS pe
+                                INNER JOIN facturacion_inventario.producto AS p ON p.id_producto = pe.id_producto
+                                INNER JOIN facturacion_inventario.unidad_medida AS um ON um.id_unidad_medida = p.id_unidad_medida
+                                INNER JOIN facturacion_inventario.bodega AS b ON b.id_bodega = pe.id_bodega
+                            WHERE
+                                pe.serial IS NOT NULL
+                                AND pe.id_producto  = $idProducto
+                                AND pe.cantidad > 0    
+                                $condicion
+                            GROUP BY 
+                                p.id_producto,pe.serial,pe.id_bodega
+                        ";
+        $this->conexion->ejecutar($sentenciaSql);
+        $contador = 0;
+        while ($fila = $this->conexion->obtenerObjeto()) {
+            $retorno[$contador]["idProducto"] = $fila->id_producto;
+            $retorno[$contador]["producto"] = $fila->producto;
+            $retorno[$contador]["serial"] = $fila->serial;
+            $retorno[$contador]["idBodega"] = $fila->id_bodega;
+            $contador++;
+        }
+        return $retorno;
+    }
+    
+}

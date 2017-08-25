@@ -1,0 +1,56 @@
+<script type="text/javascript">
+    var ruta = localStorage.modulo + "js/rptSaldosMinimos.js";
+    vincularJs(ruta);
+</script>
+<div class="panel-heading">
+    <span id="imgLista" class=""></span> Saldos mínimos y máximos
+    <nav id="navAcciones" class="navAcciones fa-2x">
+        <span id="imgConsultar" class="fa fa-search imagenesTabla" title="Consultar"></span>
+        <span class="fa fa-eraser" title="Limpiar" id="imgLimpiar"></span>
+        <span class="fa fa-angle-double-up" id="imgMostrarOcultar"  onClick="correrEfecto('imgMostrarOcultar')"></span>
+    </nav>
+</div>
+<div class="panel-body">
+    <form role="form" id="fbeFormulario" name="fbeFormulario">
+        <div id="divParametrosBusqueda">
+            <table>
+                <tr>
+                    <td>Código producto</td>
+                    <td><input type="text" id="txtCodigoProducto" class="form-control medium" placeholder="Código" title=" el código"></td>
+                </tr>
+                <tr>
+                    <td>Producto</td>
+                    <td><input type="text" id="txtProducto" class="form-control large" placeholder="Producto" title=" el producto"></td>
+                </tr>
+                <tr>
+                    <td>Unidad de medida</td>
+                    <td><select id="selUnidadMedida"  class="form-control medium" title=" la unidad de medida "></select></td>
+                </tr>
+                <tr>
+                    <td>Linea del producto</td>
+                    <td><input type="text" id="txtLinea" class="form-control large" placeholder="Linea producto" title=" linea del producto " readonly accesskey="V"></td>
+                    <td><input style="margin-left:10px" type="button" id="btnBuscarLineas" name="btnBuscarLineas" class="btn btn-primary" value="..."></td>
+                </tr>
+                <tr>
+                    <td>Bodega</td>
+                    <td><select id="selBodega" name="selBodega" class="form-control medium"></select></td>
+                </tr>
+                <tr>
+                    <td>Mostrar saldos negativos</td>
+                    <td><select id="selSaldosNegativos" name="selSaldosNegativos" class="form-control medium">
+                            <option value="">--Seleccione--</option>
+                            <option value=" <= 0 ">SI</option>
+                            <option value=" >= 0 ">NO</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td>Máximo / Minimo</td>
+                    <td><select id="selMaximoMinimo" name="selMaximoMinimo" class="form-control medium">
+                            <option value="1">Máximo</option>
+                            <option value="0" selected="selected">Mínimo</option>
+                        </select></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,259 @@
+<script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+<link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+<script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+<link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+<script type="text/javascript">
+	var ruta = localStorage.modulo + "js/fbeOrdenTrabajo.js";
+	vincularJs(ruta);
+</script>
+<div class="container">
+    <ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="tab" href="#tabPedidos" id="tabPedidosPestana" >Pedidos</a></li>
+      <li><a data-toggle="tab" href="#tabOrdenTrabajo" id="tabOrdenTrabajoPestana" >Orden de Trabajos</a></li>
+      <li><a data-toggle="tab" href="#tabClienteServicio" id="tabClienteServicioPestana" >Servicios Cliente</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div id="tabPedidos" class="tab-pane fade in active">
+          <br>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span class="fa fa-reorder"></span> Pedidos  
+                <nav id="navAcciones" class="navAcciones fa-2x">
+                    <span id="imgConsultarPedido" class="fa fa-search imagenesTabla" title="Consultar"></span>        
+                    <span class="fa fa-plus" title="Orden de Trabajo" id="imgOrdenTrabajo"></span>
+                    <span class="fa fa-eraser" title="Limpiar" id="imgLimpiarPedido"></span>
+                </nav>
+            </div>
+            <div class="panel-body">
+                <form role="form" id="fbeFormularioPedido" name="fbeFormularioPedido">
+                    <div id="divParametrosBusqueda">
+                    <table>
+                        <tr>
+                            <td>Cliente</td>
+                            <td><input type="text" id="txtNitPedido" name="txtNit" class="form-control medium" placeholder="Nit"></td>
+                            <td><input type="text" id="txtClientePedido" name="txtCliente" class="form-control large" placeholder="Nombre">
+                                <span class="fa-2x fa fa-plus-circle imagenesTabla" id="imgNuevoClientePedido" title="Adicionar nuevo cliente."></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Vendedor</td>
+                            <td><input type="text" id="txtNitVendedor" name="txtNitVendedor" class="form-control medium" placeholder="Nit"></td>
+                            <td><input type="text" id="txtVendedor" name="txtVendedor" class="form-control large" placeholder="Nombre"></td>
+                        </tr>
+                        <tr>
+                            <td>Zona</td>
+                            <td colspan="2"><select id="selZona" name="selZona" class="form-control medium" multiple></select></td>
+                        </tr>
+                        <tr>
+                            <td>Fecha pedido</td>
+                            <td><input type="text" id="txtFechaInicioPedido" name="txtFechaInicioPedido" class="form-control medium" placeholder="Inicio"></td>
+                            <td><input type="text" id="txtFechaFinPedido" name="txtFechaFinPedido" class="form-control medium" placeholder="Fin"></td>
+                        </tr>
+                        <tr>
+                            <td>Tipo Pedido</td>
+                            <td colspan="2">
+                                <select id="selTipoPedido" name="selTipoPedido" class="form-control large" multiple="">
+                                    <option value="">--SELECCIONE--</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <!--
+                        <tr>
+                            <td>Estado</td>
+                            <td colspan="2"><select id="selEstadoPedido" class="form-control medium" multiple></select></td>
+                        </tr>
+                        -->
+                    </table>
+                    <br>
+                    <div id="divConsultaPedido">
+
+                    </div>
+                    </div>
+                </form>
+            </div>
+          </div>
+      </div>
+      <div id="tabOrdenTrabajo" class="tab-pane fade">
+          <br>
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span class="fa fa-file"></span> Orden de trabajo
+                <nav id="navAcciones" class="navAcciones fa-2x">
+                    <span id="imgConsultarOrdenTrabajo" class="fa fa-search imagenesTabla" title="Consultar"></span>        
+                    <span class="fa fa-eraser" title="Limpiar" id="imgLimpiarOrden"></span>
+                </nav>
+            </div>
+            <div class="panel-body">
+                <form role="form" id="fbeFormularioOrden" name="fbeFormularioOrden">
+                    <div id="divParametrosBusqueda">
+                    <table>
+                        <tr>
+                            <td>Tipo Documento</td>
+                            <td>
+                                <select id="selTipoDocumento" name="selTipoDocumento" class="form-control large">
+                                    <option value="">--SELECCIONE--</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Cliente</td>
+                            <td colspan="3">
+                                <table>
+                                    <tr>
+                                        <td><input type="text" id="txtNitClienteOrden" name="txtNitClienteOrden" class="form-control medium" placeholder="Nit"></td>
+                                        <td colspan="2"><input type="text" id="txtClienteOrden" name="txtClienteOrden" class="form-control large" placeholder="Nombre">
+                                            <span class="fa-2x fa fa-plus-circle imagenesTabla" id="imgNuevoClienteOrdenTrabajo" title="Adicionar nuevo cliente."></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Número Orden Trabajo</td>
+                            <td><input type="text" id="txtNumeroOrden" name="txtNumeroOrden" class="form-control medium" placeholder="Número Orden"></td>
+                        </tr>
+                        <tr>
+                            <td>Fecha Orden Trabajo &nbsp;&nbsp;&nbsp; Inicio</td>
+                            <td colspan="3">
+                                <table>
+                                    <tr>
+                                        <td><input type="text" id="txtFechaInicioOrden" name="txtFechaInicioOrden" class="form-control medium" placeholder="Fecha Inicio Orden" /></td>
+                                        <td>&nbsp;Fin</td>
+                                        <td><input type="text" id="txtFechaFinOrden" name="txtFechaFinOrden" class="form-control medium" placeholder="Fecha Fin Orden" /></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Ordenador</td>
+                            <td colspan="2">
+                                <select id="selOrdenador" name="selOrdenador" class="form-control large">
+                                    <option value="">--SELECCIONE--</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Municipio</td>
+                            <td colspan="2">
+                                <input type="text" id="txtMunicipio" name="txtMunicipio" placeholder="Departamento - Municipio" class="form-control large">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Técnico</td>
+                            <td colspan="2">
+                                <select id="selTecnico" name="selTecnico" class="form-control large" multiple>
+                                    <option value="">--SELECCIONE--</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tipo Orden Trabajo</td>
+                            <td>
+                                <select id="selTipoOrdenTrabajo" name="selTipoOrdenTrabajo" class="form-control large" multiple="">
+                                    <option value="">--SELECCIONE--</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Estado Orden Trabajo</td>
+                            <td>
+                                <select id="selEstadoOrdenTrabajo" name="selEstadoOrdenTrabajo" class="form-control large" multiple="">
+                                    <option value="">--SELECCIONE--</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <div id="divConsultaOrdenTrabajo">
+
+                    </div>
+                    </div>
+                </form>
+            </div>
+          </div>
+      </div>
+     
+    <div id="tabClienteServicio" class="tab-pane fade">
+      <br>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span class="fa fa-user"></span> Cliente Servicio
+            <nav id="navAcciones" class="navAcciones fa-2x">
+                <span id="imgConsultarServicio" class="fa fa-search imagenesTabla" title="Consultar"></span>        
+                <span class="fa fa-eraser" title="Limpiar" id="imgLimpiarServicio"></span>
+            </nav>
+        </div>
+        <div class="panel-body">
+            <form role="form" id="fbeFormularioServicio" name="fbeFormularioServicio">
+                <div id="divParametrosBusqueda">
+                <table>
+                    <tr>
+                        <td>Cliente</td>
+                        <td colspan="3">
+                            <table>
+                                <tr>
+                                    <td><input type="text" id="txtNitClienteServicio" name="txtNitClienteServicio" class="form-control medium" placeholder="Nit"></td>
+                                    <td colspan="2"><input type="text" id="txtClienteServicio" name="txtClienteServicio" class="form-control large" placeholder="Nombre">
+                                        <span class="fa-2x fa fa-plus-circle imagenesTabla" id="imgNuevoClienteServicio" title="Adicionar nuevo cliente."></span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Número Cliente Servicio</td>
+                        <td><input type="text" id="txtNumeroServicio" name="txtNumeroServicio" class="form-control medium" placeholder="Número Servicio"></td>
+                    </tr>
+                    <tr>
+                        <td>Fecha Servicio &nbsp;&nbsp;&nbsp; Inicio</td>
+                        <td colspan="3">
+                            <table>
+                                <tr>
+                                    <td><input type="text" id="txtFechaInicioServicio" name="txtFechaInicioServicio" class="form-control medium" placeholder="Fecha Inicio Servicio" /></td>
+                                    <td>&nbsp;Fin</td>
+                                    <td><input type="text" id="txtFechaFinServicio" name="txtFechaFinServicio" class="form-control medium" placeholder="Fecha Fin Servicio" /></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Municipio</td>
+                        <td colspan="2">
+                            <input type="text" id="txtMunicipioServicio" name="txtMunicipioServicio" placeholder="Departamento - Municipio" class="form-control large">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Servicio</td>
+                        <td colspan="2">
+                            <input type="text" id="txtServicio" name="txtServicio" placeholder="Servicio" class="form-control large">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Técnico</td>
+                        <td colspan="2">
+                            <select id="selTecnicoServicio" name="selTecnicoServicio" class="form-control large" multiple>
+                                <option value="">--SELECCIONE--</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <!--<tr>
+                        <td>Estado Cliente Servicio</td>
+                        <td>
+                            <select id="selEstadoClienteServicio" name="selEstadoClienteServicio" class="form-control large" multiple="">
+                                <option value="">--SELECCIONE--</option>
+                            </select>
+                        </td>
+                    </tr>-->
+                </table>
+                <br>
+                <div id="divConsultaServicio">
+
+                </div>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>

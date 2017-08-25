@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="servicioTecnico" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="a9fb62e6-3a22-42d6-804f-719ba3fc09a8">
+	<property name="ireport.zoom" value="1.948717100000007"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idOrdenTrabajo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+    p.persona AS tecnico
+    , p.numero_identificacion
+    , p.direccion
+    , p.telefono
+    , ott.principal
+    , cargo
+    , eps.eps
+    , a.arl
+    , CONCAT_WS(' / ', eps.eps, a.arl) as eps_arl
+    , ROW_NUMBER() OVER (ORDER BY id_orden_trabajo_tecnico) AS item
+FROM
+    publics_services.orden_trabajo_tecnico ott
+    INNER JOIN publics_services.orden_trabajo ot ON ot.id_orden_trabajo = ott.id_orden_trabajo
+    INNER JOIN publics_services.tecnico t ON t.id_tecnico = ott.id_tecnico
+    INNER JOIN nomina.empleado e ON e.id_empleado = t.id_empleado
+    LEFT OUTER JOIN general.cargo c ON c.id_cargo = e.id_cargo
+    LEFT OUTER JOIN nomina.arl a ON a.id_arl = e.id_arl
+    LEFT OUTER JOIN nomina.eps eps ON eps.id_eps = e.id_eps
+    INNER JOIN general.persona p ON p.id_persona = e.id_persona
+WHERE
+    ott.id_orden_trabajo = $P{idOrdenTrabajo}
+ORDER BY id_orden_trabajo_tecnico]]>
+	</queryString>
+	<field name="tecnico" class="java.lang.String"/>
+	<field name="numero_identificacion" class="java.lang.Long"/>
+	<field name="direccion" class="java.lang.String"/>
+	<field name="telefono" class="java.lang.String"/>
+	<field name="principal" class="java.lang.Boolean"/>
+	<field name="cargo" class="java.lang.String"/>
+	<field name="eps" class="java.lang.String"/>
+	<field name="arl" class="java.lang.String"/>
+	<field name="eps_arl" class="java.lang.String"/>
+	<field name="item" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="16" width="553" height="12" uuid="c175b6a8-0f4d-41ef-8cd2-cddaecb4aba8"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Técnicos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="39" width="154" height="13" uuid="cb888cbc-b80f-446f-9474-eb684a175d42"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="175" y="39" width="54" height="13" uuid="1002d413-9456-4fed-ad40-181fe0debe32"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cédula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="229" y="39" width="100" height="13" uuid="7cbd2dd6-1dc2-42f8-a924-fdcddbf69b14"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cargo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="329" y="39" width="60" height="13" uuid="ad7b8106-62eb-42d8-9815-d131b9dd7414"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Teléfono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="39" width="101" height="13" uuid="2e90e318-af77-4cd0-bac4-7c19861fc1ee"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dirección]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="39" width="65" height="13" uuid="562a9292-ae94-4222-a20b-5628e9b6edb9"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EPS / ARL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="39" width="21" height="13" uuid="5714efdd-fbe3-46ea-8724-c2018d1ff0a2"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[#]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="16">
+			<textField>
+				<reportElement x="0" y="0" width="21" height="16" uuid="95c305cd-82fd-4a30-a963-4ad609bc366f"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{item}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="175" y="0" width="54" height="16" uuid="46f2943f-08e2-4136-a32a-c2c65db105d6"/>
+				<box>
+					<pen lineWidth="0.2" lineStyle="Solid"/>
+					<topPen lineWidth="0.2" lineStyle="Solid"/>
+					<leftPen lineWidth="0.2" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.2" lineStyle="Solid"/>
+					<rightPen lineWidth="0.2" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero_identificacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="229" y="0" width="100" height="16" uuid="2520a11a-916d-4623-a454-faa91f73ae9f"/>
+				<box>
+					<pen lineWidth="0.2" lineStyle="Solid"/>
+					<topPen lineWidth="0.2" lineStyle="Solid"/>
+					<leftPen lineWidth="0.2" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.2" lineStyle="Solid"/>
+					<rightPen lineWidth="0.2" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="329" y="0" width="60" height="16" uuid="14131647-7f94-49ac-a5d2-a241d89b5a48"/>
+				<box>
+					<pen lineWidth="0.2" lineStyle="Solid"/>
+					<topPen lineWidth="0.2" lineStyle="Solid"/>
+					<leftPen lineWidth="0.2" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.2" lineStyle="Solid"/>
+					<rightPen lineWidth="0.2" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="389" y="0" width="101" height="16" uuid="10476bf2-1357-4eec-b1b1-675b37078155"/>
+				<box>
+					<pen lineWidth="0.2" lineStyle="Solid"/>
+					<topPen lineWidth="0.2" lineStyle="Solid"/>
+					<leftPen lineWidth="0.2" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.2" lineStyle="Solid"/>
+					<rightPen lineWidth="0.2" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="0" width="65" height="16" uuid="ddbf50e5-acde-48ff-a312-b9df6b1402b7"/>
+				<box>
+					<pen lineWidth="0.2" lineStyle="Solid"/>
+					<topPen lineWidth="0.2" lineStyle="Solid"/>
+					<leftPen lineWidth="0.2" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.2" lineStyle="Solid"/>
+					<rightPen lineWidth="0.2" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{eps_arl}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="21" y="0" width="154" height="16" uuid="40e7e6ca-db51-49aa-a71c-8d17a5c4c24f"/>
+				<box>
+					<pen lineWidth="0.2" lineStyle="Solid"/>
+					<topPen lineWidth="0.2" lineStyle="Solid"/>
+					<leftPen lineWidth="0.2" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.2" lineStyle="Solid"/>
+					<rightPen lineWidth="0.2" lineStyle="Solid"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tecnico}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

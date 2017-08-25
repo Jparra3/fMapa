@@ -1,0 +1,38 @@
+<script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js" language="javascript"></script>
+<link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+<script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+<link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+<script type="text/javascript">
+    var ruta = localStorage.modulo + "js/fbeOrdenador.js";
+    vincularJs(ruta);
+</script>
+
+<div class="panel-heading">
+	<span id="imgLista" class="fa fa-list"></span> Ordenador
+    <nav id="navAcciones" class="navAcciones fa-2x">
+        <span id="imgConsultar" class="fa fa-search" title="Consultar"></span>
+        <span id="imgNuevo" class="fa fa-plus" title="Nuevo"></span>
+        <span id="imgLimpiar" class="fa fa-eraser" title="Limpiar"></span>
+        <span id="imgMostrarOcultar" class="fa fa-angle-double-up" onClick="correrEfecto('imgMostrarOcultar')"></span>
+    </nav>
+</div>
+<div class="panel-body">
+    <form id="fbeFormulario" name="fbeFormulario" role="form" class="form-inline">
+    <div id="divParametrosBusqueda">
+        <table>
+            <tr>
+                <td>Nombre</td><td><input type="text" name="txtNombre" id="txtNombre" class="form-control" style="width: 300px"></td>
+            </tr>
+            <tr>
+                <td>Estado</td>
+                <td>
+                    <select id="selEstado">
+                        <option value=""> -- Seleccione -- </option>
+                        <option value="true"> Activo </option>
+                        <option value="false"> Inactivo </option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </form>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+
+    <title>Faiho</title>
+	
+    <!-- Bootstrap core CSS -->
+    <link href="/Plantillas/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/Plantillas/lib/css/general.css" rel="stylesheet">
+
+    <!-- Add custom CSS here -->
+    <link href="/Plantillas/lib/half-slider/css/half-slider.css" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="imagenes/favicon.png" />
+</head>
+
+<body>
+
+<nav class="navbar  navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="">Inicio</a>
+                </li>
+                <li><a href="#">Contáctenos</a>
+                </li>
+                <li><a href="#">Acerda de</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="#" data-toggle="modal" data-target="#iniciarSesion">Iniciar sesión</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<div id="myCarousel" class="carousel slide" style="height:500px">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active" >
+            <div class="fill" style="background-image:url(imagenes/banner/1.png);background-size: 100% 100%;background-repeat: no-repeat;"></div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <span class="icon-prev"></span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <span class="icon-next"></span>
+    </a>
+</div>
+
+<div class="modal fade" id="iniciarSesion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="iniciarSesion">
+        <div class="modal-content">
+        
+            <div class="modal-header encabezadoIndex" id="encabezadoModal">
+            	<p>Iniciar Sesión</p>
+            </div>
+            
+            <div class="modal-body">
+            <form id="frmAutenticar" name="frmAutenticar">
+                    <table>
+                        <tr>
+                            <td><label>Usuario/Correo:</label></td>
+                            <td><input type="text" id="txtUsuario" class="form-control" style="width: 230px;"></td>
+                        </tr>
+                        <tr>
+                            <td><label>Contraseña:</label></td>
+                            <td><input type="password" id="pwdContrasenia" class="form-control"  style="width: 230px;"></td>
+                        </tr>
+                    </table>
+            </form>
+            </div>
+            
+            <div class="modal-footer">
+            	<div class="btnAutenticar">
+                	<input type="button" id="btnIngresar" value="INGRESAR" class="btn btn-primary">
+                	<input type="button" value="CANCELAR" class="btn btn-primary" data-dismiss="modal">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <p><img src="/Nucleo/imagenes/logo.jpg" class="imgLogoFooter">Ingesoftware Soluciones SAS - Copyright 2016 &copy; 
+	</p>
+</footer>
+<!-- /.container -->
+
+<!-- JavaScript -->
+<script src="/Plantillas/lib/jquery/js/jquery-1.9.1.js"></script>
+<script src="/Plantillas/lib/bootstrap/js/bootstrap.js"></script>
+<script src="/Plantillas/lib/js/alerta.js"></script>
+<script src="js/index.js"></script>
+<!-- Script to Activate the Carousel -->
+<script>
+$('.carousel').carousel({
+    interval: 5000 //changes the speed
+});
+</script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<script type="text/javascript">
+    var ruta = localStorage.modulo + "js/frmConsultaFactura.js";
+    vincularJs(ruta);
+</script>
+<div class="panel-heading">
+    <span id="imgLista" class=""></span> Consultar transacciones
+    <nav id="navAcciones" class="navAcciones fa-2x">
+        <span id="imgConsultar" class="fa fa-search imagenesTabla" title="Consultar"></span>        
+        <span class="fa fa-eraser" title="Limpiar" id="imgLimpiar"></span>
+        <span class="fa fa-angle-double-up" id="imgMostrarOcultar"  onClick="correrEfecto('imgMostrarOcultar')"></span>
+    </nav>
+</div>
+<div class="panel-body">
+    <form id="fbeFormulario" name="fbeFormulario">
+
+        <table>
+            <tr>
+                <td>* Tipo</td>
+                <td colspan="2"><select id="selTipo" class="form-control medium" title=" el tipo"></select></td>
+            </tr>
+            <tr>
+                <td>Nro. Documento</td>
+                <td colspan="2"><input id="txtNoFactura" class="form-control medium"></td>
+            </tr>
+            <tr>
+                <td>Fecha</td>
+                <td><input id="txtFechaInicio" class="form-control medium" placeholder="Inicio"></td>
+                <td><input id="txtFechaFin" class="form-control medium" placeholder="Fin"></td>
+            </tr>
+            <tr>
+                <td>Tercero</td>
+                <td><input id="txtNit" class="form-control medium" placeholder="Nit" title="el nit"></td>
+                <td><input id="txtNombre" class="form-control large" placeholder="Nombre" title="el nombre" style="width: 350px;"></td>
+            </tr>
+            <tr>
+                <td>Forma de pago</td>
+                <td colspan="2"><select id="selFormaPago" class="form-control large" title="la forma de pago">
+                        <option>POR FAVOR INDIQUE EL TIPO</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td>Saldo</td>
+                <td colspan="2"><select id="selSaldo"></select></td>
+            </tr>
+            <tr>
+                <td>Caja</td>
+                <td colspan="2"><select id="selCaja"></select></td>
+            </tr>
+            <tr>
+                <td>Estado</td>
+                <td colspan="2"><select id="selTransaccionEstado" class="form-control medium" title=" estado"></select></td>
+            </tr>
+        </table>
+    </form>
+
+    <input hidden="hidden" type="button" id="btnAbrirModal" data-toggle="modal" data-target="#myModal">
+    
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h5 class="modal-title">Recibos de caja</h5>
+                </div>
+                <div class="modal-body">
+                    <div id="divListadoRecibosCaja"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

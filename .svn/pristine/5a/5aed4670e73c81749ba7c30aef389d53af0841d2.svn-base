@@ -1,0 +1,76 @@
+<script src="/Plantillas/lib/jquery/js/jquery-1.9.1.js"></script>
+<script src="/Plantillas/lib/bootstrap/js/bootstrap.js"></script>
+<script src="/Plantillas/lib/js/angular.min.js"></script>
+<script src="/Plantillas/lib/js/alerta.js"></script>
+
+<link href="/Plantillas/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="/Plantillas/lib/css/bootstrap.reponsive.css" rel="stylesheet">
+<script src="/Plantillas/lib/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+<link href="/Plantillas/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+<link href="/Plantillas/lib/css/bootstrap.ui.css" rel="stylesheet">
+<link href="/Plantillas/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+<link href="/Plantillas/lib/css/general.css" rel="stylesheet">
+
+<link href="/Plantillas/lib/cargando/cargando.css" rel="stylesheet">
+<script src="/Plantillas/lib/cargando/cargando.js" language="javascript"></script>
+
+<script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+<link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+
+<script src="/Plantillas/lib/datepicker/js/bootstrap-datepicker.js"></script>
+<link href="/Plantillas/lib/datepicker/css/datepicker.css" rel="stylesheet">
+
+<script src="/Plantillas/lib/dialog/js/dialog.js"></script>
+<link href="/Plantillas/lib/dialog/css/dialog.css" rel="stylesheet">
+
+<script src="/Frontier/js/disenio.js" language="javascript"></script>
+<script src="/Nucleo/js/seguridad.js" language="javascript"></script>
+<script src="/Nucleo/js/general.js" language="javascript"></script>
+
+<script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js" language="javascript"></script>
+<link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+<script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+<link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+
+<!--<script src="../js/frmActividad.js"></script>-->
+<script type="text/javascript">
+	var ruta = localStorage.modulo + "js/frmTecnico.js";
+	vincularJs(ruta);
+</script>
+
+<div class="modal-header" id="encabezadoModal">
+    	<p class="tituloFormulario">Técnicos</p>
+        <nav id="navAcciones" class="navAcciones fa-2x frm">
+            <span id="imgGuardar" class="fa fa-check-circle" title="Guardar"></span>
+            <span id="accionesNuevas"></span>
+            <span id="imgCancelar" class="fa fa-times" title="Cancelar"></span>
+        </nav>           
+    </div>
+    <section id="secFormulario" class="secFormulario">
+        <iframe id="ifrInformacionBasicaPersona" name="ifrInformacionBasicaPersona" src="../../Seguridad/vista/frmInformacionBasicaPersona.html" frameborder="0" width="100%" height="370px" scrolling="no"></iframe>
+        <form id="frmPegador" name="frmPegador">
+            <table style="margin-left:2%">
+                <tr>
+                    <td>*Eps</td><td><select id="selEps" title=" Eps " style="margin-left: 155px;"></select></td>
+                </tr>
+                <tr>
+                    <td>*Arl</td><td><select id="selArl" title=" Arl " style="margin-left: 155px;"></select></td>
+                </tr>
+                <tr>
+                    <td>*Cargo</td><td><select id="selCargo" title=" Cargo " style="margin-left: 155px;"></select></td>
+                </tr>
+                <tr>
+                    <td>*Estado</td>
+                    <td>
+                        <select id="selEstado" title=" estado " style="margin-left: 155px;">
+                            <option value=""> -- Seleccione -- </option>
+                            <option value="true"> Activo </option>
+                            <option value="false"> Inactivo </option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </section>

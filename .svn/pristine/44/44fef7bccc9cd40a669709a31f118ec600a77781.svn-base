@@ -1,0 +1,25 @@
+<script type="text/javascript">
+	var ruta = localStorage.modulo + "js/fbeUsuarioTipoDocumento.js";
+	vincularJs(ruta);
+</script>
+<div class="panel-heading">
+    <span id="imgLista" class=""></span> Usuario - Tipo de Documento
+    <nav id="navAcciones" class="navAcciones fa-2x">
+        <span id="imgConsultar" class="fa fa-search imagenesTabla" title="Consultar"></span>        
+        <span id="imgNuevo" class="fa fa-plus imagenesTabla" title="Nuevo"></span>
+        <span class="fa fa-eraser" title="Limpiar" id="imgLimpiar"></span>
+        <span class="fa fa-angle-double-up" id="imgMostrarOcultar"  onClick="correrEfecto('imgMostrarOcultar')"></span>
+    </nav>
+</div>
+<div class="panel-body">
+    <form role="form" id="fbeFormulario" name="fbeFormulario">
+        <div id="divParametrosBusqueda">
+        <table>
+            <tr>
+                <td>*Usuario</td>
+                <td><select id="selUsuario" class="form-control large" title="el usuario"></select></td>
+            </tr>
+        </table>
+        </div>
+    </form>
+</div>

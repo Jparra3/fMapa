@@ -1,0 +1,64 @@
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detalle del Traslado</title>
+<script src="/Plantillas/lib/jquery/js/jquery-1.9.1.js"></script>
+<script src="/Plantillas/lib/bootstrap/js/bootstrap.js"></script>
+<script src="/Plantillas/lib/js/angular.min.js"></script>
+<script src="/Plantillas/lib/js/alerta.js"></script>
+
+<link href="/Plantillas/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="/Plantillas/lib/css/bootstrap.reponsive.css" rel="stylesheet">
+<script src="/Plantillas/lib/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+<script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+<link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+<script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+<link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+<script src="/Plantillas/lib/datepicker/js/bootstrap-datepicker.js"></script>
+<link href="/Plantillas/lib/datepicker/css/datepicker.css" rel="stylesheet">
+
+<link href="/Plantillas/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+<link href="/Plantillas/lib/css/bootstrap.ui.css" rel="stylesheet">
+<link href="/Plantillas/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+<link href="/Plantillas/lib/css/general.css" rel="stylesheet">
+
+<script src="/Seguridad/js/disenio.js" language="javascript"></script>
+<script src="/Plantillas/lib/dialog/js/dialog.js"></script>
+<script src="/Nucleo/js/seguridad.js" language="javascript"></script>
+<script src="/Nucleo/js/general.js" language="javascript"></script>
+
+<script type="text/javascript">
+    var ruta = localStorage.modulo + "js/frmDetalleTraslado.js";
+    vincularJs(ruta);
+</script>
+</head>
+
+<body>
+<div class="modal-header" id="encabezadoModal"> 
+    <p class="tituloFormulario">Detalle del Traslado</p>
+</div>
+<div class="modal-body" id="modalBody">
+    <div id="tabs">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                ORIGEN
+            </div>
+            <div class="panel-body" id="pnlInformacionMedidasList">
+                <table id="tblTrasladoSalida" class="table table-bordered table-striped consultaTabla" style="margin-top:1%"></table>
+            </div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                DESTINO
+            </div>
+            <div class="panel-body" id="pnlInformacionMedidasList">
+                <table id="tblTrasladoEntrada" class="table table-bordered table-striped consultaTabla" style="margin-top:3%"></table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

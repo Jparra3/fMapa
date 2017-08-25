@@ -1,0 +1,44 @@
+<script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+<link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+<script type="text/javascript">
+	var ruta = localStorage.modulo + "js/fbeMovimientoContable.js";
+	vincularJs(ruta);
+</script>
+<div class="panel-heading">
+    <span id="imgLista" class="fa fa-money"></span> Movimiento Contable
+    <nav id="navAcciones" class="navAcciones fa-2x">
+        <span id="imgConsultar" class="fa fa-search imagenesTabla" title="Consultar"></span>        
+        <span id="imgNuevo" class="fa fa-plus imagenesTabla" title="Nuevo"></span>
+        <span class="fa fa-eraser" title="Limpiar" id="imgLimpiar"></span>
+        <span class="fa fa-angle-double-up" id="imgMostrarOcultar"  onClick="correrEfecto('imgMostrarOcultar')"></span>
+    </nav>
+</div>
+<div class="panel-body">
+    <form role="form" id="fbeFormulario" name="fbeFormulario">
+        <div id="divParametrosBusqueda">
+        <table>
+            <tr>
+                <td>Fecha</td>
+                <td><input type="text" id="txtFechaInicio" name="txtFechaInicio" class="form-control medium" placeholder="Inicio" readonly="readonly"></td>
+                <td><input type="text" id="txtFechaFin" name="txtFechaFin" class="form-control medium" placeholder="Fin" readonly="readonly" style="margin-left: 10px;"></td>
+            </tr>
+            <tr>
+                <td>Tipo Documento</td>
+                <td>
+                    <select id="selTipoDocumento" name="selTipoDocumento" class="form-control large multiselect" multiple="multiple">
+                        <option value="">--Seleccione--</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>No. Tipo Documento</td>
+                <td colspan="2"><input type="text" id="txtNoTipoDocumento" name="txtNoTipoDocumento" class="form-control medium" placeholder="No. Tipo Documento"></td>
+            </tr>
+            <tr>
+                <td>Estado</td>
+                <td colspan="2"><select id="selEstado" class="form-control medium"></select></td>
+            </tr>
+        </table>
+        </div>
+    </form>
+</div>

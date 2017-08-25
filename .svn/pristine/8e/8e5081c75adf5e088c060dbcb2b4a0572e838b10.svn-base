@@ -1,0 +1,28 @@
+<script type="text/javascript">
+	var ruta = localStorage.modulo + "js/fbeEstadoCaja.js";
+	vincularJs(ruta);
+</script>
+<div class="panel-heading">
+    <span id="imgLista" class=""></span> Estado de caja
+    <nav id="navAcciones" class="navAcciones fa-2x">
+        <span id="imgConsultar" class="fa fa-search imagenesTabla" title="Consultar"></span>
+        <span class="fa fa-eraser" title="Limpiar" id="imgLimpiar"></span>
+        <span class="fa fa-angle-double-up" id="imgMostrarOcultar"  onClick="correrEfecto('imgMostrarOcultar')"></span>
+    </nav>
+</div>
+<div class="panel-body">
+    <form role="form" id="fbeFormulario" name="fbeFormulario">
+        <div id="divParametrosBusqueda">
+        <table>
+            <tr>
+                <td>*Usuario / Cajero</td>
+                <td><select id="selCajero" class="form-control large" title="el usuario/cajero"></select></td>
+            </tr>
+            <tr>
+                <td>*Fecha</td>
+                <td><input type="text" id="txtFecha" class="form-control medium" title="la fecha"></td>
+            </tr>
+        </table>
+        </div>
+    </form>
+</div>

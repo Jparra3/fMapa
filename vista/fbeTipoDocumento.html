@@ -1,0 +1,37 @@
+<script type="text/javascript">
+	var ruta = localStorage.modulo + "js/fbeTipoDocumento.js";
+	vincularJs(ruta);
+</script>
+<div class="panel-heading">
+    <span id="imgLista" class=""></span> Tipo de Documento
+    <nav id="navAcciones" class="navAcciones fa-2x">
+        <span id="imgConsultar" class="fa fa-search imagenesTabla" title="Consultar"></span>        
+        <span id="imgNuevo" class="fa fa-plus imagenesTabla" title="Nuevo"></span>
+        <span class="fa fa-eraser" title="Limpiar" id="imgLimpiar"></span>
+        <span class="fa fa-angle-double-up" id="imgMostrarOcultar"  onClick="correrEfecto('imgMostrarOcultar')"></span>
+    </nav>
+</div>
+<div class="panel-body">
+    <form role="form" id="fbeFormulario" name="fbeFormulario">
+        <div id="divParametrosBusqueda">
+        <table>
+            <tr>
+                <td>Código</td>
+                <td><input type="text" id="txtCodigo" name="txtCodigo" class="form-control medium"></td>
+            </tr>
+            <tr>
+                <td>Tipo Documento</td>
+                <td><input type="text" id="txtTipoDocumento" name="txtTipoDocumento" class="form-control large"></td>
+            </tr>
+            <tr>
+                <td>Naturaleza</td>
+                <td><select id="selNaturaleza" class="form-control medium"></select></td>
+            </tr>
+            <tr>
+                <td>Estado</td>
+                <td><select id="selEstado" class="form-control medium"></select></td>
+            </tr>
+        </table>
+        </div>
+    </form>
+</div>

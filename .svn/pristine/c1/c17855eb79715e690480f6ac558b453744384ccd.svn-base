@@ -1,0 +1,67 @@
+<script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+<link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+<script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+<link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+
+<script type="text/javascript">
+	var ruta = localStorage.modulo + "js/fbeReporteProductoInstalado.js";
+	vincularJs(ruta);
+</script>
+<div class="panel-heading">
+    <span id="imgLista" class=""></span> Reporte de servicios instalados
+    <nav id="navAcciones" class="navAcciones fa-2x">
+        <span id="imgConsultar" class="fa fa-search imagenesTabla" title="Consultar"></span>
+        <span class="fa fa-eraser" title="Limpiar" id="imgLimpiar"></span>
+        <span class="fa fa-download" title=" Exportar a Excel" id="imgExportar"></span>
+        <span class="fa fa-angle-double-up" id="imgMostrarOcultar"  onClick="correrEfecto('imgMostrarOcultar')"></span>
+    </nav>
+</div>
+<div class="panel-body">
+    <form role="form" id="fbeFormulario" name="fbeFormulario">
+        <div id="divParametrosBusqueda">
+            <table>
+                <tr>
+                    <td>Servicio</td>
+                    <td>
+                        <select id="selServicio" class="form-control large" multiple>
+                            <option value=""> --Seleccione-- </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cliente</td>
+                    <td><input type="text" id="txtCliente" class="form-control large" placeholder="Nit, nombres o apellidos" title=" el cliente "></td>
+                </tr>
+                <tr>
+                    <td> Vendedor o responsable </td>
+                    <td>
+                        <input type="text" id="txtVendedor" placeholder=" Nit, nombres o apellidos " title=" el responsable" class="form-control large">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tipo de servicio</td>
+                    <td>
+                        <select id="selTipoServicio" multiple>
+                            <option value=""> --Seleccion--</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fecha</td>
+                    <td>
+                        <input type="text" id="txtFechaInicial" name="txtFechaInicialInicio" class="form-control medium" placeholder="Inicio">
+                        <input type="text" id="txtFechaFinal" name="txtFechaFinalFin" class="form-control medium" placeholder="Fin">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Municipio</td>
+                    <td>
+                        <select id="selMunicipio" multiple>
+                            
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>

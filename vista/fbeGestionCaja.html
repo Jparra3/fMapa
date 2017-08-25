@@ -1,0 +1,57 @@
+
+<script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+<link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+<script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+<link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+
+<script type="text/javascript">
+	var ruta = localStorage.modulo + "js/fbeGestionCaja.js";
+	vincularJs(ruta);
+</script>
+<div class="panel-heading">
+    <span id="imgLista" class=""></span> Caja
+    <nav id="navAcciones" class="navAcciones fa-2x">
+        <span id="imgConsultar" class="fa fa-search imagenesTabla" title="Consultar"></span> 
+        <span id="imgNuevo" class="fa fa-plus imagenesTabla" title="Nuevo"></span> 
+        <span class="fa fa-eraser" title="Limpiar" id="imgLimpiar"></span>
+        <span class="fa fa-angle-double-up" id="imgMostrarOcultar"  onClick="correrEfecto('imgMostrarOcultar')"></span>
+    </nav>
+</div>
+<div class="panel-body">
+    <form role="form" id="fbeFormulario" name="fbeFormulario">
+        <div id="divParametrosBusqueda">
+            <table>
+                <tr>
+                    <td> Prefijo </td>
+                    <td><input type="text" id="txtPrefijo" name="txtPrefijo" class="form-control large" placeholder=" Prefijo "></td>
+                </tr>
+                <tr>
+                    <td>Dirección ip</td>
+                    <td><input type="text" id="txtDireccionIp" name="txtDireccionIp" class="form-control large" placeholder=" Dirección ip "></td>
+                </tr>
+<!--                <tr>
+                    <td>Usuario </td>
+                    <td><input type="text" id="txtUsuario" name="txtUsuario" class="form-control large" placeholder="Nombre usuario o usuario"></td>
+                </tr>-->
+<!--                <tr>
+                    <td>Formato factura impresion</td>
+                    <td>
+                        <select id="selFormatoImpresion" class="form-control medium" multiple>
+                            
+                        </select>
+                    </td>
+                </tr>-->
+                <tr>
+                    <td>Estado</td>
+                    <td colspan="2">
+                        <select id="selEstado" class="form-control medium">
+                            <option value=""> --Seleccione-- </option>
+                            <option value="true"> Activo </option>
+                            <option value="false"> Inactivo </option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>

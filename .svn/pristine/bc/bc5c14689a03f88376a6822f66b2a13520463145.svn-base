@@ -1,0 +1,35 @@
+<script type="text/javascript">
+	var ruta = localStorage.modulo + "js/fbeProductoCompuesto.js";
+	vincularJs(ruta);
+</script>
+<div class="panel-heading">
+    <span id="imgLista" class=""></span> Productos compuestos
+    <nav id="navAcciones" class="navAcciones fa-2x">
+        <span id="imgConsultar" class="fa fa-search imagenesTabla" title="Consultar"></span>        
+        <span id="imgNuevo" class="fa fa-plus imagenesTabla" title="Nuevo"></span>
+        <span class="fa fa-eraser" title="Limpiar" id="imgLimpiar"></span>
+        <span class="fa fa-angle-double-up" id="imgMostrarOcultar"  onClick="correrEfecto('imgMostrarOcultar')"></span>
+    </nav>
+</div>
+<div class="panel-body">
+    <form role="form" id="fbeFormulario" name="fbeFormulario">
+        <div id="divParametrosBusqueda">
+        <table>
+            <tr>
+                <td>Producto compuesto</td>
+                <td><input type="text" id="txtCodigoProductoCompuesto" class="form-control medium" title="el código del producto" placeholder="Código">
+                <td><input type="text" id="txtProductoCompuesto" class="form-control large" title="el producto" placeholder="Nombre"></td>
+            </tr>
+            <tr>
+                <td>Fecha</td>
+                <td><input type="text" id="txtFechaInicio" class="form-control medium" placeholder="Inicio" readonly="readonly"></td>
+                <td><input type="text" id="txtFechaFin" class="form-control medium" placeholder="Fin" readonly="readonly"></td>
+            </tr>
+            <tr>
+                <td>Estado</td>
+                <td><select id="selEstado" class="form-control medium"></select></td>
+            </tr>
+        </table>
+        </div>
+    </form>
+</div>

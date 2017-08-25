@@ -1,0 +1,75 @@
+<html lang="es">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">   
+
+<title>Tipo Documento</title>
+<script src="/Plantillas/lib/jquery/js/jquery-1.9.1.js"></script>
+<script src="/Plantillas/lib/bootstrap/js/bootstrap.js"></script>
+<script src="/Plantillas/lib/js/angular.min.js"></script>
+<script src="/Plantillas/lib/js/alerta.js"></script>
+
+<link href="/Plantillas/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="/Plantillas/lib/css/bootstrap.reponsive.css" rel="stylesheet">
+<script src="/Plantillas/lib/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+<link href="/Plantillas/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+<link href="/Plantillas/lib/css/bootstrap.ui.css" rel="stylesheet">
+<link href="/Plantillas/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+<link href="/Plantillas/lib/css/general.css" rel="stylesheet">
+
+<link href="/Plantillas/lib/cargando/cargando.css" rel="stylesheet">
+<script src="/Plantillas/lib/cargando/cargando.js" language="javascript"></script>
+
+<script src="/Seguridad/js/disenio.js" language="javascript"></script>
+<script src="/Plantillas/lib/dialog/js/dialog.js"></script>
+<script src="/Nucleo/js/seguridad.js" language="javascript"></script>
+<script src="/Nucleo/js/general.js" language="javascript"></script>
+
+<script type="text/javascript">
+    var ruta = localStorage.modulo + "js/frmTipoDocumento.js";
+    vincularJs(ruta);
+</script>
+</head>
+
+<body>
+<div class="modal-header" id="encabezadoModal"> 
+	<p class="tituloFormulario">Tipo Documento</p>
+        <nav id="navAcciones" class="navAcciones fa-2x frm">
+            <span id="imgGuardar" class="fa fa-check-circle" title="Guardar"></span>
+            <span id="imgCancelar" class="fa fa-times" title="Cancelar"></span>
+        </nav>             
+</div>
+<div class="modal-body" id="modalBody" style="overflow: hidden;">
+    
+    <form id="frmTipoDocumento" name="frmTipoDocumento">
+        <table class="formulario">
+            <tr>
+                <td>*Código</td>
+                <td><input type="text" id="txtCodigo" name="txtCodigo" class="form-control medium" title="el código" style="float: left;">
+                <span style="margin-left: 10px;" id="spnImagen"></span></td>
+            </tr>
+            <tr>
+                <td>*Tipo Documento</td>
+                <td><input type="text" id="txtTipoDocumento" name="txtTipoDocumento" class="form-control large" title="el tipo de documento"></td>
+            </tr>
+            <tr>
+                <td>*Naturaleza</td>
+                <td><select id="selNaturaleza" class="form-control medium"></select></td>
+            </tr>
+            <tr>
+                <td>*Oficina</td>
+                <td><select id="selOficina" class="form-control medium"></select></td>
+            </tr>
+            <tr>
+                <td>*Estado</td>
+                <td><select id="selEstado" class="form-control medium" title="el estado"></select></td>
+            </tr>
+        </table>
+    </form>
+            
+</div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<script type="text/javascript">
+	var ruta = localStorage.modulo + "js/fbeProducto.js";
+	vincularJs(ruta);
+</script>
+<div class="panel-heading">
+    <span id="imgLista" class=""></span> Productos
+    <nav id="navAcciones" class="navAcciones fa-2x">
+        <span id="imgConsultar" class="fa fa-search imagenesTabla" title="Consultar"></span>        
+        <span id="imgNuevo" class="fa fa-plus imagenesTabla" title="Nuevo"></span>
+        <span class="fa fa-eraser" title="Limpiar" id="imgLimpiar"></span>
+        <span class="fa fa-angle-double-up" id="imgMostrarOcultar"  onClick="correrEfecto('imgMostrarOcultar')"></span>
+    </nav>
+</div>
+<div class="panel-body">
+    <form role="form" id="fbeFormulario" name="fbeFormulario">
+        <div id="divParametrosBusqueda">
+        <table>
+            <tr>
+                <td>Código</td>
+                <td><input type="text" id="txtCodigoProducto" class="form-control medium" placeholder="Código" title=" el código"></td>
+            </tr>
+            <tr>
+                <td>Producto</td>
+                <td><input type="text" id="txtProducto" class="form-control large" placeholder="Producto" title=" el producto"></td>
+            </tr>
+            <tr>
+            	<td>Unidad de medida</td>
+                <td><select id="selUnidadMedida"  class="form-control medium" title=" la unidad de medida "></select></td>
+            </tr>
+            <tr>
+                <td>Linea del producto</td>
+                <td><input type="text" id="txtLinea" class="form-control large" placeholder="Linea producto" title=" linea del producto " readonly accesskey="V"></td>
+                <td><input style="margin-left:10px" type="button" id="btnBuscarLineas" name="btnBuscarLineas" class="btn btn-primary" value="..."></td>
+            </tr>
+            <tr>
+                <td>Producto Compuesto</td>
+                <td><select id="selProductoCompuesto" class="form-control small" title="si es un producto compuesto o no"></select></td>
+            </tr>
+            <tr>
+                <td>Estado</td>
+                <td><select id="selEstado" class="form-control medium"></select></td>
+            </tr>
+        </table>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="materialesProducto" language="groovy" pageWidth="238" pageHeight="615" whenNoDataType="AllSectionsNoDetail" columnWidth="238" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="220e5d85-f05d-460d-9d02-360d4488123b">
+	<property name="ireport.zoom" value="3.4522712143931167"/>
+	<property name="ireport.x" value="19"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idOrdenTrabajoCliente" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT DISTINCT
+	otp.cantidad
+	, p.producto as producto_compone
+	,otp.serial
+	,CASE
+		WHEN ot.tipo_orden_trabajo = 1 THEN 'INSTALACIÓN'
+                WHEN ot.tipo_orden_trabajo = 2 THEN 'MANTENIMIENTO'
+                WHEN ot.tipo_orden_trabajo = 3 THEN 'DESINSTALACIÓN'
+        END AS tipo
+FROM
+	publics_services.orden_trabajo_producto otp
+	INNER JOIN publics_services.orden_trabajo_cliente otc ON otc.id_orden_trabajo_cliente = otp.id_orden_trabajo_cliente
+	INNER JOIN publics_services.orden_trabajo ot ON ot.id_orden_trabajo = otc.id_orden_trabajo
+
+	INNER JOIN facturacion_inventario.producto p ON p.id_producto = otp.id_producto
+	INNER JOIN publics_services.orden_trabajo_producto otpc ON otpc.id_orden_trabajo_cliente = otc.id_orden_trabajo_cliente
+	INNER JOIN facturacion_inventario.producto prc ON prc.id_producto = otc.id_producto_composicion
+	INNER JOIN facturacion_inventario.unidad_medida um ON um.id_unidad_medida = p.id_unidad_medida
+	INNER JOIN publics_services.ordenador o ON o.id_ordenador = ot.id_ordenador
+	INNER JOIN general.municipio m ON m.id_municipio = ot.id_municipio
+	--LEFT OUTER JOIN publics_services.clie_serv_prod_canc otpcc ON otpcc.id_producto = otp.id_producto
+WHERE
+	otc.id_orden_trabajo_cliente =  $P{idOrdenTrabajoCliente}
+	--AND p.producto_serial = false
+	AND otp.estado = TRUE
+UNION ALL
+SELECT DISTINCT
+	otp.cantidad
+	, p.producto as producto_compone
+        , otp.serial
+        ,CASE
+		WHEN ot.tipo_orden_trabajo = 1 THEN 'INSTALACIÓN'
+                WHEN ot.tipo_orden_trabajo = 2 THEN 'MANTENIMIENTO'
+                WHEN ot.tipo_orden_trabajo = 3 THEN 'DESINSTALACIÓN'
+        END AS tipo
+FROM
+	publics_services.orden_trabajo_producto otp
+	INNER JOIN publics_services.esta_orde_trab_prod AS eotb ON eotb.id_esta_orde_trab_prod = otp.id_esta_orde_trab_prod
+	INNER JOIN facturacion_inventario.bodega AS b ON b.id_bodega = otp.id_bodega
+	INNER JOIN publics_services.orden_trabajo_cliente otc ON otc.id_orden_trabajo_cliente = otp.id_orden_trabajo_cliente
+	INNER JOIN facturacion_inventario.cliente AS c ON c.id_cliente = otc.id_cliente
+	INNER JOIN contabilidad.sucursal AS s ON s.id_sucursal = c.id_sucursal
+	INNER JOIN publics_services.orden_trabajo ot ON ot.id_orden_trabajo = otc.id_orden_trabajo
+	INNER JOIN facturacion_inventario.producto p ON p.id_producto = otp.id_producto
+	INNER JOIN publics_services.orden_trabajo_producto otpc ON otpc.id_orden_trabajo_cliente = otc.id_orden_trabajo_cliente
+	INNER JOIN facturacion_inventario.producto prc ON prc.id_producto = otc.id_producto_composicion
+	INNER JOIN facturacion_inventario.unidad_medida um ON um.id_unidad_medida = p.id_unidad_medida
+	INNER JOIN publics_services.ordenador o ON o.id_ordenador = ot.id_ordenador
+	INNER JOIN general.municipio m ON m.id_municipio = ot.id_municipio
+	INNER JOIN contabilidad.tercero t ON t.id_tercero = s.id_tercero
+	INNER JOIN publics_services.cliente_servicio AS cs ON cs.id_orden_trabajo_cliente = otc.id_orden_trabajo_cliente
+WHERE
+	otc.id_orden_trabajo_cliente NOT IN (SELECT id_orden_trabajo_cliente FROM publics_services.orden_trabajo_cliente WHERE id_orden_trabajo_cliente = $P{idOrdenTrabajoCliente})
+	AND otc.id_cliente IN (SELECT id_cliente FROM publics_services.orden_trabajo_cliente WHERE id_orden_trabajo_cliente = $P{idOrdenTrabajoCliente})
+	AND otp.estado = TRUE
+]]>
+	</queryString>
+	<field name="cantidad" class="java.math.BigDecimal"/>
+	<field name="producto_compone" class="java.lang.String"/>
+	<field name="serial" class="java.lang.String"/>
+	<field name="tipo" class="java.lang.String">
+		<fieldDescription><![CDATA[0 -> Único
+1 ->  Listado]]></fieldDescription>
+	</field>
+	<title>
+		<band height="13" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="91" y="0" width="33" height="13" forecolor="#000000" backcolor="#009999" uuid="3cdc1027-c891-4742-9488-9b7bdcfeedec"/>
+				<box>
+					<pen lineWidth="0.2" lineStyle="Solid"/>
+					<topPen lineWidth="0.2" lineStyle="Solid"/>
+					<leftPen lineWidth="0.2" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.2" lineStyle="Solid"/>
+					<rightPen lineWidth="0.2" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="91" height="13" backcolor="#009999" uuid="4f664dec-2a62-44f5-a36b-b7a84810c7f5"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="91" y="0" width="33" height="13" forecolor="#FFFFFF" backcolor="#009999" uuid="e2976684-5018-4de3-82f3-9ac5b8d00785"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="124" y="0" width="61" height="13" forecolor="#000000" backcolor="#009999" uuid="3fff78c2-f741-402d-a620-27816f84e6c5"/>
+				<box>
+					<pen lineWidth="0.2" lineStyle="Solid"/>
+					<topPen lineWidth="0.2" lineStyle="Solid"/>
+					<leftPen lineWidth="0.2" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.2" lineStyle="Solid"/>
+					<rightPen lineWidth="0.2" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="124" y="0" width="61" height="13" forecolor="#FFFFFF" backcolor="#009999" uuid="099859b5-9b34-4c30-abd9-699c43127097"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SERIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="0" y="0" width="91" height="13" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="0dfc2293-4709-4341-85a9-90e300c77027"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EQUIPO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="184" y="0" width="55" height="13" forecolor="#000000" backcolor="#009999" uuid="0511261a-b30b-4d75-b507-42659e8d7f05"/>
+				<box>
+					<pen lineWidth="0.2" lineStyle="Solid"/>
+					<topPen lineWidth="0.2" lineStyle="Solid"/>
+					<leftPen lineWidth="0.2" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.2" lineStyle="Solid"/>
+					<rightPen lineWidth="0.2" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="184" y="0" width="54" height="13" forecolor="#FFFFFF" backcolor="#009999" uuid="ed8b30ca-32ed-4fbd-981b-dbd6710df97c"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.0" lineStyle="Solid"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIPO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="91" height="17" uuid="0661a4bb-54b6-4b13-89d8-5667c7b857e4"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{producto_compone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="91" y="0" width="33" height="17" uuid="170a832c-34dc-4382-8721-afc464cb3cf9"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="124" y="0" width="61" height="17" uuid="f00887be-3e9d-4ca5-b918-558d01f050fe"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{serial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="185" y="0" width="54" height="17" uuid="ad88a60f-5cfa-4d5a-855e-6397b258bcfd"/>
+				<box leftPadding="2">
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

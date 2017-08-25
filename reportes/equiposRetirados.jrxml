@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="equiposRetirados" language="groovy" pageWidth="246" pageHeight="802" columnWidth="246" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="edb2dc1f-4e2a-4e81-9c8c-ea2585b4a076">
+	<property name="ireport.zoom" value="1.3310000000000015"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idOrdenTrabajoCliente" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT DISTINCT
+	otp.id_orden_trabajo_producto
+	, otp.id_orden_trabajo_cliente
+	, otp.id_producto
+	, otp.nota
+	, otp.secuencia
+	, otp.cantidad
+	, COALESCE(otp.serial,'') as serial
+	, otp.estado
+	, p.producto_serial
+	, p.codigo as codigo_producto_compone
+	, p.producto as producto_compone
+	, otc.id_producto_composicion
+	, prc.codigo as codigo_producto_composicion
+	, prc.producto as producto_composicion
+	, COUNT(otpc.id_producto) as cantidad_producto_compone
+	, otpcc.id_producto as id_producto_cancelado
+	, otpcc.cantidad_devuelta
+	, um.unidad_medida
+FROM
+	publics_services.orden_trabajo_producto otp
+	INNER JOIN publics_services.orden_trabajo_cliente otc ON otc.id_orden_trabajo_cliente = otp.id_orden_trabajo_cliente
+	INNER JOIN publics_services.orden_trabajo ot ON ot.id_orden_trabajo = otc.id_orden_trabajo
+	INNER JOIN facturacion_inventario.producto p ON p.id_producto = otp.id_producto
+	INNER JOIN publics_services.orden_trabajo_producto otpc ON otpc.id_orden_trabajo_cliente = otc.id_orden_trabajo_cliente
+	INNER JOIN facturacion_inventario.producto prc ON prc.id_producto = otc.id_producto_composicion
+	INNER JOIN facturacion_inventario.unidad_medida um ON um.id_unidad_medida = p.id_unidad_medida
+	INNER JOIN publics_services.ordenador o ON o.id_ordenador = ot.id_ordenador
+	INNER JOIN general.municipio m ON m.id_municipio = ot.id_municipio
+	LEFT OUTER JOIN publics_services.clie_serv_prod_canc otpcc ON otpcc.id_producto = otp.id_producto
+WHERE
+	otc.id_orden_trabajo_cliente = $P{idOrdenTrabajoCliente}
+	AND p.producto_serial = true
+GROUP BY
+	otp.id_orden_trabajo_producto, otp.id_orden_trabajo_cliente, otp.id_producto
+	, otp.nota, otp.secuencia, otp.cantidad, otp.serial, otp.estado
+	, p.codigo, p.producto, otc.id_producto_composicion, prc.codigo, prc.producto
+	, otpcc.id_producto, otpcc.cantidad_devuelta, otp.id_orden_trabajo_cliente
+	, otp.id_orden_trabajo_producto, p.producto_serial, um.unidad_medida
+ORDER BY otp.id_orden_trabajo_cliente]]>
+	</queryString>
+	<field name="id_orden_trabajo_producto" class="java.lang.Long"/>
+	<field name="id_orden_trabajo_cliente" class="java.lang.Integer"/>
+	<field name="id_producto" class="java.lang.Integer"/>
+	<field name="nota" class="java.lang.String"/>
+	<field name="secuencia" class="java.lang.Integer"/>
+	<field name="cantidad" class="java.math.BigDecimal"/>
+	<field name="serial" class="java.lang.String"/>
+	<field name="estado" class="java.lang.Boolean"/>
+	<field name="producto_serial" class="java.lang.Boolean"/>
+	<field name="codigo_producto_compone" class="java.lang.String"/>
+	<field name="producto_compone" class="java.lang.String"/>
+	<field name="id_producto_composicion" class="java.lang.Integer"/>
+	<field name="codigo_producto_composicion" class="java.lang.String"/>
+	<field name="producto_composicion" class="java.lang.String"/>
+	<field name="cantidad_producto_compone" class="java.lang.Long"/>
+	<field name="id_producto_cancelado" class="java.lang.Integer"/>
+	<field name="cantidad_devuelta" class="java.math.BigDecimal"/>
+	<field name="unidad_medida" class="java.lang.String"/>
+	<title>
+		<band height="27" splitType="Stretch"/>
+	</title>
+	<detail>
+		<band height="16" splitType="Stretch"/>
+	</detail>
+</jasperReport>

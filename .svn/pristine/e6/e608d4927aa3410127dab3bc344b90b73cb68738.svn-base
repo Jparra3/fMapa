@@ -1,0 +1,226 @@
+<html lang="es">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+
+        <title>Cliente</title>
+        <script src="/Plantillas/lib/jquery/js/jquery-1.9.1.js"></script>
+        <script src="/Plantillas/lib/bootstrap/js/bootstrap.js"></script>
+        <script src="/Plantillas/lib/js/angular.min.js"></script>
+        <script src="/Plantillas/lib/js/alerta.js"></script>
+
+        <link href="/Plantillas/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="/Plantillas/lib/css/bootstrap.reponsive.css" rel="stylesheet">
+        <script src="/Plantillas/lib/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+        <link href="/Plantillas/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+        <link href="/Plantillas/lib/css/bootstrap.ui.css" rel="stylesheet">
+        <link href="/Plantillas/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+        <link href="/Plantillas/lib/css/general.css" rel="stylesheet">
+
+        <link href="/Plantillas/lib/cargando/cargando.css" rel="stylesheet">
+        <script src="/Plantillas/lib/cargando/cargando.js" language="javascript"></script>
+
+        <script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+        <link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+
+        <script src="/Plantillas/lib/datepicker/js/bootstrap-datepicker.js"></script>
+        <link href="/Plantillas/lib/datepicker/css/datepicker.css" rel="stylesheet">
+
+        <script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+        <link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+
+        <script src="/Seguridad/js/disenio.js" language="javascript"></script>
+        <script src="/Plantillas/lib/dialog/js/dialog.js"></script>
+        <script src="/Nucleo/js/seguridad.js" language="javascript"></script>
+        <script src="/Nucleo/js/general.js" language="javascript"></script>
+
+        <script type="text/javascript">
+            var ruta = localStorage.modulo + "js/frmCliente.js";
+            vincularJs(ruta);
+        </script>
+    </head>
+
+    <body>
+        <div class="modal-header" id="encabezadoModal"> 
+            <p class="tituloFormulario"> Cliente </p>
+            <nav id="navAcciones" class="navAcciones fa-2x frm">
+                <span id="imgGuardar" class="fa fa-check-circle" title="Guardar"></span>
+                <span id="imgCerrar" class="fa fa-times" title="Cancelar"></span>
+            </nav>             
+        </div>
+        <div class="modal-body" id="modalBody">
+            <div class="container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tabTercero"> Información del tercero </a></li>
+                    <li><a data-toggle="tab" href="#home"> Dirección </a></li>
+                    <li><a data-toggle="tab" href="#menu1"> Celular/Teléfono </a></li>
+                    <li><a data-toggle="tab" href="#menu2"> Email </a></li>
+                    <li id="liSucursal"><a data-toggle="tab" href="#menu3"> Sucursal </a></li>
+                    <li id="liProductoInstalado"><a data-toggle="tab" href="#menu5"> Productos instalados </a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="tabTercero" class="tab-pane fade in active">
+                        <form id="frmCliente" name="frmCliente">
+                            <table class="formulario">
+                                <tr>
+                                    <td>*Nit</td>
+                                    <td><input type="text" id="txtNumeroIdentificacion" name="txtNumeroIdentificacion" class="form-control medium" title="el nit" placeholder=" Nit " style="text-align: right"></td>
+                                </tr>
+                                <tr>
+                                    <td>*Tercero</td>
+                                    <td><input type="text" id="txtTercero"  name="txtPrimerNombre" class="form-control large" title=" tercero " placeholder=" Tercero "></td>
+                                </tr>
+                                <tr>
+                                    <td>Dígito de verificación </td>
+                                    <td><input type="text" id="txtDigitoVerificacion"  name="txtPrimerNombre" class="form-control medium" title=" dígito verificación " placeholder=" dígito verificación " accesskey="V"></td>
+                                </tr>
+                                <tr>
+                                    <td>*Tipo Régimen</td>
+                                    <td><select id="selTipoRegimen" class="form-control medium" title=" tipo régimen "></select></td>
+                                </tr>    
+                                <tr>
+                                    <td>*Empresa</td>
+                                    <td><select id="selEmpresa" class="form-control medium" title=" la empresa "></select></td>
+                                </tr>    
+                                <tr>
+                                    <td>*Estado</td>
+                                    <td><select id="selEstado" class="form-control medium" title="el estado" disabled></select></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                    <div id="home" class="tab-pane fade">
+                        <form id="frmDireccionTercero" name="frmDireccionTercero">
+                            <table class="formulario">
+                                <tr>
+                                    <td>Municipio</td><td><select id="selMunicipio" name="selMunicipio" class="form-control medium" title=" el municipio"></select></td>
+                                </tr>
+                                <tr>
+                                    <td>Dirección</td><td><input type="text" name="txtDireccion" title=" la  dirección" id="txtDireccion" class="form-control large"></td>
+                                </tr>
+                                <tr>
+                                    <td>Estado</td><td><select id="selEstadoDireccion" name="selEstadoDireccion" class="form-control medium" title="el estado de la dirección" disabled></select></td>
+                                    <td><span id="imgAdicionarDireccion" class="fa fa-plus imagenesTabla" title="Nuevo"></span></td>
+                                </tr>
+                            </table>
+                            <div class="table-responsive">
+                                <table id="consultaTablaDireccion" class="consultaTabla table table-bordered table-striped" style="margin-top:1%"></table>     
+                            </div>
+                        </form> 
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+                        <form id="frmTelefonoTercero" name="frmTelefonoTercero">
+                            <table class="formulario">
+                                <tr>
+                                    <td>Contacto</td><td><input type="text" name="txtContacto" title=" el contacto" id="txtContacto" class="form-control large"></td>
+                                <tr>      
+                                <tr>
+                                    <td>Teléfono</td><td><input type="text" name="txtTelefono" title=" el teléfono" id="txtTelefono" class="form-control medium"></td>
+                                <tr>
+                                <tr>
+                                    <td>Tipo de teléfono</td><td><select id="selTipoTelefono" name="selTipoTelefono" title="el tipo de teléfono" class="form-control medium"></select></td>
+                                </tr>
+                                <tr>
+                                    <td>Estado</td><td><select id="selEstadoTelefono" name="selEstadoTelefono" class="form-control medium" title="el estado del teléfono" disabled></select></td>
+                                    <td><span id="imgAdicionarTelefono" class="fa fa-plus imagenesTabla" title="Nuevo"></span></td>
+                                <tr>
+                            </table>
+                            <div class="table-responsive">
+                                <table id="consultaTablaTelefono" class="consultaTabla table table-bordered table-striped" style="margin-top:1%"></table>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="menu2" class="tab-pane fade">
+                        <form id="frmEmailTercero" name="frmEmailTercero">
+                            <table class="formulario">
+                                <tr>
+                                    <td>Email</td><td><input type="text" id="txtEmail" name="txtEmail" class="form-control large" title=" el correo electrónico" maxlength="35"></td>
+                                </tr>
+                                <tr>
+                                    <td>Estado</td><td><select id="selEstadoEmail" name="selEstadoEmail" title="el estado del email" class="form-control medium" disabled></select></td>
+                                    <td><span id="imgAdicionarEmail" class="fa fa-plus imagenesTabla" title="Nuevo"></span></td>
+                                </tr>                              
+                            </table>
+                            <div class="table-responsive">
+                                <table id="consultaTablaEmail" class="consultaTabla table table-bordered table-striped" style="margin-top:1%"></table>
+                            </div>
+                        </form> 
+                    </div>
+                    <div id="menu3" class="tab-pane fade">
+                        <form id="frmInformacionSucursal" name="frmInformacionSucursal">                            
+                            <table class="formulario">
+                                <tr>
+                                    <td>Sucursal</td>
+                                    <td><input type="text" id="txtSucursal" name="txtSucursal" class="form-control large" title=" la sucursal "></td>
+
+                                </tr>
+                                <tr>
+                                    <td>Dirección</td>
+                                    <td>
+                                        <select id="selSucursalDireccion" name="selSucursalDireccion" class="form-control large" title=" la direcciòn">	
+                                            <option value="">--Seleccione--</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Teléfono</td>
+                                    <td>
+                                        <select id="selSucursalTelefono" name="selSucursalTelefono" class="form-control large" title=" el telèfono ">	
+                                            <option value="">--Seleccione--</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>
+                                        <select id="selSucursalEmail" name="selSucursalEmail" class="form-control large" title=" el email ">	
+                                            <option value="">--Seleccione--</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Zona</td>
+                                    <td>
+                                        <select id="selZona" class="form-control large" title=" la zona ">	
+                                            <option value="">--Seleccione--</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr style="display: none;">
+                                    <td> Longitud </td>
+                                    <td><input type="hidden" id="txtLongitud" class="form-control medium" value="0"  accesskey="V"></td>
+
+                                </tr>
+                                <tr style="display: none;">
+                                    <td> Latitud </td>
+                                    <td><input type="hidden" id="txtLatitud" class="form-control medium" value="0" accesskey="V"></td>
+
+                                </tr>
+                                <tr>
+                                    <td>Estado</td>
+                                    <td>
+                                        <select id="selSucursalEstado" name="selSucursalEmail" class="form-control large" title=" el email " disabled>	
+                                            <option value="">--Seleccione--</option>
+                                        </select>
+                                    </td>
+                                    <td><span id="imgAdicionarSucursal" class="fa fa-plus imagenesTabla" title="Nuevo"></span></td>
+                                </tr>
+                            </table>
+                            <br />
+                            <table id="tblSucursalTercero" class="consultaTabla table table-bordered table-striped"></table>
+                        </form>
+                    </div>
+                    <div id="menu5" class="tab-pane fade">
+                        <div class="table-responsive">
+                            <table id="tblProductoInstalado" class="consultaTabla table table-bordered table-striped" style="margin-top:1%"></table>     
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

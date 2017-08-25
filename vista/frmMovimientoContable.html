@@ -1,0 +1,112 @@
+<html lang="es">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">   
+
+<title>Crédito</title>
+<script src="/Plantillas/lib/jquery/js/jquery-1.9.1.js"></script>
+<script src="/Plantillas/lib/bootstrap/js/bootstrap.js"></script>
+<script src="/Plantillas/lib/js/angular.min.js"></script>
+<script src="/Plantillas/lib/js/alerta.js"></script>
+
+<link href="/Plantillas/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="/Plantillas/lib/css/bootstrap.reponsive.css" rel="stylesheet">
+<script src="/Plantillas/lib/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+<link href="/Plantillas/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+<link href="/Plantillas/lib/css/bootstrap.ui.css" rel="stylesheet">
+<link href="/Plantillas/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+<link href="/Plantillas/lib/css/general.css" rel="stylesheet">
+
+<script src="/Plantillas/lib/datepicker/js/bootstrap-datepicker.js"></script>
+<link href="/Plantillas/lib/datepicker/css/datepicker.css" rel="stylesheet">
+
+<script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+<link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+
+<script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+<link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+
+<link href="/Plantillas/lib/cargando/cargando.css" rel="stylesheet">
+<script src="/Plantillas/lib/cargando/cargando.js" language="javascript"></script>
+
+<script src="/Seguridad/js/disenio.js" language="javascript"></script>
+<script src="/Plantillas/lib/dialog/js/dialog.js"></script>
+<script src="/Nucleo/js/seguridad.js" language="javascript"></script>
+<script src="/Nucleo/js/general.js" language="javascript"></script>
+
+<script type="text/javascript">
+    var ruta = localStorage.modulo + "js/frmMovimientoContable.js";
+    vincularJs(ruta);
+</script>
+</head>
+
+<body>
+<div class="modal-header" id="encabezadoModal"> 
+	<p class="tituloFormulario">Movimiento Contable</p>
+        <nav id="navAcciones" class="navAcciones fa-2x frm">
+            <span id="imgGuardar" class="fa fa-check-circle" title="Guardar"></span>
+            <span id="imgCancelar" class="fa fa-times" title="Cancelar"></span>
+        </nav>             
+</div>
+<div class="modal-body" id="modalBody" style="overflow: hidden;">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Información Básica</div>
+        <div class="panel-body">
+            <form id="frmMovimientoContable" name="frmMovimientoContable">
+                <table>
+                    <tr>
+                        <td>*Tipo documento</td>
+                        <td><select id="selTipoDocumento" title="el tipo de documento"></select></td>
+                    </tr>
+                    <tr>
+                        <td>*Número tipo documento</td>
+                        <td><input type="text" id="txtNumeroTipoDocumento" class="form-control small" readonly="readonly"></td>
+                    </tr>
+                    <tr>
+                        <td>*Fecha</td>
+                        <td><input id="txtFecha" title="la fecha" class="form-control medium"></td>
+                    </tr>
+                    <tr>
+                        <td>Nota</td>
+                        <td><textarea id="txaNota" class="form-control" accesskey="V" style="width: 300px;height: 100px;"></textarea></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        
+        <div class="panel-heading">Detalle</div>
+        
+        <div class="panel-body">
+            <form>
+                <table>
+                    <input id="hidIdMovimientoDetalle" type="hidden">
+                    <tr>
+                        <td>*Tercero</td>
+                        <td><input id="txtNit" class="form-control medium" placeholder="Nit"></td>
+                        <td><input id="txtNombre" class="form-control large" placeholder="Nombre"></td>
+                    </tr>
+                    <tr>
+                        <td>*Valor</td>
+                        <td colspan="2"><input id="txtValor" class="form-control medium"></td>
+                        <td><span id="imgNuevoDetalle" class="fa fa-plus-circle fa-3x" title="Nuevo" style="cursor: pointer;"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Nota</td>
+                        <td colspan="2"><textarea id="txaNotaDetalle" class="form-control" accesskey="V" style="width: 300px;height: 100px;"></textarea></td>
+                    </tr>
+                </table>
+            </form>
+            
+            <div id="divListadoDetalle" class="table-responsive"></div>
+            
+        </div>
+    </div>
+</div>
+</body>
+</html>

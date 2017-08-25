@@ -1,0 +1,43 @@
+<script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+<link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+<script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+<link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+<script type="text/javascript">
+    var ruta = localStorage.modulo + "js/frmReporteCaja.js";
+    vincularJs(ruta);
+</script>
+<div class="panel-heading">
+    Reporte caja
+    <nav id="navAcciones" class="navAcciones fa-2x">
+        <span id="imgConsultar" class="fa fa-search imagenesTabla" title="Consultar"></span>
+        <span id="imgDescargar" class="fa fa-download" title="Generar reporte"></span>
+        <span id="imgLimpiar" class="fa fa-eraser imagenesTabla" title="Limpiar campos"></span>
+    </nav>
+</div>
+
+<div class="panel-body">
+    <table>
+        <tr>
+            <td> Fecha </td>
+            <td>
+                Inicial <input type="text" id="txtFechaInicial" placeholder=" Fecha inicial " class="form-control medium">
+            </td>
+            <td>
+                Final <input type="text" id="txtFechaFinal" placeholder=" Fecha final " class="form-control medium">
+            </td>
+        </tr>
+        <tr>
+            <td> Concepto </td>
+            <td colspan="2">
+                <select id="selConcepto" multiple>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td> Asociado </td>
+            <td colspan="2">
+                <input type="text" id="txtCliente" placeholder=" Nombres, apellidos o # documento " class="form-control large">
+            </td>
+        </tr>
+    </table>
+</div>  

@@ -1,0 +1,45 @@
+<script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+<link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+<script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+<link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+
+<script type="text/javascript">
+	var ruta = localStorage.modulo + "js/fbeFacturacion.js";
+	vincularJs(ruta);
+</script>
+<div class="panel-heading">
+    <span id="imgLista" class=""></span> Pagos
+    <nav id="navAcciones" class="navAcciones fa-2x">
+        <span id="imgConsultar" class="fa fa-search imagenesTabla" title="Consultar"></span>        
+        <span class="fa fa-eraser" title="Limpiar" id="imgLimpiar"></span>
+        <span class="fa fa-angle-double-up" id="imgMostrarOcultar"  onClick="correrEfecto('imgMostrarOcultar')"></span>
+    </nav>
+</div>
+<div class="panel-body">
+    <form role="form" id="fbeFormulario" name="fbeFormulario">
+        <div id="divParametrosBusqueda">
+            <table>
+                <tr>
+                    <td>Cliente</td>
+                    <td><input type="text" id="txtNit" name="txtNit" class="form-control medium" placeholder="Nit"></td>
+                    <td><input type="text" id="txtCliente" name="txtCliente" class="form-control large" placeholder="Nombre"></td>
+                </tr>
+                <tr>
+                    <td>Fecha Inicial</td>
+                    <td><input type="text" id="txtFechaInicialInicio" name="txtFechaInicialInicio" class="form-control medium" placeholder="Inicio"></td>
+                    <td><input type="text" id="txtFechaInicialFin" name="txtFechaInicialFin" class="form-control medium" placeholder="Fin"></td>
+                </tr>
+                <tr>
+                    <td>Fecha Final</td>
+                    <td><input type="text" id="txtFechaFinalInicio" name="txtFechaFinalInicio" class="form-control medium" placeholder="Inicio"></td>
+                    <td><input type="text" id="txtFechaFinalFin" name="txtFechaFinalFin" class="form-control medium" placeholder="Fin"></td>
+                </tr>
+                <tr>
+                <tr>
+                    <td>Estado</td>
+                    <td colspan="2"><select id="selEstadoFactura" class="form-control medium" multiple></select></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>

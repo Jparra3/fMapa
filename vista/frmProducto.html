@@ -1,0 +1,271 @@
+<html lang="es">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">   
+
+<title>Productos</title>
+<script src="/Plantillas/lib/jquery/js/jquery-1.9.1.js"></script>
+<script src="/Plantillas/lib/bootstrap/js/bootstrap.js"></script>
+<script src="/Plantillas/lib/js/angular.min.js"></script>
+<script src="/Plantillas/lib/js/alerta.js"></script>
+
+<link href="/Plantillas/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="/Plantillas/lib/css/bootstrap.reponsive.css" rel="stylesheet">
+<script src="/Plantillas/lib/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+<link href="/Plantillas/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+<link href="/Plantillas/lib/css/bootstrap.ui.css" rel="stylesheet">
+<link href="/Plantillas/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+<link href="/Plantillas/lib/css/general.css" rel="stylesheet">
+
+<link href="/Plantillas/lib/cargando/cargando.css" rel="stylesheet">
+<script src="/Plantillas/lib/cargando/cargando.js" language="javascript"></script>
+
+<script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+<link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+
+<script src="/Seguridad/js/disenio.js" language="javascript"></script>
+<script src="/Plantillas/lib/dialog/js/dialog.js"></script>
+<script src="/Nucleo/js/seguridad.js" language="javascript"></script>
+<script src="/Nucleo/js/general.js" language="javascript"></script>
+
+<script type="text/javascript">
+    var ruta = localStorage.modulo + "js/frmProducto.js";
+    vincularJs(ruta);
+</script>
+</head>
+
+<body>
+<div class="modal-header" id="encabezadoModal"> 
+	<p class="tituloFormulario">Productos</p>
+        <nav id="navAcciones" class="navAcciones fa-2x frm">
+            <span id="imgGuardar" class="fa fa-check-circle" title="Guardar"></span>
+            <span id="imgCancelar" class="fa fa-times" title="Cancelar"></span>
+        </nav>             
+</div>
+<div class="modal-body" id="modalBody" style="overflow: hidden;">
+    
+    <div role="tabpanel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist" id="listTabProductos">
+            <li role="presentation"><a id="linkProductos" href="#tabProducto" aria-controls="tabProducto" role="tab" data-toggle="tab">Info. Producto</a></li>
+            <li role="presentation"><a id="linkProductosCompuestos" href="#tabProductoCompuesto" aria-controls="tabProductoCompuesto" role="tab" data-toggle="tab">Productos que lo componen</a></li>
+            <li role="presentation"><a id="linkProductosImpuestos" href="#tabImpuestos" aria-controls="tabProductoCompuesto" role="tab" data-toggle="tab">Impuestos</a></li>
+            <li role="presentation"><a id="linkCodigosBarra" href="#tabCodigosBarras" aria-controls="tabCodigosBarras" role="tab" data-toggle="tab">Códigos de barra</a></li>
+            <li role="presentation"><a id="linkBodegas" href="#tabBodegas" aria-controls="tabBodegas" role="tab" data-toggle="tab">Bodegas</a></li>
+        </ul>
+    
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="tabProducto">
+                <form id="frmProducto" name="frmProducto">
+                    
+                    <table class="formulario">
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td>Foto</td>
+                                        <td><input type="file" id="fleImagen" name="fleImagen" style="width: 300px;margin-right: 10px;" accesskey="V" accept="image/jpeg,image/png"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td>*Código</td>
+                                        <td><input type="text" id="txtCodigoProducto" class="form-control medium" title="el código del producto" style="float: left;">
+                                        <span style="margin-left: 10px;" id="spnImagen"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>*Producto</td>
+                                        <td><input type="text" id="txtProducto" class="form-control large" title="el producto" maxlength="100"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>*Tangible</td>
+                                        <td><select id="selTangible" class="form-control small" title="si es tangible o no"></select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>*Unidad Medida</td>
+                                        <td><select id="selUnidadMedida" class="form-control medium" title="la unidad de medida"></select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>*Empr. Unidad Negocio</td>
+                                        <td><select id="selEmpresaUnidadNegocio" class="form-control large" title="la empresa unidad de negocio"></select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>*Linea del producto</td>
+                                        <td><input type="text" id="txtLinea" name="txtLinea" class="form-control large" placeholder="Linea producto" title=" linea del producto " readonly accesskey="V"></td>
+                                        <td><input type="button" id="btnBuscarLineas" name="btnBuscarLineas" class="btn btn-primary" value="..."></td>
+                                    </tr>
+                                    <tr>
+                                        <td>*Maneja Inventario</td>
+                                        <td><select id="selManejaInventario" class="form-control small" title="si maneja inventario"></select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>*Valor Compra</td>
+                                        <td><input type="text" id="txtValorEntrada" class="form-control medium" title="el costo">
+                                        <span id="spnTieneImpuestoValorEntrada"></span></td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td>*Valor Venta</td>
+                                        <td><input type="text" id="txtValorSalida" class="form-control medium" title="el valor">
+                                        <span id="spnTieneImpuestoValorSalida"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>*Producto o Servicio</td>
+                                        <td><select id="selProductoServicio" class="form-control medium" title="si es producto o servicio"></select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>*Tiene Serial</td>
+                                        <td><select id="selProductoSerial" class="form-control small" title="si tiene serial o no"></select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>*Producto Compuesto</td>
+                                        <td><select id="selProductoCompuesto" class="form-control small" title="si es un producto compuesto o no"></select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Máximo</td>
+                                        <td><input type="text" id="txtMaximoProducto" class="form-control small" title="el máximo" accesskey="V"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mínimo</td>
+                                        <td><input type="text" id="txtMinimoProducto" class="form-control small" title="el mínimo" accesskey="V"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>*Estado</td>
+                                        <td><select id="selEstado" class="form-control medium" title="el estado"></select></td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td>
+                                <div id="divImagen"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            
+            <div role="tabpanel" class="tab-pane" id="tabProductoCompuesto">
+                <div class="panel panel-primary" style="width: 60%;">
+                    <div class="panel-heading">
+                        <nav id="navAcciones" class="navAcciones fa-2x">
+                            <span id="imgNuevoProducto" class="fa fa-plus imagenesTabla" title="Nuevo" style="cursor: pointer; margin-left: 15px;"></span>
+                        </nav>
+                        Productos que lo componen
+                    </div>
+                    <div class="panel-body" id="pnlInformacionMedidasList">
+                        <form id="frmProductoCompuesto" name="frmProductoCompuesto">
+                            <table>
+                                <tr>
+                                    <input type="hidden" id="hidIdProductoComposicion">
+                                    <td>*Producto</td>
+                                    <td><input type="text" id="txtCodigoProductoCompuesto" class="form-control medium" placeholder="Código" title="el código del producto"></td>
+                                    <td><input type="text" id="txtProductoCompuesto" class="form-control large" placeholder="Nombre" title="el nombre del producto"></td>
+                                </tr>
+                                <tr>
+                                    <td>*Unidad Medida</td>
+                                    <td colspan="2"><input type="text" id="txtUnidadMedidaCompuesto" class="form-control medium" title="la unidad de medida" accesskey="V" readonly="readonly"></td>
+                                </tr>
+                                <tr>
+                                    <td>*Cantidad</td>
+                                    <td colspan="2"><input type="text" id="txtCantidadProductoCompuesto" class="form-control small" title="la cantidad"></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div> 
+                
+                <div id="divListadoProductos"></div>
+                
+            </div>
+            
+            <div role="tabpanel" class="tab-pane" id="tabImpuestos">
+                <div class="panel panel-primary" style="width: 60%;">
+                    <div class="panel-heading">
+                        <nav id="navAcciones" class="navAcciones fa-2x">
+                            <span id="imgNuevoImpuesto" class="fa fa-plus imagenesTabla" title="Nuevo" style="cursor: pointer; margin-left: 15px;"></span>
+                        </nav>
+                        Impuestos
+                    </div>
+                    <div class="panel-body">
+                        <form id="frmProductoImpuesto" name="frmProductoImpuesto">
+                            <table>
+                                <tr>
+                                    <td>*Impuesto</td>
+                                    <td><select id="selImpuesto" class="form-control medium" title="el impuesto"></select></td>
+                                    <td><span id="spnTipoImpuesto" style="margin-left: 10px;"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>*Valor</td>
+                                    <td><input type="text" id="txtValorImpuesto" class="form-control medium" title="el valor del impuesto"></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div> 
+                
+                <div id="divListadoImpuestos"></div>
+                
+            </div>
+            
+            <div role="tabpanel" class="tab-pane" id="tabCodigosBarras">
+                <div class="panel panel-primary" style="width: 60%;">
+                    <div class="panel-heading">
+                        <nav id="navAcciones" class="navAcciones fa-2x">
+                            <span id="imgNuevoCodigoBarra" class="fa fa-plus imagenesTabla" title="Nuevo" style="cursor: pointer; margin-left: 15px;"></span>
+                        </nav>
+                        Códigos de barra
+                    </div>
+                    <div class="panel-body">
+                        <form id="frmCodigosBarra" name="frmCodigosBarra">
+                            <table>
+                                <tr>
+                                    <input type="hidden" id="hidIdProductoCodigoBarras">
+                                    <td>*Código</td>
+                                    <td><input type="text" id="txtCodigoBarra" class="form-control large" style="width: 400px;" title="el código de barra"></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div> 
+                
+                <div id="divListadoCodigosBarra"></div>
+                
+            </div>
+            
+            <div role="tabpanel" class="tab-pane" id="tabBodegas">
+                <div class="panel panel-primary" style="width: 60%;">
+                    <div class="panel-heading">
+                        <nav id="navAcciones" class="navAcciones fa-2x">
+                            <span id="imgNuevaBodega" class="fa fa-plus imagenesTabla" title="Nuevo" style="cursor: pointer; margin-left: 15px;"></span>
+                        </nav>
+                        Bodegas
+                    </div>
+                    <div class="panel-body">
+                        <form id="frmBodegas" name="frmBodegas">
+                            <table>
+                                <tr>
+                                    <td>*Bodega</td>
+                                    <td><select id="selBodega" class="form-control medium" title="la bodega"></select></td>
+                                </tr>
+                                <tr>
+                                    <td>*Máximo</td>
+                                    <td><input type="text" id="txtMaximo" class="form-control small" title="el máximo de productos para esa bodega"></td>
+                                </tr>
+                                <tr>
+                                    <td>*Mínimo</td>
+                                    <td><input type="text" id="txtMinimo" class="form-control small" title="el mínimo de productos para esa bodega"></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div> 
+                
+                <div id="divListadoBodegas"></div>
+                
+            </div>
+        </div>
+    </div>            
+</div>
+</body>
+</html>

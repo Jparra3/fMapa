@@ -1,0 +1,122 @@
+<html>
+    <head>
+        <meta content="text/html; charset=windows-1252" http-equiv="content-type">
+        <script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+        <link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+        <script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+        <link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+        <script type="text/javascript">
+            var ruta = localStorage.modulo + "js/fbeReporteInventario.js";
+            vincularJs(ruta);
+        </script>
+    </head>
+    <body>
+        <div class="panel-heading"> <span id="imgLista" class=""></span> Reporte de
+            Inventario
+            <nav id="navAcciones" class="navAcciones fa-2x"> 
+                <span id="imgConsultar" class="fa fa-search imagenesTabla" title="Consultar"></span> 
+                <span class="fa fa-eraser" title="Limpiar" id="imgLimpiar"></span> 
+                <span class="fa fa-angle-double-up" id="imgMostrarOcultar" onclick="correrEfecto('imgMostrarOcultar')"></span>
+            </nav>
+        </div>
+        <div class="panel-body">
+
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home" id="tabProducto"> Inventario vigente </a></li>
+                <li id="tabProductoInstalado"><a data-toggle="tab" href="#menu1"> Inventario instalado </a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
+                    <form role="form" id="fbeFormulario" name="fbeFormulario" style="margin-top: 2%">
+                        <div id="divParametrosBusqueda">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Producto</td>
+                                        <td colspan="2">
+                                            <select id="selProducto" name="selProducto" class="form-control veryLarge"
+
+                                                    multiple="multiple">
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>L&iacute;nea producto</td>
+                                        <td colspan="2"><input id="txtLinea" name="txtLinea" class="form-control large"
+
+                                                               placeholder="Linea producto" title=" linea del producto " readonly="readonly"
+
+                                                               accesskey="V" type="text"></td>
+                                        <td><input id="btnBuscarLineas" name="btnBuscarLineas" class="btn btn-primary"
+
+                                                   value="..." type="button"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bodega</td>
+                                        <td>
+                                            <select id="selBodega" name="selBodega" class="form-control medium"
+
+                                                    multiple="multiple">
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Serial</td>
+                                        <td>
+                                            <input type="text" id="txtSerial" name="txtSerial" class="form-control medium" style="width: 350px">
+                                        </td>
+                                    </tr>
+                                    <!--
+                                    <tr>
+                                      <td>Agrupado Por Bodega</td>
+                                      <td><img id="imgBodega" src="../imagenes/casilla_vacia.png" style="width: 30px;cursor:pointer"
+                      
+                                          onclick="cambiarCheck(this);" name="false"></td>
+                                    </tr>
+                                    -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+                <div id="menu1" class="tab-pane fade">
+                    <form role="form" id="fbeFormularioInstaldo" name="fbeFormularioInstaldo">
+                        <div id="divParametrosBusqueda">
+                            <table>
+                                <tr>
+                                    <td>Producto</td>
+                                    <td>
+                                        <select id="selProductoInstalado" class="form-control large" multiple>
+                                            <option value=""> --Seleccione-- </option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Servicio</td>
+                                    <td>
+                                        <select id="selServicioInstalado" class="form-control large" multiple>
+                                            <option value=""> --Seleccione-- </option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Cliente</td>
+                                    <td><input type="text" id="txtCliente" class="form-control large" placeholder="Nit, nombres o apellidos" title=" el cliente "></td>
+                                </tr>
+                                <tr>
+                                    <td>Bodega</td>
+                                    <td>
+                                        <select id="selBodegaProductoInstalado" multiple>
+                                            <option value=""> --Seleccione--</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

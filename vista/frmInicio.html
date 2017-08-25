@@ -1,0 +1,87 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inicio</title>
+<script src="/Plantillas/lib/jquery/js/jquery-1.9.1.js"></script>
+<script src="/Plantillas/lib/bootstrap/js/bootstrap.js"></script>
+<script src="/Plantillas/lib/js/angular.min.js"></script>
+<script src="/Plantillas/lib/js/alerta.js"></script>
+
+<link href="/Plantillas/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="/Plantillas/lib/css/bootstrap.reponsive.css" rel="stylesheet">
+<script src="/Plantillas/lib/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+<link href="/Plantillas/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+<link href="/Plantillas/lib/css/bootstrap.ui.css" rel="stylesheet">
+<link href="/Plantillas/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+<script src="/Plantillas/lib/datepicker/js/bootstrap-datepicker.js"></script>
+<link href="/Plantillas/lib/datepicker/css/datepicker.css" rel="stylesheet">
+
+<script src="/Plantillas/lib/paginacion/js/paginacion.js" language="javascript"></script>
+
+<link href="/Plantillas/lib/css/general.css" rel="stylesheet">
+<link href="/Nucleo/php/estilos.php" rel="stylesheet">
+
+<script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+<link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+
+<link href="/Plantillas/lib/cargando/cargando.css" rel="stylesheet">
+<script src="/Plantillas/lib/cargando/cargando.js" language="javascript"></script>
+
+<script src="/Plantillas/lib/dialog/js/dialog.js"></script>
+<link href="/Plantillas/lib/dialog/css/dialog.css" rel="stylesheet">
+
+<script src="/Plantillas/lib/ordenarTabla/js/jquery.tablesorter.js"></script>
+
+<script src="/Seguridad/js/disenio.js" language="javascript"></script>
+<script src="/Nucleo/js/seguridad.js" language="javascript"></script>
+<script src="/Nucleo/js/general.js" language="javascript"></script>
+<script src="/Nucleo/js/frmInicio.js" language="javascript"></script>
+</head>
+
+<body>
+<header class="encabezadoPrincipal">
+    <div id="contenedorNavegacion" class="contenedorNavegacion" style="margin-bottom: 5%;">
+        <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+        	<span id="imgMostrarOcultarMenu" class="fa fa-angle-double-up fa-4x" style="cursor:pointer;color:#FFF;color: #FFF;position: absolute;" onClick="correrEfectoMenu('imgMostrarOcultarMenu')"></span>
+        	<div class="container" id="navMenu">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <span id="menu"></span>
+			</div>
+        </nav>
+	</div>
+</header>
+
+<div class="panel panel-primary" id="secPrincipal">
+<img src="../imagenes/logo.png" width="100%" height="300px">
+</div>
+
+<a href="#" data-toggle="modal" data-target="#abrirVentana" id="abrirVentanaModal"></a>
+<div class="modal" tabindex="-1" role="dialog" id="abrirVentana" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog" id="contenidoFrm">
+		<!--<input type="button" id="btnCancelar" value="X" class="btn btn-primary" data-dismiss="modal">-->
+         <i class="fa fa-times fa-2x" data-dismiss="modal" id="btnCancelar"></i> 
+        <div class="modal-content" id="modalBody" >
+        </div>
+    </div>
+</div>
+<div class="table-responsive" style="margin-bottom: 15%;">
+   	<table id="consultaTabla" class="table table-bordered"></table>
+</div>
+<footer class="footer">
+<div class="col-lg-12">
+    <p>Ingesoftware Soluciones SAS - Copyright 2016 &copy;</p>
+</div>
+</footer>
+</body> 
+</html>

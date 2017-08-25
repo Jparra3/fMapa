@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Prueba" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="255a0cf5-3a11-49e4-8b27-94f2833016da">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idOrdenTrabajo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+                            ot.id_orden_trabajo
+                            , ot.fecha
+                            , ot.id_tipo_documento
+                            , ot.numero
+                            , ot.id_ordenador
+                            , ot.id_municipio
+                            , ot.fecha_inicio
+                            , ot.fecha_fin
+                            , ot.estado
+                            , td.tipo_documento
+                            , o.id_empleado
+                            , CONCAT_WS(' ', p.primer_nombre, p.segundo_nombre, p.primer_apellido, p.segundo_apellido) as nombre_empleado
+                            , p.numero_identificacion
+                            , regexp_replace(m.municipio, '\t*', '', 'g') as municipio
+                            , c.cargo
+                        FROM
+                            publics_services.orden_trabajo ot
+                            INNER JOIN contabilidad.tipo_documento td ON td.id_tipo_documento = ot.id_tipo_documento
+                            INNER JOIN publics_services.ordenador o ON o.id_ordenador = ot.id_ordenador
+                            INNER JOIN nomina.empleado e ON e.id_empleado = o.id_empleado
+                            INNER JOIN general.persona p ON p.id_persona = e.id_persona
+                            INNER JOIN general.municipio m ON m.id_municipio = ot.id_municipio
+                            LEFT OUTER JOIN general.cargo c ON c.id_cargo = e.id_cargo
+WHERE
+	ot.id_orden_trabajo = $P{idOrdenTrabajo}]]>
+	</queryString>
+	<field name="id_orden_trabajo" class="java.lang.Integer"/>
+	<field name="fecha" class="java.sql.Timestamp"/>
+	<field name="id_tipo_documento" class="java.lang.Integer"/>
+	<field name="numero" class="java.lang.Integer"/>
+	<field name="id_ordenador" class="java.lang.Integer"/>
+	<field name="id_municipio" class="java.lang.Integer"/>
+	<field name="fecha_inicio" class="java.sql.Timestamp"/>
+	<field name="fecha_fin" class="java.sql.Timestamp"/>
+	<field name="estado" class="java.lang.Boolean"/>
+	<field name="tipo_documento" class="java.lang.String"/>
+	<field name="id_empleado" class="java.lang.Integer"/>
+	<field name="nombre_empleado" class="java.lang.String"/>
+	<field name="numero_identificacion" class="java.lang.Long"/>
+	<field name="municipio" class="java.lang.String"/>
+	<field name="cargo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="30" width="121" height="14" uuid="69770b50-cb54-4de2-8496-4dacbddc3237"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ORDEN DE TRABAJO]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="10" y="44" width="121" height="29" uuid="25ca4d47-754b-461d-8646-4f02ae61cd0a"/>
+				<box topPadding="0" leftPadding="0">
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptDescOrdenTrabaClien" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="63bf50be-c0aa-41bd-ba8f-a4dcd3eb3cb4">
+	<property name="ireport.zoom" value="1.3995221406292082"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idOrdenTrabajo" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT DISTINCT
+                            otp.id_orden_trabajo_producto
+                            , otp.id_orden_trabajo_cliente
+                            , otp.id_producto
+                            , otp.nota
+                            , otp.secuencia
+                            --, CAST(otp.cantidad AS int) AS cantidad
+		        , otp.cantidad
+                            , otp.valor_unita_con_impue
+                            , otp.serial
+                            , otp.estado
+                            , otp.id_transaccion
+                            , otp.id_bodega
+                            , b.bodega
+                            , p.producto_serial
+                            , p.valor_entrada
+                            , p.valor_salida
+                            , CAST(p.valor_entra_con_impue AS int) AS valor_entra_con_impue
+                            , p.valor_salid_con_impue
+                            , p.codigo as codigo_producto_compone
+                            , p.producto as producto_compone
+                            , otc.id_producto_composicion
+                            , prc.codigo as codigo_producto_composicion
+                            , prc.producto as producto_composicion
+                            , COUNT(otpc.id_producto) as cantidad_producto_compone
+                            , um.unidad_medida
+                            ,s.id_tercero
+                            ,otp.id_esta_orde_trab_prod
+                            ,eotb.esta_orde_trab_prod
+                            ,ot.id_orden_trabajo
+                            ,otc.id_cliente
+,otp.serial
+                        FROM
+                            publics_services.orden_trabajo_producto otp
+                            INNER JOIN publics_services.esta_orde_trab_prod AS eotb ON eotb.id_esta_orde_trab_prod = otp.id_esta_orde_trab_prod
+                            INNER JOIN facturacion_inventario.bodega AS b ON b.id_bodega = otp.id_bodega
+                            INNER JOIN publics_services.orden_trabajo_cliente otc ON otc.id_orden_trabajo_cliente = otp.id_orden_trabajo_cliente
+                            INNER JOIN facturacion_inventario.cliente AS c ON c.id_cliente = otc.id_cliente
+                            INNER JOIN contabilidad.sucursal AS s ON s.id_sucursal = c.id_sucursal
+                            INNER JOIN publics_services.orden_trabajo ot ON ot.id_orden_trabajo = otc.id_orden_trabajo
+                            INNER JOIN facturacion_inventario.producto p ON p.id_producto = otp.id_producto
+                            INNER JOIN publics_services.orden_trabajo_producto otpc ON otpc.id_orden_trabajo_cliente = otc.id_orden_trabajo_cliente
+                            INNER JOIN facturacion_inventario.producto prc ON prc.id_producto = otc.id_producto_composicion
+                            INNER JOIN facturacion_inventario.unidad_medida um ON um.id_unidad_medida = p.id_unidad_medida
+                            INNER JOIN publics_services.ordenador o ON o.id_ordenador = ot.id_ordenador
+                            INNER JOIN general.municipio m ON m.id_municipio = ot.id_municipio
+                        WHERE
+							ot.id_orden_trabajo = $P{idOrdenTrabajo} AND otp.estado = TRUE
+                        GROUP BY
+                               otp.id_orden_trabajo_producto, otp.id_orden_trabajo_cliente, otp.id_producto
+                                , otp.nota, otp.secuencia, otp.cantidad, otp.valor_unita_con_impue, otp.serial, otp.estado
+                                , p.codigo, p.producto, otc.id_producto_composicion, prc.codigo, prc.producto
+                                , otp.id_orden_trabajo_cliente,otp.id_orden_trabajo_producto
+                                ,p.producto_serial,um.unidad_medida,b.bodega,s.id_tercero,p.valor_salida,p.valor_entra_con_impue
+                                ,p.valor_salid_con_impue,p.valor_entrada,eotb.esta_orde_trab_prod,ot.id_orden_trabajo ,otc.id_cliente,otp.serial
+                        ORDER BY otp.id_orden_trabajo_cliente]]>
+	</queryString>
+	<field name="id_orden_trabajo_producto" class="java.lang.Long"/>
+	<field name="id_orden_trabajo_cliente" class="java.lang.Integer"/>
+	<field name="id_producto" class="java.lang.Integer"/>
+	<field name="nota" class="java.lang.String"/>
+	<field name="secuencia" class="java.lang.Integer"/>
+	<field name="cantidad" class="java.math.BigDecimal"/>
+	<field name="valor_unita_con_impue" class="java.math.BigDecimal"/>
+	<field name="serial" class="java.lang.String"/>
+	<field name="estado" class="java.lang.Boolean"/>
+	<field name="id_transaccion" class="java.lang.Integer"/>
+	<field name="id_bodega" class="java.lang.Integer"/>
+	<field name="bodega" class="java.lang.String"/>
+	<field name="producto_serial" class="java.lang.Boolean"/>
+	<field name="valor_entrada" class="java.math.BigDecimal"/>
+	<field name="valor_salida" class="java.math.BigDecimal"/>
+	<field name="valor_entra_con_impue" class="java.lang.Integer"/>
+	<field name="valor_salid_con_impue" class="java.math.BigDecimal"/>
+	<field name="codigo_producto_compone" class="java.lang.String"/>
+	<field name="producto_compone" class="java.lang.String"/>
+	<field name="id_producto_composicion" class="java.lang.Integer"/>
+	<field name="codigo_producto_composicion" class="java.lang.String"/>
+	<field name="producto_composicion" class="java.lang.String"/>
+	<field name="cantidad_producto_compone" class="java.lang.Long"/>
+	<field name="unidad_medida" class="java.lang.String"/>
+	<field name="id_tercero" class="java.lang.Integer"/>
+	<field name="id_esta_orde_trab_prod" class="java.lang.Integer"/>
+	<field name="esta_orde_trab_prod" class="java.lang.String"/>
+	<field name="id_orden_trabajo" class="java.lang.Integer"/>
+	<field name="id_cliente" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement x="387" y="34" width="60" height="14" uuid="c95c6520-9db3-4e2e-b662-a3dff28ff81b"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="121" y="34" width="34" height="14" uuid="0835897d-8817-4cbb-866e-0bb7c5f31454"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cod.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="155" y="34" width="161" height="14" uuid="ad581675-d260-4a98-a12d-4168c2463fc5"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="447" y="34" width="28" height="14" uuid="3bae2af5-c9de-4900-9aaa-296df6edda02"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Can.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="21" width="555" height="13" uuid="b2922337-e682-4ece-97d0-883c412fe500"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Productos a instalar por servicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="316" y="34" width="71" height="14" uuid="6af712d0-2a2a-4e7a-902c-1de76dc8d416"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unid Medi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="475" y="34" width="80" height="14" uuid="6947cf8f-a110-4a64-b493-984400313b2c"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Serial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="34" width="121" height="14" uuid="109b1916-ff97-4fdf-9c36-75b0a8f3ca32"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Servicio]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="155" y="0" width="161" height="16" uuid="23064d46-2002-47a2-a8c9-c148ef00942a"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{producto_compone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="121" y="0" width="34" height="16" uuid="ef1c7c35-c64a-4ade-8af8-25ff9578d09a"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigo_producto_compone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="387" y="0" width="60" height="16" uuid="da4afe75-e950-4312-952b-e85f65063a04"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor_entra_con_impue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="447" y="0" width="28" height="16" uuid="1eae323b-247c-4fa9-8337-c3e6073fc0c7"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="316" y="0" width="71" height="16" uuid="7028577f-9fe2-48a9-bc31-103c1f799b9e"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unidad_medida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="475" y="0" width="80" height="16" uuid="4c3d2507-b8f1-4da4-bca1-f75e419b8937"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{serial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="121" height="16" uuid="d586c68b-f478-488a-b10e-8f19ca5ebd2d"/>
+				<box>
+					<pen lineWidth="0.2"/>
+					<topPen lineWidth="0.2"/>
+					<leftPen lineWidth="0.2"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.2"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{producto_composicion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

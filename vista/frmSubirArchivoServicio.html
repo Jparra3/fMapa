@@ -1,0 +1,88 @@
+<html lang="es">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+
+        <title>Cliente</title>
+        <script src="/Plantillas/lib/jquery/js/jquery-1.9.1.js"></script>
+        <script src="/Plantillas/lib/bootstrap/js/bootstrap.js"></script>
+        <script src="/Plantillas/lib/js/angular.min.js"></script>
+        <script src="/Plantillas/lib/js/alerta.js"></script>
+
+        <link href="/Plantillas/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="/Plantillas/lib/css/bootstrap.reponsive.css" rel="stylesheet">
+        <script src="/Plantillas/lib/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+        <link href="/Plantillas/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+        <link href="/Plantillas/lib/css/bootstrap.ui.css" rel="stylesheet">
+        <link href="/Plantillas/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+        <link href="/Plantillas/lib/css/general.css" rel="stylesheet">
+
+        <link href="/Plantillas/lib/cargando/cargando.css" rel="stylesheet">
+        <script src="/Plantillas/lib/cargando/cargando.js" language="javascript"></script>
+
+        <script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+        <link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+
+        <script src="/Plantillas/lib/datepicker/js/bootstrap-datepicker.js"></script>
+        <link href="/Plantillas/lib/datepicker/css/datepicker.css" rel="stylesheet">
+
+        <script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+        <link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+
+        <script src="/Seguridad/js/disenio.js" language="javascript"></script>
+        <script src="/Plantillas/lib/dialog/js/dialog.js"></script>
+        <script src="/Nucleo/js/seguridad.js" language="javascript"></script>
+        <script src="/Nucleo/js/general.js" language="javascript"></script>
+
+        <script type="text/javascript">
+            var ruta = localStorage.modulo + "js/frmSubirArchivoServicio.js";
+            vincularJs(ruta);
+        </script>
+    </head>
+
+    <body>
+        <div class="modal-header" id="encabezadoModal"> 
+            <p class="tituloFormulario"> Subir archivos del servicio </p>
+            <nav id="navAcciones" class="navAcciones fa-2x frm">
+                <span id="imgGuardar" class="fa fa-check-circle" title="Guardar"></span>
+                <span id="imgCerrar" class="fa fa-times" title="Cancelar"></span>
+            </nav>             
+        </div>
+        <div class="modal-body" id="modalBody">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    Información Bienes
+                    <nav id="navAcciones" class="navAcciones fa-2x">
+                        <span style="margin-top: 20%;" id="imgAdicionarArchivo" class="fa fa-plus imagenesTabla" title="Adicionar Bien"></span>
+                    </nav>
+                </div>
+                <div class="panel-body">
+                    <form id="frmInformacionArchivos" name="frmInformacionArchivos">
+                        <table>
+                            <tr>
+                                <td>*Archivo</td>
+                                <td><input type="file" id="fleArchivo" name="fleArchivo" title=" el archivo "></td>
+                            </tr>
+                            <tr>
+                                <td>*Etiqueta</td>
+                                <td><input type="text" id="txtEtiqueta" name="txtEtiqueta" class="form-control veryLarge" title=" la etiqueta "></td>
+                            </tr>
+                            <tr>
+                                <td>*Observación</td>
+                                <td><textarea id="txaObservacion" name="txaObservacion" style="max-width: 399px;min-height: 100px;width: 399px; height: 153px;" title=" la observación "></textarea></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div>
+                    <table id="tblArchivo" class="table table-bordered table table-striped consultaTabla">
+                        
+                    </table>
+                </div>
+            </div> 
+        </div>
+    </body>
+</html>

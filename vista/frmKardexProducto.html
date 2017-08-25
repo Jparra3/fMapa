@@ -1,0 +1,58 @@
+<script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+<link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+<script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+<link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+
+<script type="text/javascript">
+	var ruta = localStorage.modulo + "js/frmKardexProducto.js";
+	vincularJs(ruta);
+</script>
+<div class="panel-heading">
+    <span id="imgLista" class="fa fa-list"></span> Kardex por producto
+    <nav id="navAcciones" class="navAcciones fa-2x">
+        <span id="imgConsultar" class="fa fa-search imagenesTabla" title="Consultar"></span>        
+        <span class="fa fa-eraser" title="Limpiar" id="imgLimpiar"></span>
+        <span class="fa fa-angle-double-up" id="imgMostrarOcultar"  onClick="correrEfecto('imgMostrarOcultar')"></span>
+    </nav>
+</div>
+<div class="panel-body">
+    <form role="form" id="frmFormulario" name="frmFormulario">
+        <div id="divParametrosBusqueda">
+            <div style="width: 50%;float: left">
+                <table>
+                    <tr>
+                        <td>*Código</td>
+                        <td><input type="text" id="txtCodigoProducto" name="txtCodigoProducto" class="form-control medium" placeholder="Código" title="el código producto"></td>
+                        <td><input type="text" id="txtProducto" name="txtProducto" class="form-control large" placeholder="Producto" title="el producto"></td>
+                    </tr>
+                    <tr style="height: 35px;">
+                        <td><b>Unidad medida : </b></td>
+                        <td colspan="2"><span id="spnUnidadMedida" accesskey="V" style="margin: 1%;"></span></td>
+                    </tr>
+                    <tr>
+                        <td>*Fecha &nbsp;&nbsp;&nbsp; Inicio</td>
+                        <td colspan="2">
+                            <table>
+                                <tr>
+                                    <td><input type="text" id="txtFechaInicio" name="txtFechaInicio" class="form-control medium" placeholder="Inicio" title=" la fecha inicio de búsqueda " /></td>
+                                    <td>&nbsp;Fin</td>
+                                    <td><input type="text" id="txtFechaFin" name="txtFechaFin" class="form-control medium" placeholder="Fin" title=" la fecha fin de búsqueda " /></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Bodega</td>
+                        <td colspan="2">
+                            <select id="selBodega" name="selBodega" class="form-control medium" accesskey="V" multiple="">
+                                <option value="">--Seleccione--</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="divTotales" style="width: 48%;float: left">
+            </div>
+        </div>
+    </form>
+</div>

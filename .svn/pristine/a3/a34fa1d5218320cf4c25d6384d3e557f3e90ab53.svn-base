@@ -1,0 +1,30 @@
+<script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+<link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+<script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+<link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+
+<script type="text/javascript">
+	var ruta = localStorage.modulo + "js/frmMigracionProveedor.js";
+	vincularJs(ruta);
+</script>
+<div class="panel-heading">
+    <span id="imgLista" class=""></span> Migración proveedor
+    <nav id="navAcciones" class="navAcciones fa-2x">
+        <span id="imgLimpiar" class="fa fa-eraser imagenesTabla" title="Limpiar campos"></span>
+        <span id="imgVistaPrevia" class="fa fa-eye" title="Vista previa"></span>
+        <span id="imgGuardar" class="fa fa-check-circle" title="Guardar"></span>
+        <span class="fa fa-angle-double-up" id="imgMostrarOcultar"  onClick="correrEfecto('imgMostrarOcultar')"></span>
+    </nav>
+</div>
+<div class="panel-body">
+    <form role="form" id="fbeFormulario" name="fbeFormulario">
+        <div id="divParametrosBusqueda">
+            <table>
+                <tr>
+                    <td> *Archivo </td>
+                    <td><input type="file" id="filArchivo"></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>

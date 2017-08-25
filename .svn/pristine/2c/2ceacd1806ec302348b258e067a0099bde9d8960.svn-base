@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptOrdenTrabajo" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e5567a1e-fa27-4562-b3ad-e78e489d46ce">
+	<property name="ireport.zoom" value="1.2100000000000117"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="imgLogo" class="java.io.InputStream" isForPrompting="false"/>
+	<parameter name="idOrdenTrabajo" class="java.lang.Integer"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["E:\\Dropbox\\Desarrollos\\PHP\\PHP56\\PublicServices\\reports\\imagenes\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+	ot.id_orden_trabajo
+	, CONCAT_WS('',
+		CASE to_char(ot.fecha, 'd')
+		WHEN '1' THEN 'Domingo'
+		WHEN '2' THEN 'Lunes'
+		WHEN '3' THEN 'Martes'
+		WHEN '4' THEN 'Miércoles'
+		WHEN '5' THEN 'Jueves'
+		WHEN '6' THEN 'Viernes'
+		WHEN '7' THEN 'Sábado'
+	END
+	, to_char(ot.fecha, ', DD "de" ')
+	,  CASE to_char(ot.fecha, 'MM')
+		WHEN '01' THEN 'Enero'
+		WHEN '02' THEN 'Febrero'
+		WHEN '03' THEN 'Marzo'
+		WHEN '04' THEN 'Abril'
+		WHEN '05' THEN 'Mayo'
+		WHEN '06' THEN 'Junio'
+		WHEN '07' THEN 'Julio'
+		WHEN '08' THEN 'Agosto'
+		WHEN '09' THEN 'Septiembre'
+		WHEN '10' THEN 'Octubre'
+		WHEN '11' THEN 'Noviembre'
+		WHEN '12' THEN 'Diciembre'
+	END
+	, to_char(ot.fecha, '  "de" YYYY')
+	) AS fecha
+	, ot.id_tipo_documento
+	, ot.numero
+	, ot.id_ordenador
+	, ot.id_municipio
+	, ot.fecha_inicio
+	, ot.fecha_fin
+	, ot.estado
+	, td.tipo_documento
+	, o.id_empleado
+	, CONCAT_WS(' ', p.primer_nombre, p.segundo_nombre, p.primer_apellido, p.segundo_apellido) as nombre_empleado
+	, p.numero_identificacion
+	, regexp_replace(m.municipio, '\t*', '', 'g') as municipio
+	, c.cargo
+FROM
+	publics_services.orden_trabajo ot
+	INNER JOIN contabilidad.tipo_documento td ON td.id_tipo_documento = ot.id_tipo_documento
+	INNER JOIN publics_services.ordenador o ON o.id_ordenador = ot.id_ordenador
+	INNER JOIN nomina.empleado e ON e.id_empleado = o.id_empleado
+	INNER JOIN general.persona p ON p.id_persona = e.id_persona
+	INNER JOIN general.municipio m ON m.id_municipio = ot.id_municipio
+	LEFT OUTER JOIN general.cargo c ON c.id_cargo = e.id_cargo
+WHERE
+	ot.id_orden_trabajo = $P{idOrdenTrabajo}]]>
+	</queryString>
+	<field name="id_orden_trabajo" class="java.lang.Integer"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="id_tipo_documento" class="java.lang.Integer"/>
+	<field name="numero" class="java.lang.Integer"/>
+	<field name="id_ordenador" class="java.lang.Integer"/>
+	<field name="id_municipio" class="java.lang.Integer"/>
+	<field name="fecha_inicio" class="java.sql.Timestamp"/>
+	<field name="fecha_fin" class="java.sql.Timestamp"/>
+	<field name="estado" class="java.lang.Boolean"/>
+	<field name="tipo_documento" class="java.lang.String"/>
+	<field name="id_empleado" class="java.lang.Integer"/>
+	<field name="nombre_empleado" class="java.lang.String"/>
+	<field name="numero_identificacion" class="java.lang.Long"/>
+	<field name="municipio" class="java.lang.String"/>
+	<field name="cargo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="24" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="3" width="555" height="20" uuid="bce2d043-a068-4644-88df-bb4cadd1a957"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ordenes de Trabajo. MAPA INGENIERIA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band height="88" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="69" width="186" height="16" uuid="d72cd695-5e90-4733-9333-c2820ba43eaf"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_empleado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="0" y="18" width="121" height="29" uuid="d555633f-ad13-4416-aa94-4c8860d55cb1"/>
+				<box topPadding="0" leftPadding="0">
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="56" width="186" height="12" uuid="2ffa2262-4e00-4f93-9156-470254b11829"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ordenador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="3" width="121" height="14" uuid="173ec0a4-63b9-412b-8151-924c0b7b2a4e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ORDEN DE TRABAJO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="4" width="204" height="14" uuid="dbd86bf8-7ead-40a1-9f4f-213e3024c70c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="150" y="18" width="204" height="17" uuid="95f42602-d9a0-4af9-8ecd-6b72428c1135"/>
+				<box topPadding="0" leftPadding="0">
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_inicio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="201" y="57" width="153" height="12" uuid="892717e9-8f6a-40c1-a736-bce38543b647"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cédula]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="201" y="69" width="153" height="16" uuid="0c319b6b-3147-42d4-93c0-84f304948cdd"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero_identificacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="367" y="57" width="168" height="12" uuid="784de792-7b38-4f05-b4a4-1d851b488727"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cargo]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="367" y="69" width="168" height="16" uuid="40bd5d29-3e20-4f9b-af20-d8ff501bfd96"/>
+				<box>
+					<pen lineWidth="1.25"/>
+					<topPen lineWidth="1.25"/>
+					<leftPen lineWidth="1.25"/>
+					<bottomPen lineWidth="1.25"/>
+					<rightPen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargo}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="384" y="-11" width="165" height="67" uuid="38b1640a-58f9-4bad-b52a-b20967d74705"/>
+				<imageExpression><![CDATA["../reportes/imagenes/logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="520" height="0" uuid="a2ffe862-591c-40a6-aad9-2d9d1c545fa3"/>
+				<subreportParameter name="idOrdenTrabajo">
+					<subreportParameterExpression><![CDATA[$P{idOrdenTrabajo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["../reportes/rptDescOrdenTrabaClien.jrxml]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="0" y="12" width="520" height="0" uuid="8d56f74c-8786-43bd-8248-dcfb2abb107a"/>
+				<subreportParameter name="idOrdenTrabajo">
+					<subreportParameterExpression><![CDATA[$P{idOrdenTrabajo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["../reportes/rptVehicOrdeTrabaClien.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="24">
+			<subreport>
+				<reportElement x="0" y="16" width="520" height="0" uuid="823350a8-c369-4f71-a8c3-e82d8fe4547f"/>
+				<subreportParameter name="idOrdenTrabajo">
+					<subreportParameterExpression><![CDATA[$P{idOrdenTrabajo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["../reportes/servicioTecnico.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="19">
+			<subreport>
+				<reportElement x="0" y="10" width="520" height="0" uuid="789dc62f-52b5-463b-b95c-5024e6e3afc6"/>
+				<subreportParameter name="idOrdenTrabajo">
+					<subreportParameterExpression><![CDATA[$P{idOrdenTrabajo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["../reportes/rptProduInstaClie.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="29">
+			<subreport>
+				<reportElement x="0" y="12" width="520" height="0" uuid="ae348787-535b-4c53-bf0b-4cdf279a4811"/>
+				<subreportParameter name="idOrdenTrabajo">
+					<subreportParameterExpression><![CDATA[$P{idOrdenTrabajo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["../reportes/rptProduOrdeTraba.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="0" y="28" width="100" height="20" uuid="245ae6b5-fc16-4cfb-9e9b-5f5e7faae8b6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observaciones]]></text>
+			</staticText>
+		</band>
+		<band height="70">
+			<rectangle radius="10">
+				<reportElement x="0" y="19" width="535" height="51" uuid="2c170d91-8c7e-474f-be8c-b5b6942bcda4"/>
+			</rectangle>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="64" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="50" width="120" height="12" uuid="39f38396-82b9-4b30-a0f3-a573267bd4f0"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Firma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="145" y="50" width="120" height="12" uuid="8e05e228-f207-41c8-ab84-81d6243d61ef"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Firma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="50" width="120" height="12" uuid="9497e997-76d2-4d5d-b3ea-b57d247f837e"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Firma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="429" y="50" width="120" height="12" uuid="08908f80-7533-4522-8171-abe6e5cc4134"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Firma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="149" y="0" width="405" height="15" uuid="08eec93b-bf1c-49e7-8df3-ea7278baad90"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quién desarrolla la actividad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="129" height="15" uuid="81e4195c-a442-48d7-b569-43f5462bff27"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quién Ordena]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="200" height="12" uuid="f9008679-3f78-496d-b584-23f698eca1d8"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Calle 3 Sur 15 - 16 Barrio Timanco IV etapa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="22" width="185" height="12" uuid="3a6c3ea8-2126-4975-8f74-89469d5d2a77"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Soporte web App: mapa.freshdesk.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="22" width="181" height="12" uuid="bf235a35-e12f-4362-9122-f5e9de831b8e"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[e-mail: asistente@mapaingenieria.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="367" y="22" width="116" height="12" uuid="b9e3e36c-1f13-4e42-8244-c2c882558c0e"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[www.mapaingenieria.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="201" y="10" width="91" height="12" uuid="feb16093-e3e6-4d5b-a7ee-d04e941a6953"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NEIVA - HUILA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="292" y="10" width="191" height="12" uuid="73bfe2b0-dfa5-4b52-9b7b-36743c3c814a"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TEL. 316 472 9684]]></text>
+			</staticText>
+			<image>
+				<reportElement x="483" y="2" width="78" height="36" uuid="a82d97a3-d495-457d-80b8-cead39c16e02"/>
+				<imageExpression><![CDATA["../reportes/imagenes/logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,20 @@
+<?php
+session_start();
+//---obtengo el nombre de la carpeta del sitio--//
+$ruta = substr(dirname($_SERVER["PHP_SELF"]), 1);
+$pos = strpos($ruta, "/");
+$ruta = substr($ruta, 0, $pos);
+$ruta = "../../".$ruta."/";
+
+if(!isset($_SESSION['ruta']) ){
+	$_SESSION['ruta'] = $ruta;
+}
+
+define('DATABASE', 'faiho_mapa');
+define('PASSWORD_DATABASE', '1Ss2o!4');
+define('SERVER_NAME_DATABASE', '181.60.56.71');
+define('USER_DATABASE', 'postgres');
+define('PORT_DATABASE', 5435);
+
+define('RUTA_BD_SQLITE', 'C:\\Users\\JUANSE\\AndroidStudioProjects\\Pedidos\\app\\src\\main\\assets\\pedidos.s3db');
+?>

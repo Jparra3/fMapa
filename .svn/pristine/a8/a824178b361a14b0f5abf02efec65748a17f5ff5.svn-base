@@ -1,0 +1,74 @@
+<html lang="es">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+
+        <title>Productos compuestos</title>
+        <script src="/Plantillas/lib/jquery/js/jquery-1.9.1.js"></script>
+        <script src="/Plantillas/lib/bootstrap/js/bootstrap.js"></script>
+        <script src="/Plantillas/lib/js/angular.min.js"></script>
+        <script src="/Plantillas/lib/js/alerta.js"></script>
+
+        <link href="/Plantillas/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="/Plantillas/lib/css/bootstrap.reponsive.css" rel="stylesheet">
+        <script src="/Plantillas/lib/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+        <link href="/Plantillas/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+        <link href="/Plantillas/lib/css/bootstrap.ui.css" rel="stylesheet">
+        <link href="/Plantillas/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+        <link href="/Plantillas/lib/css/general.css" rel="stylesheet">
+
+        <link href="/Plantillas/lib/cargando/cargando.css" rel="stylesheet">
+        <script src="/Plantillas/lib/cargando/cargando.js" language="javascript"></script>
+
+        <script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+        <link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+
+        <script src="/Seguridad/js/disenio.js" language="javascript"></script>
+        <script src="/Plantillas/lib/dialog/js/dialog.js"></script>
+        <script src="/Nucleo/js/seguridad.js" language="javascript"></script>
+        <script src="/Nucleo/js/general.js" language="javascript"></script>
+
+        <script type="text/javascript">
+            var ruta = localStorage.modulo + "js/frmProductoCompuesto.js";
+            vincularJs(ruta);
+        </script>
+    </head>
+
+    <body>
+        <div class="modal-header" id="encabezadoModal"> 
+            <p class="tituloFormulario">Productos compuestos</p>
+            <nav id="navAcciones" class="navAcciones fa-2x frm">
+                <span id="imgGuardar" class="fa fa-check-circle" title="Guardar"></span>
+                <span id="imgCancelar" class="fa fa-times" title="Cancelar"></span>
+            </nav>             
+        </div>
+        <div class="modal-body" id="modalBody" style="overflow: hidden;">
+
+            <form id="frmProductoCompuesto" name="frmProductoCompuesto">
+
+                <div style="width: 50%; float: left;">
+                    <table class="formulario" style="width: 100%;">
+                        <tr>
+                            <td>*Producto compuesto</td>
+                            <td><input type="text" id="txtCodigoProductoCompuesto" class="form-control medium" title="el código del producto" placeholder="Código">
+                            <td><input type="text" id="txtProductoCompuesto" class="form-control large" title="el producto" placeholder="Nombre"></td>
+                        </tr>
+                        <tr>
+                            <td>*Cantidad</td>
+                            <td><input type="text" id="txtCantidadProductoCompuesto" class="form-control small" title="Cantidad" placeholder="Cantidad">
+                                <input type="button" id="btnCalcular" class="btn btn-primary" value="Calcular"></td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div id="divProductosComponen" style="width: 50%; float: left;"></div>
+            </form>
+        </div>
+        
+        <div id="divProductosComponenCalculado" align="center"></div>
+        
+    </body>
+</html>

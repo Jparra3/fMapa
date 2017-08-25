@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ordenServicioXCliente" language="groovy" pageWidth="555" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="515" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" isIgnorePagination="true" uuid="232f3cb7-0f9b-4bbb-b4e2-de5d9a422340">
+	<property name="ireport.zoom" value="1.241842646118313"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="314"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["E:\\Dropbox\\Desarrollos\\PHP\\PHP56\\PublicServices\\reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idOrdenTrabajoCliente" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+	id_orden_trabajo_cliente
+FROM
+	publics_services.orden_trabajo_cliente
+WHERE
+	id_orden_trabajo_cliente IN($P{idOrdenTrabajoCliente})]]>
+	</queryString>
+	<field name="id_orden_trabajo_cliente" class="java.lang.Integer"/>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<detail>
+		<band height="348" splitType="Stretch">
+			<subreport>
+				<reportElement uuid="b1746509-9d4d-4f6e-bb6f-3212da2a9285" isPrintRepeatedValues="false" x="3" y="2" width="509" height="306" isRemoveLineWhenBlank="true"/>
+				<subreportParameter name="idOrdenTrabajoCliente">
+					<subreportParameterExpression><![CDATA[$F{id_orden_trabajo_cliente}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["../reportes/ordenServicio.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="356">
+			<subreport>
+				<reportElement uuid="7cb84d98-72df-4d24-997e-45710aae0818" positionType="Float" stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="0" y="304" width="252" height="10" isPrintInFirstWholeBand="true"/>
+				<subreportParameter name="idOrdenTrabajoCliente">
+					<subreportParameterExpression><![CDATA[$F{id_orden_trabajo_cliente}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["../reportes/equiposInstalados.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="41e9af65-668b-4493-ab46-ea3b11ca9645" positionType="Float" stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="252" y="304" width="259" height="10"/>
+				<subreportParameter name="idOrdenTrabajoCliente">
+					<subreportParameterExpression><![CDATA[$F{id_orden_trabajo_cliente}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["../reportes/equiposRetirados.jasper"]]></subreportExpression>
+			</subreport>
+			<rectangle radius="5">
+				<reportElement uuid="59117762-00c0-4c7e-a4c8-90cd365cad21" x="252" y="17" width="257" height="145"/>
+			</rectangle>
+			<rectangle radius="5">
+				<reportElement uuid="9bbd59dc-8419-400b-a74d-4ba2098490ba" x="252" y="1" width="132" height="16"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="28c581ce-2afb-4460-a3c7-36434e0ec79e" x="267" y="0" width="100" height="16"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[OBSERVACIONES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d0c6f4e0-b2b2-43c3-9bf9-251e056d76b4" x="0" y="164" width="513" height="16"/>
+				<textElement>
+					<font size="5" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[quedará en firme mientras haya viabilidad técnica para hacer la instalación del servicio, en caso contrario MAPA INGENIERIA S.A.S. podrá dar por terminado el contrato sin que haya derecho a ninguna reclamación por ninguna de las partes.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="37a34e08-1847-4878-bc2a-a7556fed18dc" x="0" y="143" width="162" height="15"/>
+				<textElement>
+					<font size="5" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[*Los equipos instalados son propiedad de MAPA INGENIERIA S.A.S y son entregados en calidad de comodato.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="270aeaa1-d9ca-45e8-9926-3344e321e30e" x="0" y="158" width="162" height="7"/>
+				<textElement>
+					<font size="5" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[**EL CLIENTE entiende y acepta que la presente orden de servicio ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8bb515b5-083e-43be-a1d6-2bc73acedfc0" x="2" y="252" width="36" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Firma:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e793c682-3ac4-4b26-9bec-d9a07cbb3b53" x="2" y="276" width="26" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[C.C.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="968aa996-58cb-4ac2-97b2-625ceeb03690" x="38" y="253" width="170" height="5"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4de86942-b01e-430e-8bf9-8e8d51f01dba" x="76" y="276" width="10" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ec3fe68c-0695-48eb-b182-ff665c1580df" x="324" y="265" width="10" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9ade8478-1094-4561-990e-e171ba313fba" x="2" y="265" width="74" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre completo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="19790318-39bb-40d7-a857-f8ca6af8282f" x="76" y="265" width="10" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7f8bdfeb-17fb-4da4-8671-77f6c8741113" x="248" y="265" width="74" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre completo]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="56e67738-1eb1-433f-8d4b-e41e85057030" x="433" y="232" width="80" height="33"/>
+				<imageExpression><![CDATA["../reportes/imagenes/logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="9bd41a92-3564-4f14-a3e9-63e9f556770b" x="248" y="251" width="170" height="11"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.2"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Firma:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="73d1bf50-ce7a-4f2b-b1e0-4d9a9a34d397" x="301" y="220" width="100" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Instalador:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e219e2e3-d2b5-4217-954e-82d9569d1c98" x="23" y="220" width="100" height="13"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Recibo satisfecho,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0d2f4779-a645-4719-bd56-6b3a71d7d20c" x="188" y="320" width="79" height="12"/>
+				<textElement>
+					<font size="8" isBold="false" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[MAPA INGENIERÍA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="188694bb-a97f-4358-9356-a4f01a900e51" x="267" y="308" width="80" height="8"/>
+				<textElement>
+					<font size="6" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[www.twitter.com/mapa.net]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="04e50b97-3bab-454a-afde-5b76c16a66f0" x="234" y="332" width="14" height="12"/>
+				<textElement>
+					<font size="7" isBold="false" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[TEL.]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="1d96a749-62dc-4a47-9ff7-2fcb0b848934" mode="Opaque" x="390" y="308" width="39" height="12"/>
+				<imageExpression><![CDATA["../reportes/imagenes/google-plus.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="9cf7c5db-e6c7-4c3c-9d74-5598faad2f01" x="267" y="320" width="130" height="12"/>
+				<textElement>
+					<font size="8" isBold="true" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[www.mapaingenieria.com]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="5cbafd11-9509-486b-9caa-9813f6688b90" mode="Opaque" x="23" y="308" width="43" height="12"/>
+				<imageExpression><![CDATA["../reportes/imagenes/facebook.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="5eb4ae4e-71e2-41da-940c-3e198e29dd63" x="326" y="331" width="66" height="12"/>
+				<textElement>
+					<font size="7" isBold="false" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Correo Electrónico:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="26d5eab4-cdcd-4e9f-b217-20756d48835d" x="434" y="308" width="67" height="8"/>
+				<textElement>
+					<font size="6" isItalic="false" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Mapa Ingeniería]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="80070e5a-b0af-42ce-8eb8-0a49f0718726" x="248" y="331" width="92" height="12"/>
+				<textElement>
+					<font size="7" isBold="false" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[316 472 9684]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="65a17917-e8f8-44f3-ac41-e3a7d0b1ce77" x="390" y="331" width="120" height="12"/>
+				<textElement>
+					<font size="7" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[asistente@mapaingenieria.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9e4eb817-3624-461b-8c39-c70b00461749" x="69" y="310" width="71" height="8"/>
+				<textElement>
+					<font size="6" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Mapa Ingeniería]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement uuid="c5d4bed8-e2fd-44a7-917e-4c46f029751b" mode="Opaque" x="204" y="307" width="52" height="12"/>
+				<imageExpression><![CDATA["../reportes/imagenes/twitter.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="b22c7592-e2d9-46e6-8973-76c4a556afd6" x="2" y="331" width="232" height="12"/>
+				<textElement>
+					<font size="7" isBold="false" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[NEIVA-HUILA CALLE 3 SUR 15 - 16 BARRIO TIMANCO IV ETAPA]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="8a19e732-5385-45ba-88e6-65ae1db4f5e6" positionType="Float" stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="0" y="1" width="182" height="10" isPrintInFirstWholeBand="true"/>
+				<subreportParameter name="idOrdenTrabajoCliente">
+					<subreportParameterExpression><![CDATA[$F{id_orden_trabajo_cliente}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["../reportes/materialesProducto.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

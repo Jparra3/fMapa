@@ -1,0 +1,41 @@
+          MAPA INGENIERIA SAS           
+             NIT: 90034565              
+
+             No. CAJA: 001              
+               No. FAC: 3               
+          2017/02/06 17:45:52           
+CAJERO(A): JUAN SEBASTIAN VILLEGAS CONDE
+
+CÉDULA: 83233888                        
+CLIENTE: FREDY EDUARDO LAGUNA - FINCA VI
+
+COD  PRODUCTO            CANT   VALOR   
+GRA  GRAPAS METÃ¡LICAS     5     3350  *
+CAB  CABLE UTP            85     8500  %
+
+SIMB  IMPUESTO      VR. BASE   VR. IMPTO
+  %   IVA - 19%      607.143     115.357
+  *   IPOCONSUMO      14.250       2.500
+
+FORMA PAGO                         VALOR
+CRÃ‰DITO                         739.250
+----------------------------------------
+TOTAL PAGADO                     739.250
+TOTAL A PAGAR                    739.250
+CAMBIO                                 0
+
+
+------SOMOS GRANDES CONTRIBUYENTES------
+      RESOLUCIÓN DIAN: 50000373528      
+    FECHA DE RESOLUCIÓN: 2017-02-04     
+  PREFIJO: Caja 1 DESDE 0 HASTA 100000  
+
+
+
+
+
+
+
+
+
+

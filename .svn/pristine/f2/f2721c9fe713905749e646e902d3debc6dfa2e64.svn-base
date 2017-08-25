@@ -1,0 +1,61 @@
+<script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+<link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+<script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+<link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+
+<script type="text/javascript">
+	var ruta = localStorage.modulo + "js/fbeReportePedidoCliente.js";
+	vincularJs(ruta);
+</script>
+<div class="panel-heading">
+    <span id="imgLista" class=""></span> Pedidos por cliente
+    <nav id="navAcciones" class="navAcciones fa-2x">
+        <span id="imgConsultar" class="fa fa-search imagenesTabla" title="Consultar"></span>  
+        <span class="fa fa-eraser" title="Limpiar" id="imgLimpiar"></span>
+        <span class="fa fa-download" title=" Exportar a Excel" id="imgExportar"></span>
+            <span class="fa fa-angle-double-up" id="imgMostrarOcultar"  onClick="correrEfecto('imgMostrarOcultar')"></span>
+    </nav>
+</div>
+<div class="panel-body">
+    <form role="form" id="fbeFormulario" name="fbeFormulario">
+        <div id="divParametrosBusqueda">
+            <table>
+                <tr>
+                    <td>Cliente</td>
+                    <td><input type="text" id="txtCliente" name="txtCliente" class="form-control large" placeholder=" Nit, nombres, apellidos o sucursal "></td>
+                </tr>
+                <tr>
+                    <td>Vendedor</td>
+                    <td><input type="text" id="txtVendedor" name="txtVendedor" class="form-control large" placeholder=" Nombres "></td>
+                </tr>
+                <tr>
+                    <td>Zona</td>
+                    <td colspan="2"><select id="selZona" name="selZona" class="form-control large" multiple></select></td>
+                </tr>
+                <tr>
+                    <td>Tipo</td>
+                    <td>
+                        <select id="selTipoPedido" class="form-control medium" multiple>
+                            <option value="1">Instalación</option>
+                            <option value="2">Mantenimiento</option>
+                            <option value="3">Desinstalación</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tiene orden trabajo</td>
+                    <td>
+                        <select id="selTieneOrden" class="form-control medium" multiple>
+                            <option value="true"> Si </option>
+                            <option value="false"> No </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Estado</td>
+                    <td><select id="selEstadoPedido" class="form-control medium" multiple></select></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>

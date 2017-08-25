@@ -1,0 +1,207 @@
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Transacciones</title>
+        <script src="/Plantillas/lib/jquery/js/jquery-1.9.1.js"></script>
+        <script src="/Plantillas/lib/bootstrap/js/bootstrap.js"></script>
+        <script src="/Plantillas/lib/js/angular.min.js"></script>
+        <script src="/Plantillas/lib/js/alerta.js"></script>
+
+        <link href="/Plantillas/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="/Plantillas/lib/css/bootstrap.reponsive.css" rel="stylesheet">
+        <script src="/Plantillas/lib/js/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+        <link href="/Plantillas/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+        <link href="/Plantillas/lib/css/bootstrap.ui.css" rel="stylesheet">
+        <link href="/Plantillas/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+        <link href="/Plantillas/lib/css/general.css" rel="stylesheet">
+
+        <script src="/Plantillas/lib/multiselect/js/bootstrap-multiselect.js"></script>
+        <link href="/Plantillas/lib/multiselect/css/bootstrap-multiselect.css" rel="stylesheet">
+
+        <script src="/Plantillas/lib/datepicker/js/bootstrap-datepicker.js"></script>
+        <link href="/Plantillas/lib/datepicker/css/datepicker.css" rel="stylesheet">
+
+        <script src="/Plantillas/lib/autocomplete/js/autocomplete.ui.js"></script>
+        <link href="/Plantillas/lib/autocomplete/css/autocomplete.ui.css" rel="stylesheet">
+
+        <script src="/Seguridad/js/disenio.js" language="javascript"></script>
+        <script src="/Plantillas/lib/dialog/js/dialog.js"></script>
+        <script src="/Nucleo/js/seguridad.js" language="javascript"></script>
+        <script src="/Nucleo/js/general.js" language="javascript"></script>
+
+        <script type="text/javascript">
+            var ruta = localStorage.modulo + "js/frmTransaccion.js";
+            vincularJs(ruta);
+        </script>
+    </head>
+
+    <body>
+        <div class="modal-header" id="encabezadoModal"> 
+            <p class="tituloFormulario">Inventario</p>
+            <nav id="navAcciones" class="navAcciones fa-2x frm">
+                <span id="imgGuardar" class="fa fa-check-circle" title="Guardar"></span>
+                <span id="imgCancelar" class="fa fa-times" title="Cancelar"></span>
+            </nav>             
+        </div>
+        <div class="modal-body" id="modalBody">
+            <div role="tabpanel">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist" style="height: 42px;">
+                    <li role="presentation"><a href="#tabTransaccion" aria-controls="tabTransaccion" role="tab" data-toggle="tab">Info. Inventario</a></li>
+                    <li role="presentation"><a href="#tabTransaccionProducto" aria-controls="tabTransaccionProducto" role="tab" data-toggle="tab">Productos</a></li>
+                    <li role="presentation" id="liFormasPago"><a href="#tabFormasPago" aria-controls="tabFormasPago" role="tab" data-toggle="tab">Formas de pago</a></li>
+                    <li style="margin-left: 650px;margin-top: -15px;"><span style="font-size: 40px;color: red;" id="spnTotalCompra">$0</span></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="tabTransaccion">
+                        <form id="frmTransaccion" name="frmTransaccion">
+                            <table class="formulario">
+                                <tr id="trProveedor">
+                                    <td>*Proveedor</td>
+                                    <td><input id="txtNit" class="form-control medium" placeholder="Nit" title="el nit"></td>
+                                    <td><input id="txtNombre" class="form-control large" placeholder="Nombre" title="el nombre" style="width: 350px;"></td>
+                                    <td><span id="imgNuevoTercero" class="fa fa-plus-circle fa-2x" title="Nuevo" style="cursor: pointer; margin-left: 10px;"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>*Tipo Documento</td>
+                                    <td><input id="txtCodigoTipoDocumento" class="form-control medium" placeholder="Código" title="el código"></td>
+                                    <td><select id="selTipoDocumento" class="form-control medium" title="el tipo de documento"></select></td>
+                                </tr>
+                                <tr>
+                                    <td>*No. Tipo Documento</td>
+                                    <td colspan="2"><input type="text" id="txtNoDocumento" name="txtNoDocumento" class="form-control small" accesskey="V" readonly="readonly"></td>
+                                </tr>
+                                <tr id="trDocumentoExterno">
+                                    <td> # factura </td>
+                                    <td colspan="2"><input id="txtDocumentoExterno" class="form-control medium" placeholder=" N° factura " title="El número de la factura" accesskey="V"></td>
+                                </tr>
+                                <tr>
+                                    <td>*Oficina</td>
+                                    <td colspan="2"><input type="text" id="txtOficina" name="txtOficina" class="form-control large" accesskey="V" readonly="readonly"></td>
+                                </tr>
+                                <tr>
+                                    <td>Nota</td>
+                                    <td colspan="2"><textarea id="txaNotaTransaccion" class="form-control" accesskey="V" style="width: 300px;height: 100px;"></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td>*Fecha</td>
+                                    <td colspan="2"><input id="txtFecha" title="la fecha" class="form-control medium"></td>
+                                </tr>
+                                <tr>
+                                    <td>*Fecha Vencimiento</td>
+                                    <td colspan="2"><input id="txtFechaVencimiento" title="la fecha de vencimiento" class="form-control medium"></td>
+                                </tr>
+                                <tr>
+                                    <td>*Estado</td>
+                                    <td colspan="2"><select id="selTransaccionEstado" class="form-control medium" title="el estado de la transacción"></select></td>
+                                </tr>
+                            </table>
+                        </form> 
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="tabTransaccionProducto">
+                        <div class="panel panel-primary" style="width: 60%;float: left;">
+                            <div class="panel-heading">
+                                <nav id="navAcciones" class="navAcciones fa-2x">
+                                    <span id="imgNuevoTransaccionProducto" class="fa fa-plus imagenesTabla" title="Nuevo" style="cursor: pointer; margin-left: 15px;"></span>
+                                </nav>
+                                Productos
+                            </div>
+                            <div class="panel-body" id="pnlInformacionMedidasList">
+                                <form id="frmTransaccionProducto" name="frmTransaccionProducto">
+                                    <table>
+                                        <tr>
+                                        <input type="hidden" id="hidIdTransaccionProducto">
+                                        <input type="hidden" id="hidIdProducto">
+                                        <td>*Producto</td>
+                                        <td><input type="text" id="txtCodigoProducto" name="txtCodigoProducto" class="form-control medium" placeholder="Código" title="el código del producto"></td>
+                                        <td><input type="text" id="txtProducto" name="txtProducto" class="form-control large" placeholder="Nombre" title="el nombre del producto" style="width: 400px;"></td>
+                                        <td><span id="imgNuevoProducto" class="fa fa-plus-circle fa-2x" title="Nuevo" style="cursor: pointer; margin-left: 10px;"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>*Unidad Medida</td>
+                                            <td colspan="2"><input type="text" id="txtUnidadMedida" name="txtUnidadMedida" class="form-control medium" title="la unidad de medida" accesskey="V" readonly="readonly"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>*Cantidad</td>
+                                            <td colspan="2"><input type="text" id="txtCantidad" name="txtCantidad" class="form-control small" title="la cantidad"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>*Valor compra</td>
+                                            <td colspan="2"><input type="text" id="txtvalorUnitarioEntrada" name="txtvalorUnitarioEntrada" class="form-control medium" title="el valor unitario de entrada">
+                                                <span id="spnTieneImpuestoValorEntrada"></span>
+                                                <span class="spnImpuestoProducto"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>*Valor venta</td>
+                                            <td colspan="2"><input type="text" id="txtvalorUnitarioSalida" name="txtvalorUnitarioSalida" class="form-control medium" title="el valor unitario de salida">
+                                                <span id="spnTieneImpuestoValorSalida"></span>
+                                                <span class="spnImpuestoProducto"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>*Bodega</td>
+                                            <td colspan="2"><select id="selBodega"  class="form-control large" title="la bodega"></select></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nota</td>
+                                            <td colspan="2"><textarea id="txaNotaTransaccionProducto" class="form-control" accesskey="V" style="width: 300px;height: 100px;"></textarea></td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
+                        </div> 
+
+                        <div class="panel panel-primary" style="width: 38%; margin-left: 2%; height: 200px; overflow-y: scroll; float: left;" id="pnlSeriales" hidden="hidden">
+                            <div class="panel-heading">
+                                <span id="spnTituloSeriales"></span>
+                            </div>
+                            <div class="panel-body" id="pnlInformacionMedidasList">
+                                <div id="divFrmSeriales"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="panel panel-primary" style="width: 38%; margin-left: 2%; height: 190px; overflow-y: scroll; float: left;">
+                            <div class="panel-heading">
+                                Impuestos
+                            </div>
+                            <div class="panel-body" id="pnlInformacionMedidasList">
+                                <div id="divListadoImpuestos"></div>
+                            </div>
+                        </div>
+                        
+                        <div id="divListadoTransaccionProducto"></div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="tabFormasPago">
+                        <div class="panel panel-primary" style="width: 60%;float: left;">
+                            <div class="panel-heading">
+                                <nav id="navAcciones" class="navAcciones fa-2x">
+                                    <span id="imgNuevaFormaPago" class="fa fa-plus imagenesTabla" title="Nuevo" style="cursor: pointer; margin-left: 15px;"></span>
+                                </nav>
+                                Formas de pago
+                            </div>
+                            <div class="panel-body" id="pnlInformacionMedidasList">
+                                <form id="frmTransaccionFormaPago" name="frmTransaccionFormaPago">
+                                    <table>
+                                        <tr>
+                                            <td>Forma de pago</td>
+                                            <td><select id="selFormaPago" class="form-control large" title="la forma de pago"></select></td>
+                                            <td>Valor</td>
+                                            <td><input id="txtValorPagar" type="text" class="form-control medium" title="el valor a pagar"></td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="divListadoFormasPago"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
